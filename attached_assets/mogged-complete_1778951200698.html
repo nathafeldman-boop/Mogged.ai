@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOGGED.AI - Premium Aesthetic Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #0f172a, #0f1419, #0f172a);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .max-w-6xl {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 0.75rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: bold;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-weight: bold;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            font-weight: bold;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-cyan-400 {
+            color: #22d3ee;
+        }
+
+        .text-slate-400 {
+            color: #94a3b8;
+        }
+
+        .text-slate-300 {
+            color: #cbd5e1;
+        }
+
+        .text-slate-500 {
+            color: #64748b;
+        }
+
+        .text-slate-700 {
+            color: #334155;
+        }
+
+        .text-white {
+            color: #ffffff;
+        }
+
+        .text-black {
+            color: #000000;
+        }
+
+        .text-purple-400 {
+            color: #c084fc;
+        }
+
+        .text-pink-400 {
+            color: #f472b6;
+        }
+
+        .text-green-500 {
+            color: #22c55e;
+        }
+
+        .text-emerald-500 {
+            color: #10b981;
+        }
+
+        .text-orange-500 {
+            color: #f97316;
+        }
+
+        .text-red-500 {
+            color: #ef4444;
+        }
+
+        .text-cyan-300 {
+            color: #06b6d4;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.05em;
+        }
+
+        .bg-white\/5 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-black\/20 {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .bg-black\/30 {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .bg-black\/40 {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .bg-black\/80 {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .bg-slate-700 {
+            background-color: #334155;
+        }
+
+        .bg-slate-600 {
+            background-color: #475569;
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+
+        .from-cyan-400 {
+            --tw-gradient-stops: #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .to-cyan-400 {
+            --tw-gradient-to: #22d3ee;
+        }
+
+        .from-cyan-300 {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .to-cyan-500 {
+            --tw-gradient-to: #06b6d4;
+        }
+
+        .from-purple-600 {
+            --tw-gradient-stops: #9333ea, var(--tw-gradient-to, rgba(147, 51, 234, 0));
+        }
+
+        .to-pink-600 {
+            --tw-gradient-to: #be185d;
+        }
+
+        .from-purple-500 {
+            --tw-gradient-stops: #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .to-pink-500 {
+            --tw-gradient-to: #ec4899;
+        }
+
+        .from-cyan-500 {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .to-purple-600 {
+            --tw-gradient-to: #9333ea;
+        }
+
+        .via-cyan-400 {
+            --tw-gradient-stops: #22d3ee, #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .via-purple-500 {
+            --tw-gradient-stops: var(--tw-gradient-from), #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .border {
+            border-width: 1px;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .border-dashed {
+            border-style: dashed;
+        }
+
+        .border-white\/10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .border-slate-700 {
+            border-color: #334155;
+        }
+
+        .border-cyan-400\/50 {
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        .border-cyan-400 {
+            border-color: #22d3ee;
+        }
+
+        .border-purple-400\/50 {
+            border-color: rgba(192, 132, 252, 0.5);
+        }
+
+        .border-purple-400 {
+            border-color: #c084fc;
+        }
+
+        .border-cyan-400\/30 {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .backdrop-blur-xl {
+            backdrop-filter: blur(20px);
+        }
+
+        .backdrop-blur-lg {
+            backdrop-filter: blur(16px);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-1 {
+            gap: 0.25rem;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        .items-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-40 {
+            width: 10rem;
+        }
+
+        .w-8 {
+            width: 2rem;
+        }
+
+        .w-2 {
+            width: 0.5rem;
+        }
+
+        .h-auto {
+            height: auto;
+        }
+
+        .h-64 {
+            height: 16rem;
+        }
+
+        .h-24 {
+            height: 6rem;
+        }
+
+        .h-4 {
+            height: 1rem;
+        }
+
+        .h-2 {
+            height: 0.5rem;
+        }
+
+        .h-8 {
+            height: 2rem;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .max-w-sm {
+            max-width: 24rem;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .max-w-none {
+            max-width: none;
+        }
+
+        .max-w-6xl {
+            max-width: 64rem;
+        }
+
+        .object-cover {
+            object-fit: cover;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .pb-4 {
+            padding-bottom: 1rem;
+        }
+
+        .ml-4 {
+            margin-left: 1rem;
+        }
+
+        .mx-4 {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+        }
+
+        .inset-0 {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .top-4 {
+            top: 1rem;
+        }
+
+        .right-4 {
+            right: 1rem;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        .transform {
+            transform: translateZ(0);
+        }
+
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+
+        .hover\:bg-slate-600:hover {
+            background-color: #475569;
+        }
+
+        .hover\:text-slate-300:hover {
+            color: #cbd5e1;
+        }
+
+        .hover\:text-slate-200:hover {
+            color: #e2e8f0;
+        }
+
+        .hover\:text-cyan-300:hover {
+            color: #06b6d4;
+        }
+
+        .hover\:border-cyan-400:hover {
+            border-color: #22d3ee;
+        }
+
+        .hover\:border-purple-400:hover {
+            border-color: #c084fc;
+        }
+
+        .hover\:bg-black\/40:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .hover\:from-cyan-300:hover {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .hover\:to-cyan-400:hover {
+            --tw-gradient-to: #22d3ee;
+        }
+
+        .hover\:from-purple-500:hover {
+            --tw-gradient-stops: #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .hover\:to-pink-500:hover {
+            --tw-gradient-to: #ec4899;
+        }
+
+        .hover\:from-cyan-400:hover {
+            --tw-gradient-stops: #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .hover\:to-purple-500:hover {
+            --tw-gradient-to: #a855f7;
+        }
+
+        .disabled\:opacity-50:disabled {
+            opacity: 0.5;
+        }
+
+        .disabled\:cursor-not-allowed:disabled {
+            cursor: not-allowed;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes scan-laser-down {
+            0% {
+                top: 0;
+                opacity: 1;
+            }
+            50% {
+                top: 100%;
+                opacity: 0.5;
+            }
+            100% {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                height: 20%;
+            }
+            50% {
+                height: 100%;
+            }
+        }
+
+        .scanner-laser-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .stripe-container {
+            background: rgba(10, 11, 16, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+        }
+
+        .stripe-container > div[class*="rounded-xl"] {
+            background: transparent;
+            border: none;
+        }
+
+        .stripe-container > div:nth-child(2) {
+            box-shadow: 0 0 15px rgba(161, 94, 255, 0.2);
+        }
+
+        .stripe-container > div:nth-child(4) {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .shadow-\[0_0_50px_rgba\(0\,243\,255\,0\.2\)\] {
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+        }
+
+        .shadow-\[0_0_15px_rgba\(161\,94\,255\,0\.2\)\] {
+            box-shadow: 0 0 15px rgba(161, 94, 255, 0.2);
+        }
+
+        .shadow-\[0_0_15px_rgba\(0\,243\,255\,0\.2\)\] {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .duration-500 {
+            transition-duration: 500ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .prose {
+            color: #cbd5e1;
+        }
+
+        .prose-invert {
+            color: #cbd5e1;
+        }
+
+        .prose-invert h2 {
+            color: #22d3ee;
+        }
+
+        .prose-invert h3 {
+            color: #06b6d4;
+        }
+
+        .prose-invert p {
+            color: #cbd5e1;
+        }
+
+        .prose-invert li {
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 640px) {
+            .text-5xl {
+                font-size: 2rem;
+            }
+
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+
+            .gap-8 {
+                gap: 1rem;
+            }
+
+            .p-8 {
+                padding: 1rem;
+            }
+
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="mb-12">
+                <h1 class="text-5xl font-bold text-cyan-400 mb-2">MOGGED.AI</h1>
+                <p class="text-slate-400 text-lg">Premium Aesthetic Intelligence Platform</p>
+            </div>
+
+            <div class="flex gap-8 mb-8 border-b border-slate-700 pb-4">
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300" data-tab="scanner">
+                    Scanner
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300" data-tab="haircut">
+                    Haircut
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300" data-tab="vocal">
+                    Vocal
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300" data-tab="match">
+                    Match
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300" data-tab="hub">
+                    Hub
+                </button>
+            </div>
+
+            <!-- SCANNER TAB -->
+            <div id="scanner-tab" class="tab-content space-y-8 active">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Your Looksmaxing Dashboard</h2>
+                    
+                    <div id="scanner-initial" class="space-y-4">
+                        <button id="take-selfie-btn" class="w-full bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            📷 Take Selfie
+                        </button>
+                        <button id="import-gallery-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            📁 Import from Gallery
+                        </button>
+                        <input id="file-input" type="file" accept="image/*">
+                    </div>
+
+                    <div id="scanner-results" class="space-y-8 hidden">
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img id="scanned-image" src="" alt="Scanned face" class="w-full h-auto rounded-xl">
+                            <div id="scanner-overlay" class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center hidden">
+                                <div class="scanner-laser-line" style="animation: scan-laser-down 4s ease-in-out infinite;"></div>
+                                <p id="scan-step-text" class="text-cyan-400 font-bold text-center text-lg"></p>
+                                <div class="w-40 h-2 bg-slate-700 rounded-full mt-6 overflow-hidden">
+                                    <div id="scan-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-cyan-400 to-purple-500 transition-all duration-300" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Jawline Definition</h3>
+                                    <span id="jawline-score" class="text-2xl font-bold text-cyan-400">8.5/10</span>
+                                </div>
+                                <p id="jawline-analysis" class="text-slate-300">Excellent angle mandibulaire, graisse sous-mentonnière minimisée.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="jawline-bar" class="bg-gradient-to-r from-cyan-400 to-cyan-400 h-full rounded-full" style="width: 85%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Facial Symmetry</h3>
+                                    <span id="symmetry-score" class="text-2xl font-bold text-cyan-400">91%</span>
+                                </div>
+                                <p id="symmetry-analysis" class="text-slate-300">Rapport de symétrie élevé sur le tiers vertical du visage.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="symmetry-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style="width: 91%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Canthal Tilt</h3>
+                                    <span id="canthal-score" class="text-2xl font-bold text-cyan-400">8.2/10</span>
+                                </div>
+                                <p id="canthal-type" class="text-slate-300 mb-2">Inclinaison Positive +3.2°</p>
+                                <p id="canthal-analysis" class="text-slate-300">Regard hunter eyes idéal, asymétrie orbitaire indétectable.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="canthal-bar" class="bg-gradient-to-r from-green-500 to-emerald-500 h-full rounded-full" style="width: 82%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Midface Ratio</h3>
+                                    <span id="midface-score" class="text-2xl font-bold text-cyan-400">8.8/10</span>
+                                </div>
+                                <p id="midface-analysis" class="text-slate-300">0.98 rapport compact, proportions masculines idéales.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="midface-bar" class="bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full" style="width: 88%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="scan-again-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Scan Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HAIRCUT TAB -->
+            <div id="haircut-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Haircut AI</h2>
+                    
+                    <div id="haircut-initial" class="text-center py-12">
+                        <p class="text-slate-400 mb-6">Scan your face first in the Scanner tab to get your perfect haircut recommendation</p>
+                        <button class="go-to-scanner-btn bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 text-black font-bold py-3 px-8 rounded-xl transition-all transform hover:scale-105">
+                            Go to Scanner
+                        </button>
+                    </div>
+
+                    <div id="haircut-results" class="space-y-6 hidden">
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-4">La Coupe Parfaite Pour Votre Visage</h3>
+                            <p class="text-slate-300 mb-6">Texture Layered Low Fade</p>
+                            
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Perfect haircut" class="w-full max-w-sm mx-auto rounded-xl mb-6">
+                            
+                            <p class="text-slate-400 mb-6">Cette coupe est spécialement conçue pour votre forme de visage et vos caractéristiques faciales. Elle maximise votre jawline, crée une harmonie faciale optimale et communique force et confiance.</p>
+                            
+                            <div class="stripe-container my-6 w-full flex flex-col gap-4 px-4 items-center">
+                                <div class="w-full text-center text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+                                    ⚡ Option Élite : Accès Illimité
+                                </div>
+                                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(161,94,255,0.2)]">
+                                    <stripe-buy-button
+                                        buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+                                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                                    </stripe-buy-button>
+                                </div>
+
+                                <div class="w-full text-center text-xs uppercase tracking-wider text-purple-400 font-bold mb-1 mt-4">
+                                    ⏳ Option Flash : Pass 24H
+                                </div>
+                                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                                    <stripe-buy-button
+                                        buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+                                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                                    </stripe-buy-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VOCAL TAB -->
+            <div id="vocal-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Vocal MOG</h2>
+                    
+                    <div id="vocal-initial" class="space-y-6">
+                        <p class="text-slate-400 mb-6">Analysez votre profil vocal et découvrez votre potentiel de séduction acoustique.</p>
+                        
+                        <button id="analyze-voice-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            🎤 Analyze Voice
+                        </button>
+                        
+                        <div id="vocal-recording" class="space-y-6 hidden">
+                            <div class="flex items-center justify-center gap-1 h-24 bg-black/30 rounded-xl p-6" id="wave-container">
+                            </div>
+                            <p class="text-center text-cyan-400 font-bold">Écoute de la fréquence (Hz)...</p>
+                        </div>
+                    </div>
+
+                    <div id="vocal-results" class="space-y-6 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <h3 class="text-lg font-bold text-cyan-400 mb-3">Voice Pitch</h3>
+                                <p class="text-4xl font-bold text-purple-400 mb-2">95 Hz</p>
+                                <p class="text-sm text-slate-400">Deep Bass Range / Ultra Masculine</p>
+                            </div>
+                            
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <h3 class="text-lg font-bold text-cyan-400 mb-3">Vocal Resonance</h3>
+                                <p class="text-4xl font-bold text-pink-400 mb-2">88%</p>
+                                <p class="text-sm text-slate-400">Chest Resonance</p>
+                            </div>
+                        </div>
+                        
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                            <h3 class="text-lg font-bold text-cyan-400 mb-3">Mogging Tier</h3>
+                            <p class="text-2xl font-bold text-cyan-400">GigaChad Vocal Profile</p>
+                        </div>
+                        
+                        <button id="vocal-again-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Analyze Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATCH TAB -->
+            <div id="match-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Face Match Duel</h2>
+                    
+                    <div id="match-initial" class="space-y-8">
+                        <p class="text-slate-400 mb-6">Comparez deux visages et découvrez qui a le meilleur potentiel esthétique.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div id="match-face1-zone" class="border-2 border-dashed border-cyan-400/50 hover:border-cyan-400 rounded-2xl p-8 cursor-pointer transition-all text-center bg-black/20 hover:bg-black/40">
+                                <div id="match-face1-empty" class="space-y-4">
+                                    <p class="text-4xl">📸</p>
+                                    <p class="text-cyan-400 font-semibold">Face 1 (You)</p>
+                                    <p class="text-slate-500 text-sm">Click to upload your photo</p>
+                                </div>
+                                <div id="match-face1-preview" class="space-y-4 hidden">
+                                    <img id="match-face1-img" src="" alt="Face 1" class="w-full h-64 object-cover rounded-xl">
+                                    <p class="text-cyan-400 font-semibold">Face 1 (You) ✓</p>
+                                </div>
+                                <input id="match-file1" type="file" accept="image/*">
+                            </div>
+                            
+                            <div id="match-face2-zone" class="border-2 border-dashed border-purple-400/50 hover:border-purple-400 rounded-2xl p-8 cursor-pointer transition-all text-center bg-black/20 hover:bg-black/40">
+                                <div id="match-face2-empty" class="space-y-4">
+                                    <p class="text-4xl">📸</p>
+                                    <p class="text-purple-400 font-semibold">Face 2 (Opponent)</p>
+                                    <p class="text-slate-500 text-sm">Click to upload opponent photo</p>
+                                </div>
+                                <div id="match-face2-preview" class="space-y-4 hidden">
+                                    <img id="match-face2-img" src="" alt="Face 2" class="w-full h-64 object-cover rounded-xl">
+                                    <p class="text-purple-400 font-semibold">Face 2 (Opponent) ✓</p>
+                                </div>
+                                <input id="match-file2" type="file" accept="image/*">
+                            </div>
+                        </div>
+                        
+                        <button id="start-duel-btn" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 hidden">
+                            ⚔️ Start Aesthetic Duel
+                        </button>
+                        
+                        <div id="match-comparing" class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8 text-center hidden">
+                            <div class="space-y-4">
+                                <div class="inline-block">
+                                    <div class="animate-spin inline-block w-8 h-8 border-4 border-cyan-400 border-t-purple-400 rounded-full"></div>
+                                </div>
+                                <p class="text-cyan-400 font-bold text-lg">Comparing facial features...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="match-results" class="space-y-8 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+                                <p class="text-slate-400 mb-3">Your Score</p>
+                                <p id="match-your-score" class="text-5xl font-bold text-cyan-400">86%</p>
+                            </div>
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+                                <p class="text-slate-400 mb-3">Opponent Score</p>
+                                <p id="match-opponent-score" class="text-5xl font-bold text-purple-400">79%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h3 id="match-verdict" class="text-2xl font-bold text-center mb-6">👑 YOU MOGGED HIM</h3>
+                            <p id="match-dominance" class="text-center text-lg text-cyan-400 font-semibold mb-6">+7% Aesthetic Dominance</p>
+                            
+                            <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                                <div id="match-gauge" class="h-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 transition-all duration-500" style="width: 52%;"></div>
+                            </div>
+                        </div>
+                        
+                        <button id="new-duel-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Start New Duel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HUB TAB -->
+            <div id="hub-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">GlowUp Hub</h2>
+                    
+                    <div id="hub-guides" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="jawline">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Jawline Masterclass</h3>
+                            <p class="text-slate-400">30-day shoulder and back development for ideal frame enhancement.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="skin">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Skin Regimen Elite</h3>
+                            <p class="text-slate-400">30-day elite skincare protocol for maximum glow, clarity, and health optimization.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="mewing">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Mewing Mastery</h3>
+                            <p class="text-slate-400">30-day tongue posture and oral posture development for facial structure enhancement.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="vtaper">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">V-Taper Build</h3>
+                            <p class="text-slate-400">30-day shoulder and back development for ideal frame enhancement.</p>
+                        </button>
+                    </div>
+
+                    <div id="hub-guide-detail" class="space-y-6 hidden">
+                        <button id="back-to-guides-btn" class="text-cyan-400 hover:text-cyan-300 font-semibold mb-4">
+                            ← Back to Guides
+                        </button>
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h2 id="guide-title" class="text-3xl font-bold text-cyan-400 mb-6"></h2>
+                            <div id="guide-content" class="prose prose-invert max-w-none text-slate-300"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYWALL MODAL -->
+    <div id="paywall-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 hidden">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-cyan-400/30 rounded-2xl p-8 max-w-md w-full mx-4 shadow-[0_0_50px_rgba(0,243,255,0.2)]">
+            <button id="close-paywall-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-200 text-2xl">
+                ×
+            </button>
+
+            <h2 class="text-3xl font-bold text-cyan-400 mb-4">Upgrade Required</h2>
+            <p class="text-slate-300 mb-6">You've used your free scan. Upgrade to continue analyzing your facial metrics and unlock unlimited scans.</p>
+
+            <div class="space-y-3 mb-8">
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Unlimited facial scans</span>
+                </div>
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Detailed haircut recommendations</span>
+                </div>
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Premium guides & tutorials</span>
+                </div>
+            </div>
+
+            <div class="stripe-container my-6 w-full flex flex-col gap-4 px-4 items-center">
+                <div class="w-full text-center text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+                    ⚡ Option Élite : Accès Illimité
+                </div>
+                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(161,94,255,0.2)]">
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                    </stripe-buy-button>
+                </div>
+
+                <div class="w-full text-center text-xs uppercase tracking-wider text-purple-400 font-bold mb-1 mt-4">
+                    ⏳ Option Flash : Pass 24H
+                </div>
+                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                    </stripe-buy-button>
+                </div>
+            </div>
+
+            <button id="maybe-later-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-3 px-6 rounded-xl transition-all">
+                Maybe Later
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const guides = {
+            jawline: {
+                title: 'Jawline Masterclass',
+                content: `<h2>Jawline Masterclass - 30 Jour Programme Complet</h2>
+<h3>Introduction Anatomique et Scientifique</h3>
+<p>La mâchoire est l'une des caractéristiques les plus importantes de l'esthétique masculine. Elle est déterminée par plusieurs facteurs anatomiques critiques : l'angle mandibulaire, la projection du menton, la définition de la ligne de la mâchoire et la réduction de la graisse sous-mentonnière. Une mâchoire bien définie crée une harmonie faciale qui communique force, maturité et santé génétique.</p>
+<p>L'angle mandibulaire idéal chez l'homme se situe entre 75 et 90 degrés. Un angle plus aigu (inférieur à 75 degrés) crée une apparence plus féminine, tandis qu'un angle plus obtus (supérieur à 90 degrés) crée une apparence plus masculine et puissante. La projection du menton (gonial angle) doit être en harmonie avec le reste du visage, créant une ligne continue et définie du front au menton.</p>
+<h3>Mécanique Exacte et Guide Étape par Étape</h3>
+<p>Pour développer une mâchoire optimale, vous devez comprendre les muscles impliqués : le masséter, le temporal et le ptérygoïdien médial. Ces muscles sont responsables de la mastication et peuvent être entraînés pour augmenter leur volume et leur définition.</p>
+<p><strong>Étape 1 : Mewing Correct</strong></p>
+<p>Positionnez votre langue contre le palais dur (pas le palais mou). La langue doit être aplatie et couvrir toute la surface du palais dur. Maintenez cette position pendant 8 heures par jour minimum. Cette technique augmente la projection de la mâchoire au fil du temps en appliquant une pression constante sur les os de la mâchoire.</p>
+<p><strong>Étape 2 : Mastication Intentionnelle</strong></p>
+<p>Mâchez du chewing-gum sans sucre pendant 30 minutes par jour. Utilisez les deux côtés de votre bouche de manière égale pour éviter l'asymétrie. Mâchez lentement et intentionnellement, en activant pleinement les muscles de la mâchoire.</p>
+<p><strong>Étape 3 : Exercices de Résistance</strong></p>
+<p>Placez votre poing sous votre menton. Appuyez fermement vers le haut avec votre menton contre la résistance de votre poing pendant 10 secondes. Répétez 20 fois. Cet exercice renforce directement les muscles de la mâchoire.</p>
+<p><strong>Étape 4 : Réduction de la Graisse Sous-Mentonnière</strong></p>
+<p>La graisse sous-mentonnière (double menton) est l'ennemi d'une mâchoire définie. Réduisez votre consommation de calories de 300-500 calories par jour. Augmentez votre apport en protéines à 1.6-2.2g par kg de poids corporel. Faites 30 minutes de cardio HIIT 4 fois par semaine.</p>
+<h3>Programme d'Entraînement 30 Jours</h3>
+<p><strong>Jours 1-10 : Fondation</strong></p>
+<ul><li>Mewing : 8 heures minimum par jour</li><li>Mastication : 30 minutes par jour</li><li>Exercices de résistance : 20 répétitions, 2 séries par jour</li><li>Cardio : 30 minutes, 3 fois par semaine</li><li>Régime : Déficit calorique de 300 calories</li></ul>
+<p><strong>Jours 11-20 : Intensification</strong></p>
+<ul><li>Mewing : 10 heures minimum par jour</li><li>Mastication : 45 minutes par jour</li><li>Exercices de résistance : 30 répétitions, 3 séries par jour</li><li>Cardio : 30 minutes, 4 fois par semaine</li><li>Régime : Déficit calorique de 400 calories</li></ul>
+<p><strong>Jours 21-30 : Optimisation</strong></p>
+<ul><li>Mewing : 12 heures minimum par jour</li><li>Mastication : 60 minutes par jour</li><li>Exercices de résistance : 40 répétitions, 4 séries par jour</li><li>Cardio : 30 minutes, 5 fois par semaine</li><li>Régime : Déficit calorique de 500 calories</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours de suivi rigoureux de ce programme, vous devriez observer :</p>
+<ul><li>Augmentation visible de la définition de la mâchoire</li><li>Réduction de 2-4 cm du tour de cou</li><li>Augmentation de la projection du menton</li><li>Amélioration générale de la symétrie faciale</li><li>Augmentation de la confiance et de la présence</li></ul>`
+            },
+            skin: {
+                title: 'Skin Regimen Elite',
+                content: `<h2>Skin Regimen Elite - 30 Jour Programme Complet</h2>
+<h3>Introduction Scientifique à la Santé Cutanée</h3>
+<p>La peau est le plus grand organe du corps humain et reflète directement votre santé générale, votre nutrition et votre mode de vie. Une peau claire, lumineuse et sans imperfections communique santé, jeunesse et fertilité. L'esthétique masculine moderne exige une peau impeccable.</p>
+<p>La barrière cutanée est composée de lipides et de protéines qui maintiennent l'hydratation et protègent contre les agressions extérieures. Le pH optimal de la peau est légèrement acide (4.5-5.5). Les glandes sébacées produisent le sébum qui lubrifie la peau. L'épiderme se régénère complètement tous les 28 jours.</p>
+<h3>Mécanique Exacte du Soin Cutané</h3>
+<p><strong>Nettoyage Correct</strong></p>
+<p>Le nettoyage est la fondation de tout régime cutané. Utilisez un nettoyant doux sans sulfate matin et soir. L'eau tiède (pas chaude) ouvre légèrement les pores. Massez doucement le nettoyant pendant 60 secondes en mouvements circulaires. Rincez abondamment à l'eau froide pour refermer les pores.</p>
+<p><strong>Tonification</strong></p>
+<p>Après le nettoyage, appliquez un tonique pour rééquilibrer le pH de la peau. Utilisez un tonique sans alcool contenant des ingrédients apaisants comme l'hamamélis ou l'acide hyaluronique.</p>
+<p><strong>Hydratation</strong></p>
+<p>L'hydratation est critique. Appliquez une crème hydratante légère matin et soir. Pour les peaux grasses, utilisez une crème légère à base de gel. Pour les peaux sèches, utilisez une crème plus riche.</p>
+<p><strong>Protection Solaire</strong></p>
+<p>La protection solaire est NON-NÉGOCIABLE. Les rayons UV causent 80% du vieillissement cutané. Appliquez SPF 30+ quotidiennement, même les jours nuageux.</p>
+<h3>Programme 30 Jours Détaillé</h3>
+<p><strong>Jours 1-10 : Nettoyage et Hydratation de Base</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Crème hydratante + SPF 30+</li><li>Soir : Nettoyage + Tonique + Crème hydratante</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g</li><li>Eau : 3 litres minimum par jour</li><li>Sommeil : 8 heures minimum</li></ul>
+<p><strong>Jours 11-20 : Introduction des Actifs</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Sérum Vitamine C + Crème hydratante + SPF 30+</li><li>Soir : Nettoyage + Tonique + Rétinol 0.25% + Crème hydratante</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g, Zinc 15mg</li><li>Eau : 3.5 litres minimum par jour</li><li>Sommeil : 8 heures minimum</li></ul>
+<p><strong>Jours 21-30 : Optimisation Complète</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Sérum Vitamine C + Crème hydratante + SPF 50+</li><li>Soir : Nettoyage + Tonique + Rétinol 0.5% + Masque hydratant 2x par semaine</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g, Zinc 15mg, Collagène 10g</li><li>Eau : 4 litres minimum par jour</li><li>Sommeil : 8-9 heures</li></ul>
+<h3>Résultats Garantis</h3>
+<p>Après 30 jours :</p>
+<ul><li>Teint visiblement plus clair et plus lumineux</li><li>Réduction de 60-80% des imperfections</li><li>Texture cutanée lissée et affinée</li><li>Hydratation optimale visible</li><li>Éclat naturel et sain</li></ul>`
+            },
+            mewing: {
+                title: 'Mewing Mastery',
+                content: `<h2>Mewing Mastery - 30 Jour Programme Complet</h2>
+<h3>Introduction Anatomique au Mewing</h3>
+<p>Le mewing est la technique de positionnement de la langue développée par le Dr. John Mew. Elle consiste à placer la langue contre le palais dur de manière constante pour appliquer une pression continue sur les os de la mâchoire et du maxillaire. Cette pression, appliquée pendant des années, peut modifier la structure osseuse du visage.</p>
+<p>La langue humaine pèse environ 50 grammes. Lorsqu'elle est correctement positionnée contre le palais dur, elle applique une pression constante qui stimule la résorption osseuse et la remodelage. Cette technique est particulièrement efficace chez les jeunes adultes dont les os sont encore plastiques.</p>
+<h3>Mécanique Exacte du Mewing</h3>
+<p><strong>Position Correcte de la Langue</strong></p>
+<ol><li>Ouvrez légèrement la bouche</li><li>Placez l'extrémité de votre langue contre les alvéoles (petites bosses) derrière vos dents de devant supérieures</li><li>Aplatissez progressivement votre langue pour qu'elle couvre tout le palais dur</li><li>Fermez votre bouche doucement</li><li>Maintenez cette position</li></ol>
+<p>La clé est que TOUTE la surface de votre langue doit être en contact avec le palais dur, pas seulement la pointe. Cela crée une pression uniforme.</p>
+<p><strong>Respiration Correcte</strong></p>
+<p>Respirez par le nez, pas par la bouche. La respiration buccale est l'ennemi du mewing. Elle crée une posture faciale allongée et peu attrayante. Entraînez-vous à respirer exclusivement par le nez.</p>
+<p><strong>Posture Générale</strong></p>
+<p>Le mewing n'est pas seulement sur la langue. C'est aussi sur la posture générale. Tenez votre menton légèrement rentré. Gardez votre tête droite. Évitez de pencher la tête en avant (forward head posture).</p>
+<h3>Programme 30 Jours Détaillé</h3>
+<p><strong>Jours 1-5 : Apprentissage de la Position</strong></p>
+<ul><li>1 heure par jour de pratique consciente du positionnement de la langue</li><li>Vérifiez votre position toutes les 5 minutes</li><li>Pratiquez la respiration nasale 30 minutes par jour</li><li>Dormez avec un humidificateur pour faciliter la respiration nasale</li></ul>
+<p><strong>Jours 6-10 : Consolidation</strong></p>
+<ul><li>2 heures par jour de pratique consciente</li><li>Maintenez la position pendant les activités quotidiennes</li><li>Pratiquez la respiration nasale 60 minutes par jour</li><li>Commencez à maintenir la position pendant le sommeil (si possible)</li></ul>
+<p><strong>Jours 11-20 : Automatisation</strong></p>
+<ul><li>4-6 heures par jour de positionnement conscient</li><li>La position devient de plus en plus naturelle</li><li>Maintenez la position pendant le travail, les études, les repas</li><li>Pratiquez la respiration nasale 2 heures par jour</li></ul>
+<p><strong>Jours 21-30 : Maîtrise Complète</strong></p>
+<ul><li>8-12 heures par jour de positionnement</li><li>La position est maintenant semi-automatique</li><li>Maintenez la position pendant le sommeil</li><li>Pratiquez la respiration nasale 3 heures par jour</li><li>Commencez à remarquer les changements subtils</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours :</p>
+<ul><li>Amélioration significative de la posture faciale</li><li>Augmentation visible de la projection du maxillaire</li><li>Amélioration de la respiration nasale</li><li>Réduction de la respiration buccale</li><li>Fondation établie pour des changements à long terme</li></ul>`
+            },
+            vtaper: {
+                title: 'V-Taper Build',
+                content: `<h2>V-Taper Build - 30 Jour Programme Complet</h2>
+<h3>Introduction à la Silhouette en V</h3>
+<p>La silhouette en V (large épaules, taille fine) est l'idéal esthétique masculin universel. Elle communique force, puissance, santé et virilité. Un V-taper prononcé augmente dramatiquement l'attractivité perçue et la confiance.</p>
+<p>Le ratio d'épaules idéal est 1.6x la largeur de la taille. Par exemple, si votre taille fait 75 cm, vos épaules devraient faire 120 cm. Cette proportion crée une harmonie visuelle optimale.</p>
+<h3>Anatomie Musculaire du V-Taper</h3>
+<p>Les muscles responsables du V-taper sont :</p>
+<ul><li><strong>Deltoïde latéral</strong> : Crée la largeur des épaules</li><li><strong>Trapèze supérieur</strong> : Ajoute de la masse au haut du dos</li><li><strong>Latissimus dorsi</strong> : Crée la largeur du dos et l'illusion d'une taille plus fine</li><li><strong>Rhomboïde</strong> : Ajoute de la profondeur au dos</li><li><strong>Serratus anterior</strong> : Ajoute de la définition et de la séparation</li></ul>
+<h3>Programme d'Entraînement 30 Jours</h3>
+<p><strong>Jour 1-10 : Fondation (3 entraînements par semaine)</strong></p>
+<p>Lundi - Dos et Épaules Arrière</p>
+<ul><li>Tractions : 4 séries x 8-12 répétitions</li><li>Rangées haltères : 4 séries x 8-12 répétitions</li><li>Face pulls : 3 séries x 12-15 répétitions</li><li>Reverse pec deck : 3 séries x 12-15 répétitions</li></ul>
+<p>Mercredi - Épaules Latérales</p>
+<ul><li>Développé militaire : 4 séries x 6-8 répétitions</li><li>Élévations latérales : 4 séries x 12-15 répétitions</li><li>Élévations latérales à la poulie : 3 séries x 15-20 répétitions</li><li>Shrugs haltères : 3 séries x 12-15 répétitions</li></ul>
+<p>Vendredi - Dos Complet</p>
+<ul><li>Deadlifts : 4 séries x 5-6 répétitions</li><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 3 séries x 10-12 répétitions</li><li>Hyperextensions : 3 séries x 12-15 répétitions</li></ul>
+<p><strong>Jour 11-20 : Intensification (4 entraînements par semaine)</strong></p>
+<p>Lundi - Dos Lourd</p>
+<ul><li>Deadlifts : 5 séries x 3-5 répétitions</li><li>Rangées haltères : 4 séries x 6-8 répétitions</li><li>Tractions pondérées : 4 séries x 6-8 répétitions</li></ul>
+<p>Mardi - Épaules Latérales</p>
+<ul><li>Développé militaire : 4 séries x 5-6 répétitions</li><li>Élévations latérales : 5 séries x 10-12 répétitions</li><li>Machine à épaules : 3 séries x 12-15 répétitions</li></ul>
+<p>Jeudi - Dos Hypertrophie</p>
+<ul><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 4 séries x 10-12 répétitions</li><li>Face pulls : 3 séries x 15-20 répétitions</li><li>Reverse pec deck : 3 séries x 15-20 répétitions</li></ul>
+<p>Samedi - Épaules Arrière</p>
+<ul><li>Reverse machine flyes : 4 séries x 10-12 répétitions</li><li>Élévations arrière : 4 séries x 12-15 répétitions</li><li>Shrugs machine : 3 séries x 12-15 répétitions</li></ul>
+<p><strong>Jour 21-30 : Optimisation (5 entraînements par semaine)</strong></p>
+<p>Lundi - Dos Lourd</p>
+<ul><li>Deadlifts : 5 séries x 3-5 répétitions</li><li>Rangées haltères : 5 séries x 5-6 répétitions</li></ul>
+<p>Mardi - Épaules Latérales Hypertrophie</p>
+<ul><li>Développé militaire : 4 séries x 6-8 répétitions</li><li>Élévations latérales : 5 séries x 10-12 répétitions</li><li>Élévations latérales à la poulie : 4 séries x 12-15 répétitions</li></ul>
+<p>Mercredi - Dos Hypertrophie</p>
+<ul><li>Tractions pondérées : 4 séries x 6-8 répétitions</li><li>Pulldowns : 4 séries x 10-12 répétitions</li><li>Rangées T-bar : 3 séries x 10-12 répétitions</li></ul>
+<p>Jeudi - Épaules Arrière</p>
+<ul><li>Reverse machine flyes : 4 séries x 10-12 répétitions</li><li>Élévations arrière : 4 séries x 12-15 répétitions</li><li>Shrugs machine : 4 séries x 12-15 répétitions</li></ul>
+<p>Samedi - Dos Lourd Complet</p>
+<ul><li>Deadlifts : 5 séries x 5-6 répétitions</li><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 3 séries x 12-15 répétitions</li></ul>
+<h3>Nutrition pour le V-Taper</h3>
+<ul><li>Protéines : 2.2g par kg de poids corporel</li><li>Calories : Surplus de 300-500 calories par jour</li><li>Glucides : 4-6g par kg de poids corporel</li><li>Lipides : 0.8-1.2g par kg de poids corporel</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours :</p>
+<ul><li>Augmentation visible de la largeur des épaules</li><li>Augmentation de 2-4 kg de masse musculaire</li><li>Amélioration dramatique de la silhouette en V</li><li>Augmentation de la force de 15-25%</li><li>Amélioration significative de la confiance</li></ul>`
+            }
+        };
+
+        let currentScanResults = null;
+        let isScanning = false;
+        let isRecording = false;
+        let matchFace1 = null;
+        let matchFace2 = null;
+        let isComparingFaces = false;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.add('hidden');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-cyan-400', 'border-b-2', 'border-cyan-400');
+                btn.classList.add('text-slate-400');
+            });
+            event.target.classList.remove('text-slate-400');
+            event.target.classList.add('text-cyan-400', 'border-b-2', 'border-cyan-400');
+        }
+
+        function performScan() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            
+            if (scansDone === 'true') {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+            
+            isScanning = true;
+            document.getElementById('take-selfie-btn').disabled = true;
+            document.getElementById('import-gallery-btn').disabled = true;
+            document.getElementById('scanner-initial').classList.add('hidden');
+            document.getElementById('scanner-results').classList.remove('hidden');
+            document.getElementById('scanner-overlay').classList.remove('hidden');
+
+            let progress = 0;
+            document.getElementById('scan-progress-bar').style.width = '0%';
+            document.getElementById('scan-step-text').textContent = '';
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Initialisation du scanner laser...';
+                document.getElementById('scan-progress-bar').style.width = '25%';
+            }, 0);
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Analyse du Canthal Tilt (Angle Orbitaire)...';
+                document.getElementById('scan-progress-bar').style.width = '50%';
+            }, 1200);
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Mesure de l\'asymétrie faciale (Tiers verticaux)...';
+                document.getElementById('scan-progress-bar').style.width = '75%';
+            }, 2500);
+
+            setTimeout(() => {
+                isScanning = false;
+                document.getElementById('scanner-overlay').classList.add('hidden');
+                document.getElementById('scan-progress-bar').style.width = '100%';
+                document.getElementById('scan-step-text').textContent = '';
+
+                localStorage.setItem('mogged_scans_done', 'true');
+
+                currentScanResults = {
+                    jawline: 8.5,
+                    symmetry: 91,
+                    canthal: 8.2,
+                    midface: 8.8
+                };
+
+                document.getElementById('haircut-initial').classList.add('hidden');
+                document.getElementById('haircut-results').classList.remove('hidden');
+            }, 4000);
+        }
+
+        function handleTakeSelfie() {
+            document.getElementById('scanned-image').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
+            performScan();
+        }
+
+        function handleFileUpload(e) {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('scanned-image').src = event.target.result;
+                    performScan();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleAnalyzeVoice() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            if (scansDone === 'true') {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+
+            isRecording = true;
+            document.getElementById('analyze-voice-btn').disabled = true;
+            document.getElementById('vocal-initial').classList.add('hidden');
+            document.getElementById('vocal-recording').classList.remove('hidden');
+
+            const waveContainer = document.getElementById('wave-container');
+            waveContainer.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'w-2 bg-gradient-to-t from-purple-500 to-pink-400 rounded-full';
+                bar.style.height = Math.random() * 80 + 20 + '%';
+                bar.style.animation = `wave ${0.4 + i * 0.05}s ease-in-out infinite`;
+                bar.style.animationDelay = `${i * 0.05}s`;
+                waveContainer.appendChild(bar);
+            }
+
+            setTimeout(() => {
+                isRecording = false;
+                document.getElementById('analyze-voice-btn').disabled = false;
+                document.getElementById('vocal-recording').classList.add('hidden');
+                localStorage.setItem('mogged_scans_done', 'true');
+                document.getElementById('vocal-initial').classList.add('hidden');
+                document.getElementById('vocal-results').classList.remove('hidden');
+            }, 3000);
+        }
+
+        function handleStartDuel() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            if (scansDone === 'true') {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+
+            isComparingFaces = true;
+            document.getElementById('start-duel-btn').classList.add('hidden');
+            document.getElementById('match-comparing').classList.remove('hidden');
+
+            setTimeout(() => {
+                isComparingFaces = false;
+                localStorage.setItem('mogged_scans_done', 'true');
+                document.getElementById('match-initial').classList.add('hidden');
+                document.getElementById('match-results').classList.remove('hidden');
+                document.getElementById('match-comparing').classList.add('hidden');
+            }, 2000);
+        }
+
+        function updateMatchButton() {
+            if (matchFace1 && matchFace2) {
+                document.getElementById('start-duel-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('start-duel-btn').classList.add('hidden');
+            }
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                switchTab(this.dataset.tab);
+            });
+        });
+
+        document.getElementById('take-selfie-btn').addEventListener('click', handleTakeSelfie);
+        document.getElementById('import-gallery-btn').addEventListener('click', () => {
+            document.getElementById('file-input').click();
+        });
+        document.getElementById('file-input').addEventListener('change', handleFileUpload);
+
+        document.getElementById('scan-again-btn').addEventListener('click', () => {
+            document.getElementById('scanner-results').classList.add('hidden');
+            document.getElementById('scanner-initial').classList.remove('hidden');
+            document.getElementById('scanned-image').src = '';
+            document.getElementById('take-selfie-btn').disabled = false;
+            document.getElementById('import-gallery-btn').disabled = false;
+        });
+
+        document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab('scanner');
+                document.querySelectorAll('.tab-btn')[0].click();
+            });
+        });
+
+        document.getElementById('analyze-voice-btn').addEventListener('click', handleAnalyzeVoice);
+        document.getElementById('vocal-again-btn').addEventListener('click', () => {
+            document.getElementById('vocal-results').classList.add('hidden');
+            document.getElementById('vocal-initial').classList.remove('hidden');
+            document.getElementById('analyze-voice-btn').disabled = false;
+        });
+
+        document.getElementById('match-face1-zone').addEventListener('click', () => {
+            document.getElementById('match-file1').click();
+        });
+        document.getElementById('match-file1').addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    matchFace1 = event.target.result;
+                    document.getElementById('match-face1-img').src = matchFace1;
+                    document.getElementById('match-face1-empty').classList.add('hidden');
+                    document.getElementById('match-face1-preview').classList.remove('hidden');
+                    updateMatchButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('match-face2-zone').addEventListener('click', () => {
+            document.getElementById('match-file2').click();
+        });
+        document.getElementById('match-file2').addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    matchFace2 = event.target.result;
+                    document.getElementById('match-face2-img').src = matchFace2;
+                    document.getElementById('match-face2-empty').classList.add('hidden');
+                    document.getElementById('match-face2-preview').classList.remove('hidden');
+                    updateMatchButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('start-duel-btn').addEventListener('click', handleStartDuel);
+        document.getElementById('new-duel-btn').addEventListener('click', () => {
+            matchFace1 = null;
+            matchFace2 = null;
+            document.getElementById('match-face1-empty').classList.remove('hidden');
+            document.getElementById('match-face1-preview').classList.add('hidden');
+            document.getElementById('match-face2-empty').classList.remove('hidden');
+            document.getElementById('match-face2-preview').classList.add('hidden');
+            document.getElementById('match-initial').classList.remove('hidden');
+            document.getElementById('match-results').classList.add('hidden');
+            updateMatchButton();
+        });
+
+        document.querySelectorAll('.guide-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const guideId = btn.dataset.guide;
+                const guide = guides[guideId];
+                document.getElementById('guide-title').textContent = guide.title;
+                document.getElementById('guide-content').innerHTML = guide.content;
+                document.getElementById('hub-guides').classList.add('hidden');
+                document.getElementById('hub-guide-detail').classList.remove('hidden');
+            });
+        });
+
+        document.getElementById('back-to-guides-btn').addEventListener('click', () => {
+            document.getElementById('hub-guide-detail').classList.add('hidden');
+            document.getElementById('hub-guides').classList.remove('hidden');
+        });
+
+        document.getElementById('close-paywall-btn').addEventListener('click', () => {
+            document.getElementById('paywall-modal').classList.add('hidden');
+        });
+
+        document.getElementById('maybe-later-btn').addEventListener('click', () => {
+            document.getElementById('paywall-modal').classList.add('hidden');
+        });
+
+        document.getElementById('paywall-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('paywall-modal')) {
+                document.getElementById('paywall-modal').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
