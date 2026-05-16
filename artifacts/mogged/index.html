@@ -921,6 +921,36 @@
     .fi { display:flex; align-items:center; gap:10px; font-size:0.80rem; color:var(--text); }
     .fi-check { width:18px; height:18px; border-radius:50%; background:rgba(0,229,255,0.1); border:1px solid var(--border-cyan); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--cyan); flex-shrink:0; }
 
+
+
+    /* ── SAAS DASHBOARD ── */
+    .dash-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:16px 18px 0; }
+    .dash-kpi { position:relative; overflow:hidden; min-height:112px; padding:16px 14px; border:1px solid rgba(255,255,255,0.08); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)); box-shadow:inset 0 1px 0 rgba(255,255,255,0.06); }
+    .dash-kpi::after { content:""; position:absolute; inset:auto -30px -50px auto; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle,rgba(0,229,255,0.16),transparent 66%); pointer-events:none; }
+    .dash-label { font-size:0.64rem; font-weight:800; letter-spacing:0.12em; color:var(--text2); text-transform:uppercase; margin-bottom:10px; }
+    .dash-value { font-family:var(--font-d); font-size:1.72rem; line-height:1; font-weight:900; letter-spacing:0.04em; color:var(--text); margin-bottom:8px; }
+    .dash-trend { font-size:0.72rem; color:var(--text2); line-height:1.45; }
+    .dash-panel { margin:14px 18px 0; padding:16px 14px; border:1px solid rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.035); }
+    .dash-panel-title { display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--font-d); font-size:0.86rem; font-weight:800; letter-spacing:0.08em; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; }
+    .dash-pill { display:inline-flex; align-items:center; justify-content:center; min-height:24px; padding:4px 9px; border-radius:99px; border:1px solid rgba(0,229,255,0.22); background:rgba(0,229,255,0.08); color:var(--cyan); font-size:0.62rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; }
+    .dash-bars { display:flex; flex-direction:column; gap:10px; }
+    .dash-bar-row { display:grid; grid-template-columns:92px 1fr 42px; gap:10px; align-items:center; font-size:0.74rem; color:var(--text2); }
+    .dash-bar-track { height:8px; border-radius:999px; background:rgba(255,255,255,0.07); overflow:hidden; }
+    .dash-bar-fill { height:100%; min-width:2px; border-radius:999px; background:linear-gradient(90deg,var(--cyan),var(--violet)); box-shadow:0 0 12px var(--cyan-glow); }
+    .dash-funnel { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+    .dash-step { padding:12px 8px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.035); text-align:center; }
+    .dash-step strong { display:block; font-family:var(--font-d); font-size:1.05rem; color:var(--text); margin-bottom:4px; }
+    .dash-step span { font-size:0.62rem; line-height:1.35; color:var(--text2); text-transform:uppercase; letter-spacing:0.06em; }
+    .dash-list { display:flex; flex-direction:column; gap:8px; max-height:230px; overflow:auto; padding-right:2px; }
+    .dash-event { display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .dash-event:last-child { border-bottom:0; }
+    .dash-event-main { font-size:0.78rem; color:var(--text); font-weight:700; }
+    .dash-event-sub { margin-top:3px; font-size:0.68rem; color:var(--text2); line-height:1.45; }
+    .dash-event-time { font-size:0.64rem; color:var(--text3); white-space:nowrap; }
+    .dash-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 18px 18px; }
+    .dash-empty { padding:18px 12px; border:1px dashed rgba(255,255,255,0.12); border-radius:14px; color:var(--text2); font-size:0.76rem; line-height:1.6; text-align:center; }
+    @media (max-width:560px) { .dash-grid, .dash-funnel, .dash-actions { grid-template-columns:1fr; } .dash-bar-row { grid-template-columns:82px 1fr 34px; } }
+
     /* ── UTILS ── */
     .hidden { display:none !important; }
     .p16 { padding:16px 18px; }
@@ -967,6 +997,10 @@
     <button class="tab-btn" data-tab="hub">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
       Guides
+    </button>
+    <button class="tab-btn" data-tab="dashboard">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 15l3-3 3 2 5-7"/></svg>
+      Dashboard
     </button>
   </nav>
 
@@ -1378,6 +1412,70 @@
     </div>
   </div>
 
+
+  <!-- ═══════ DASHBOARD TAB ═══════ -->
+  <div id="dashboard-tab" class="tab-content">
+    <div class="card card-cyan">
+      <div class="sh">
+        <h2>Dashboard SaaS</h2>
+        <p>Vue propriétaire · Analyses produit · Funnel local</p>
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-kpi">
+          <div class="dash-label">Utilisateurs identifiés</div>
+          <div class="dash-value c-cyan" id="dash-users">0</div>
+          <div class="dash-trend" id="dash-user-note">Email non capturé sur cet appareil.</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dash-label">Analyses complétées</div>
+          <div class="dash-value c-violet" id="dash-analyses">0</div>
+          <div class="dash-trend">Scanner, vocal et match cumulés.</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dash-label">Paywall affiché</div>
+          <div class="dash-value c-orange" id="dash-paywalls">0</div>
+          <div class="dash-trend">Signal d’intention premium.</div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dash-label">Conversion locale</div>
+          <div class="dash-value c-green" id="dash-conversion">0%</div>
+          <div class="dash-trend">Progression email vers analyse.</div>
+        </div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title">Modules utilisés <span class="dash-pill" id="dash-total-events">0 events</span></div>
+        <div class="dash-bars" id="dash-module-bars"></div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title">Funnel SaaS <span class="dash-pill">Session locale</span></div>
+        <div class="dash-funnel">
+          <div class="dash-step"><strong id="funnel-visit">1</strong><span>Visite app</span></div>
+          <div class="dash-step"><strong id="funnel-email">0</strong><span>Email lié</span></div>
+          <div class="dash-step"><strong id="funnel-analysis">0</strong><span>Analyse faite</span></div>
+          <div class="dash-step"><strong id="funnel-paywall">0</strong><span>Paywall</span></div>
+        </div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title">Activité récente <span class="dash-pill" id="dash-last-sync">Live</span></div>
+        <div class="dash-list" id="dash-events-list"></div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="dash-panel-title">Données à connecter <span class="dash-pill">Prochaine étape</span></div>
+        <div class="txt-sm">Cette V1 lit les analyses enregistrées dans ce navigateur. Pour voir toutes les analyses de tous les utilisateurs du SaaS, il faudra connecter le dashboard à une base de données serveur et aux webhooks Stripe.</div>
+      </div>
+
+      <div class="dash-actions">
+        <button id="dash-refresh-btn" class="btn btn-cyan">Actualiser les données</button>
+        <button id="dash-export-btn" class="btn btn-ghost">Exporter JSON</button>
+      </div>
+    </div>
+  </div>
+
 </div><!-- /app -->
 
 <!-- ═══════════════════════════════════════════
@@ -1521,6 +1619,7 @@ function switchTab(name) {
   const btn = document.querySelector('[data-tab="' + name + '"]');
   if (tab) tab.classList.add('active');
   if (btn) btn.classList.add('active');
+  if (name === 'dashboard') renderSaasDashboard();
 }
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
@@ -1534,6 +1633,7 @@ document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
 ================================================================ */
 function showPaywall() {
   document.getElementById('paywall-modal').classList.remove('hidden');
+  trackAnalyticsEvent('paywall_viewed', 'paywall', { label: 'Limite gratuite atteinte' });
 }
 const pw = document.getElementById('paywall-modal');
 document.getElementById('close-paywall-btn').addEventListener('click', () => pw.classList.add('hidden'));
@@ -1578,11 +1678,12 @@ document.getElementById('email-submit-btn').addEventListener('click', () => {
     return;
   }
 
-  // Store email
-  localStorage.setItem('mogged_email', email);
-
   const action = pendingAction;
   const file = pendingFile;
+
+  // Store email
+  localStorage.setItem('mogged_email', email);
+  trackAnalyticsEvent('email_captured', 'acquisition', { label: action || 'email_gate' });
   closeEmailModal();
 
   // Dispatch the original action
@@ -1726,6 +1827,7 @@ function runScanAnimation() {
       if (step.done) {
         overlay.classList.add('hidden');
         localStorage.setItem('mogged_scans_done', 'true');
+        trackAnalyticsEvent('face_scan_completed', 'scanner', { label: 'Score looksmaxing généré' });
         // Unlock haircut
         document.getElementById('haircut-pre-scan').classList.add('hidden');
         document.getElementById('haircut-results').classList.remove('hidden');
@@ -1838,6 +1940,7 @@ function finishMicRecording(stream, audioCtx) {
   stopMic();
   if (audioCtx) audioCtx.close();
   localStorage.setItem('mogged_scans_done', 'true');
+  trackAnalyticsEvent('voice_analysis_completed', 'vocal', { label: 'Score vocal généré' });
   document.getElementById('vocal-recording').classList.add('hidden');
   document.getElementById('analyze-voice-btn').disabled = false;
   document.getElementById('vocal-initial').classList.add('hidden');
@@ -1862,6 +1965,7 @@ function runFakeVoiceAnimation() {
     if (remaining <= 0) {
       clearInterval(t);
       localStorage.setItem('mogged_scans_done', 'true');
+      trackAnalyticsEvent('voice_analysis_completed', 'vocal', { label: 'Score vocal généré' });
       document.getElementById('vocal-recording').classList.add('hidden');
       document.getElementById('analyze-voice-btn').disabled = false;
       document.getElementById('vocal-initial').classList.add('hidden');
@@ -1971,6 +2075,7 @@ function startDuel() {
     loading.classList.add('hidden');
     localStorage.setItem('mogged_scans_done', 'true');
     showDuelVerdict();
+    trackAnalyticsEvent('match_duel_completed', 'match', { label: document.getElementById('verdict-text')?.textContent || 'Duel terminé' });
   }, 2800);
 }
 
@@ -2083,6 +2188,7 @@ document.querySelectorAll('.guide-row').forEach(btn => {
     document.getElementById('guide-content').innerHTML = g.content;
     document.getElementById('hub-guides').classList.add('hidden');
     document.getElementById('hub-guide-detail').classList.remove('hidden');
+    trackAnalyticsEvent('guide_opened', 'hub', { label: g.title });
   });
 });
 
@@ -2090,6 +2196,138 @@ document.getElementById('back-to-guides-btn').addEventListener('click', () => {
   document.getElementById('hub-guide-detail').classList.add('hidden');
   document.getElementById('hub-guides').classList.remove('hidden');
 });
+
+
+/* ================================================================
+   SAAS DASHBOARD ANALYTICS
+================================================================ */
+const MOGGED_EVENTS_KEY = 'mogged_analytics_events';
+
+function getAnalyticsEvents() {
+  try { return JSON.parse(localStorage.getItem(MOGGED_EVENTS_KEY) || '[]'); }
+  catch (err) { return []; }
+}
+
+function saveAnalyticsEvents(events) {
+  localStorage.setItem(MOGGED_EVENTS_KEY, JSON.stringify(events.slice(-250)));
+}
+
+function trackAnalyticsEvent(type, module, details = {}) {
+  const event = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+    type,
+    module,
+    details,
+    email: localStorage.getItem('mogged_email') || null,
+    at: new Date().toISOString()
+  };
+  const events = getAnalyticsEvents();
+  events.push(event);
+  saveAnalyticsEvents(events);
+  renderSaasDashboard();
+}
+
+function eventLabel(type) {
+  const labels = {
+    page_view: 'Visite application',
+    email_captured: 'Email capturé',
+    paywall_viewed: 'Paywall affiché',
+    face_scan_completed: 'Analyse faciale terminée',
+    voice_analysis_completed: 'Analyse vocale terminée',
+    match_duel_completed: 'Duel match terminé',
+    guide_opened: 'Guide consulté',
+    dashboard_exported: 'Export dashboard'
+  };
+  return labels[type] || type;
+}
+
+function formatEventTime(iso) {
+  try { return new Intl.DateTimeFormat('fr-FR', { hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit' }).format(new Date(iso)); }
+  catch (err) { return ''; }
+}
+
+function countEvents(events, type) {
+  return events.filter(e => e.type === type).length;
+}
+
+function renderSaasDashboard() {
+  const root = document.getElementById('dashboard-tab');
+  if (!root) return;
+
+  const events = getAnalyticsEvents();
+  const email = localStorage.getItem('mogged_email');
+  const analysisTypes = ['face_scan_completed', 'voice_analysis_completed', 'match_duel_completed'];
+  const analyses = events.filter(e => analysisTypes.includes(e.type));
+  const paywalls = countEvents(events, 'paywall_viewed');
+  const hasEmail = email ? 1 : 0;
+  const hasAnalysis = analyses.length > 0 ? 1 : 0;
+  const conversion = hasEmail ? Math.round((hasAnalysis / hasEmail) * 100) : 0;
+
+  const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+  setText('dash-users', String(hasEmail));
+  setText('dash-user-note', email ? `Email lié : ${email}` : 'Email non capturé sur cet appareil.');
+  setText('dash-analyses', String(analyses.length));
+  setText('dash-paywalls', String(paywalls));
+  setText('dash-conversion', `${conversion}%`);
+  setText('dash-total-events', `${events.length} events`);
+  setText('funnel-email', String(hasEmail));
+  setText('funnel-analysis', String(hasAnalysis));
+  setText('funnel-paywall', String(paywalls > 0 ? 1 : 0));
+  setText('dash-last-sync', new Intl.DateTimeFormat('fr-FR', { hour:'2-digit', minute:'2-digit' }).format(new Date()));
+
+  const moduleCounts = {
+    Scanner: analyses.filter(e => e.module === 'scanner').length,
+    Vocal: analyses.filter(e => e.module === 'vocal').length,
+    Match: analyses.filter(e => e.module === 'match').length,
+    Guides: events.filter(e => e.module === 'hub').length,
+    Paywall: paywalls
+  };
+  const max = Math.max(1, ...Object.values(moduleCounts));
+  const bars = document.getElementById('dash-module-bars');
+  if (bars) {
+    bars.innerHTML = Object.entries(moduleCounts).map(([label, count]) => {
+      const width = Math.max(3, Math.round((count / max) * 100));
+      return `<div class="dash-bar-row"><span>${label}</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:${width}%"></div></div><strong>${count}</strong></div>`;
+    }).join('');
+  }
+
+  const list = document.getElementById('dash-events-list');
+  if (list) {
+    const recent = events.slice(-12).reverse();
+    list.innerHTML = recent.length ? recent.map(e => {
+      const detail = e.details && e.details.label ? e.details.label : (e.email || 'Session anonyme');
+      return `<div class="dash-event"><div><div class="dash-event-main">${eventLabel(e.type)}</div><div class="dash-event-sub">Module ${e.module || 'app'} · ${detail}</div></div><div class="dash-event-time">${formatEventTime(e.at)}</div></div>`;
+    }).join('') : '<div class="dash-empty">Aucune analyse enregistrée pour le moment. Utilisez le scanner, le module vocal, le match ou les guides pour alimenter le dashboard.</div>';
+  }
+}
+
+function exportDashboardData() {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    email: localStorage.getItem('mogged_email') || null,
+    scanDone: localStorage.getItem('mogged_scans_done') === 'true',
+    events: getAnalyticsEvents()
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mogged-dashboard-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  trackAnalyticsEvent('dashboard_exported', 'dashboard', { label: 'Export JSON local' });
+}
+
+if (!sessionStorage.getItem('mogged_dashboard_page_view')) {
+  sessionStorage.setItem('mogged_dashboard_page_view', 'true');
+  trackAnalyticsEvent('page_view', 'app', { label: 'Ouverture application' });
+}
+
+document.getElementById('dash-refresh-btn')?.addEventListener('click', renderSaasDashboard);
+document.getElementById('dash-export-btn')?.addEventListener('click', exportDashboardData);
+renderSaasDashboard();
 
 /* ================================================================
    INIT — restore state if scan already done
