@@ -922,35 +922,6 @@
     .fi-check { width:18px; height:18px; border-radius:50%; background:rgba(0,229,255,0.1); border:1px solid var(--border-cyan); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--cyan); flex-shrink:0; }
 
 
-
-    /* ── SAAS DASHBOARD ── */
-    .dash-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:16px 18px 0; }
-    .dash-kpi { position:relative; overflow:hidden; min-height:112px; padding:16px 14px; border:1px solid rgba(255,255,255,0.08); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)); box-shadow:inset 0 1px 0 rgba(255,255,255,0.06); }
-    .dash-kpi::after { content:""; position:absolute; inset:auto -30px -50px auto; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle,rgba(0,229,255,0.16),transparent 66%); pointer-events:none; }
-    .dash-label { font-size:0.64rem; font-weight:800; letter-spacing:0.12em; color:var(--text2); text-transform:uppercase; margin-bottom:10px; }
-    .dash-value { font-family:var(--font-d); font-size:1.72rem; line-height:1; font-weight:900; letter-spacing:0.04em; color:var(--text); margin-bottom:8px; }
-    .dash-trend { font-size:0.72rem; color:var(--text2); line-height:1.45; }
-    .dash-panel { margin:14px 18px 0; padding:16px 14px; border:1px solid rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.035); }
-    .dash-panel-title { display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--font-d); font-size:0.86rem; font-weight:800; letter-spacing:0.08em; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; }
-    .dash-pill { display:inline-flex; align-items:center; justify-content:center; min-height:24px; padding:4px 9px; border-radius:99px; border:1px solid rgba(0,229,255,0.22); background:rgba(0,229,255,0.08); color:var(--cyan); font-size:0.62rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; }
-    .dash-bars { display:flex; flex-direction:column; gap:10px; }
-    .dash-bar-row { display:grid; grid-template-columns:92px 1fr 42px; gap:10px; align-items:center; font-size:0.74rem; color:var(--text2); }
-    .dash-bar-track { height:8px; border-radius:999px; background:rgba(255,255,255,0.07); overflow:hidden; }
-    .dash-bar-fill { height:100%; min-width:2px; border-radius:999px; background:linear-gradient(90deg,var(--cyan),var(--violet)); box-shadow:0 0 12px var(--cyan-glow); }
-    .dash-funnel { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
-    .dash-step { padding:12px 8px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.035); text-align:center; }
-    .dash-step strong { display:block; font-family:var(--font-d); font-size:1.05rem; color:var(--text); margin-bottom:4px; }
-    .dash-step span { font-size:0.62rem; line-height:1.35; color:var(--text2); text-transform:uppercase; letter-spacing:0.06em; }
-    .dash-list { display:flex; flex-direction:column; gap:8px; max-height:230px; overflow:auto; padding-right:2px; }
-    .dash-event { display:grid; grid-template-columns:1fr auto; gap:8px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
-    .dash-event:last-child { border-bottom:0; }
-    .dash-event-main { font-size:0.78rem; color:var(--text); font-weight:700; }
-    .dash-event-sub { margin-top:3px; font-size:0.68rem; color:var(--text2); line-height:1.45; }
-    .dash-event-time { font-size:0.64rem; color:var(--text3); white-space:nowrap; }
-    .dash-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 18px 18px; }
-    .dash-empty { padding:18px 12px; border:1px dashed rgba(255,255,255,0.12); border-radius:14px; color:var(--text2); font-size:0.76rem; line-height:1.6; text-align:center; }
-    @media (max-width:560px) { .dash-grid, .dash-funnel, .dash-actions { grid-template-columns:1fr; } .dash-bar-row { grid-template-columns:82px 1fr 34px; } }
-
     /* ── UTILS ── */
     .hidden { display:none !important; }
     .p16 { padding:16px 18px; }
@@ -997,10 +968,6 @@
     <button class="tab-btn" data-tab="hub">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
       Guides
-    </button>
-    <button class="tab-btn" data-tab="dashboard">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 15l3-3 3 2 5-7"/></svg>
-      Dashboard
     </button>
   </nav>
 
@@ -1411,71 +1378,6 @@
       </div>
     </div>
   </div>
-
-
-  <!-- ═══════ DASHBOARD TAB ═══════ -->
-  <div id="dashboard-tab" class="tab-content">
-    <div class="card card-cyan">
-      <div class="sh">
-        <h2>Dashboard SaaS</h2>
-        <p>Vue propriétaire · Analyses produit · Funnel local</p>
-      </div>
-
-      <div class="dash-grid">
-        <div class="dash-kpi">
-          <div class="dash-label">Utilisateurs identifiés</div>
-          <div class="dash-value c-cyan" id="dash-users">0</div>
-          <div class="dash-trend" id="dash-user-note">Email non capturé sur cet appareil.</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-label">Analyses complétées</div>
-          <div class="dash-value c-violet" id="dash-analyses">0</div>
-          <div class="dash-trend">Scanner, vocal et match cumulés.</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-label">Paywall affiché</div>
-          <div class="dash-value c-orange" id="dash-paywalls">0</div>
-          <div class="dash-trend">Signal d’intention premium.</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-label">Conversion locale</div>
-          <div class="dash-value c-green" id="dash-conversion">0%</div>
-          <div class="dash-trend">Progression email vers analyse.</div>
-        </div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title">Modules utilisés <span class="dash-pill" id="dash-total-events">0 events</span></div>
-        <div class="dash-bars" id="dash-module-bars"></div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title">Funnel SaaS <span class="dash-pill">Session locale</span></div>
-        <div class="dash-funnel">
-          <div class="dash-step"><strong id="funnel-visit">1</strong><span>Visite app</span></div>
-          <div class="dash-step"><strong id="funnel-email">0</strong><span>Email lié</span></div>
-          <div class="dash-step"><strong id="funnel-analysis">0</strong><span>Analyse faite</span></div>
-          <div class="dash-step"><strong id="funnel-paywall">0</strong><span>Paywall</span></div>
-        </div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title">Activité récente <span class="dash-pill" id="dash-last-sync">Live</span></div>
-        <div class="dash-list" id="dash-events-list"></div>
-      </div>
-
-      <div class="dash-panel">
-        <div class="dash-panel-title">Données à connecter <span class="dash-pill">Prochaine étape</span></div>
-        <div class="txt-sm">Cette V1 lit les analyses enregistrées dans ce navigateur. Pour voir toutes les analyses de tous les utilisateurs du SaaS, il faudra connecter le dashboard à une base de données serveur et aux webhooks Stripe.</div>
-      </div>
-
-      <div class="dash-actions">
-        <button id="dash-refresh-btn" class="btn btn-cyan">Actualiser les données</button>
-        <button id="dash-export-btn" class="btn btn-ghost">Exporter JSON</button>
-      </div>
-    </div>
-  </div>
-
 </div><!-- /app -->
 
 <!-- ═══════════════════════════════════════════
@@ -1619,7 +1521,6 @@ function switchTab(name) {
   const btn = document.querySelector('[data-tab="' + name + '"]');
   if (tab) tab.classList.add('active');
   if (btn) btn.classList.add('active');
-  if (name === 'dashboard') renderSaasDashboard();
 }
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
@@ -2325,9 +2226,6 @@ if (!sessionStorage.getItem('mogged_dashboard_page_view')) {
   trackAnalyticsEvent('page_view', 'app', { label: 'Ouverture application' });
 }
 
-document.getElementById('dash-refresh-btn')?.addEventListener('click', renderSaasDashboard);
-document.getElementById('dash-export-btn')?.addEventListener('click', exportDashboardData);
-renderSaasDashboard();
 
 /* ================================================================
    INIT — restore state if scan already done
