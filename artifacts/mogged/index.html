@@ -430,17 +430,308 @@
 
     /* ── MATCH ── */
     .mt-body { padding: 16px 18px; }
-    .up-zone { border:2px dashed rgba(0,229,255,0.28); border-radius:var(--r-sm); padding:24px 16px; cursor:pointer; transition:all var(--ease); text-align:center; background:rgba(0,229,255,0.03); height:100%; }
-    .up-zone:hover { border-color:var(--cyan); background:rgba(0,229,255,0.07); box-shadow:0 0 16px var(--cyan-dim); }
-    .up-zone.v { border-color:rgba(139,92,246,0.28); background:rgba(139,92,246,0.03); }
-    .up-zone.v:hover { border-color:var(--violet); background:rgba(139,92,246,0.07); box-shadow:0 0 16px var(--violet-dim); }
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .face-prev img { width:100%; height:180px; object-fit:cover; border-radius:var(--r-xs); border:1px solid var(--border-cyan); }
-    .match-num { font-family:var(--font-d); font-size:2.4rem; font-weight:900; letter-spacing:0.04em; line-height:1; }
-    .gauge-track { height:6px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
-    .gauge-fill { height:100%; background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink)); border-radius:100px; box-shadow:0 0 10px var(--cyan-glow); transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
     .spin-ring { width:40px;height:40px;border:3px solid rgba(255,255,255,0.07);border-top-color:var(--cyan);border-right-color:var(--violet);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px; }
     @keyframes spin{ to{transform:rotate(360deg)} }
+
+    /* Duel arena */
+    .duel-arena {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .avatar-slot { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+
+    .avatar-ring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid;
+      padding: 4px;
+      cursor: pointer;
+      transition: all var(--ease);
+      position: relative;
+      background: rgba(10,14,28,0.8);
+      flex-shrink: 0;
+    }
+
+    .avatar-ring.you {
+      border-color: var(--green);
+      box-shadow: 0 0 16px rgba(52,211,153,0.4), 0 0 32px rgba(52,211,153,0.15), inset 0 0 16px rgba(52,211,153,0.06);
+    }
+    .avatar-ring.you:hover { box-shadow: 0 0 24px rgba(52,211,153,0.6), 0 0 48px rgba(52,211,153,0.25); transform: scale(1.04); }
+
+    .avatar-ring.opp {
+      border-color: #e05;
+      box-shadow: 0 0 16px rgba(238,0,85,0.4), 0 0 32px rgba(238,0,85,0.15), inset 0 0 16px rgba(238,0,85,0.06);
+    }
+    .avatar-ring.opp:hover { box-shadow: 0 0 24px rgba(238,0,85,0.6), 0 0 48px rgba(238,0,85,0.25); transform: scale(1.04); }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .avatar-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 4px;
+    }
+
+    .avatar-placeholder-icon { font-size: 1.6rem; }
+    .avatar-placeholder-text { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); text-align: center; }
+
+    .avatar-label {
+      font-family: var(--font-d);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .avatar-caption {
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-align: center;
+      max-width: 110px;
+      line-height: 1.3;
+    }
+
+    .avatar-caption.ok { color: var(--green); }
+
+    /* VS separator with lightning */
+    .vs-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .vs-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(139,92,246,0.15));
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-d);
+      font-size: 0.7rem;
+      font-weight: 900;
+      color: var(--text2);
+      box-shadow: 0 0 12px rgba(139,92,246,0.2);
+    }
+
+    /* Lightning arcs (SVG-drawn decorative elements) */
+    .lightning-svg {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 130px;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    @keyframes arc-pulse {
+      0%, 100% { opacity: 0.5; stroke-width: 1.5; }
+      50%       { opacity: 1;   stroke-width: 2.5; }
+    }
+    .arc-path { animation: arc-pulse 1.8s ease-in-out infinite; }
+    .arc-path2 { animation: arc-pulse 1.8s ease-in-out infinite; animation-delay: 0.4s; }
+
+    /* Name inputs row */
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .cyber-name-input {
+      flex: 1;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-xs);
+      padding: 11px 12px;
+      outline: none;
+      transition: all var(--ease);
+      text-align: center;
+      min-width: 0;
+    }
+
+    .cyber-name-input::placeholder { color: var(--text3); font-weight: 400; font-size: 0.78rem; }
+
+    .cyber-name-input.you-input:focus {
+      border-color: var(--green);
+      background: rgba(52,211,153,0.06);
+      box-shadow: 0 0 0 3px rgba(52,211,153,0.1), 0 0 16px rgba(52,211,153,0.08);
+    }
+    .cyber-name-input.opp-input:focus {
+      border-color: #e05;
+      background: rgba(238,0,85,0.06);
+      box-shadow: 0 0 0 3px rgba(238,0,85,0.1), 0 0 16px rgba(238,0,85,0.08);
+    }
+
+    .vs-sep {
+      font-family: var(--font-d);
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: var(--text2);
+      flex-shrink: 0;
+    }
+
+    /* Email linked badge */
+    .email-linked {
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .email-linked span { color: var(--cyan); }
+
+    /* START DUEL button */
+    .duel-start-btn {
+      width: 100%;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(135deg, var(--violet) 0%, #5b21b6 50%, var(--cyan) 100%);
+      background-size: 200% 100%;
+      border: none;
+      border-radius: var(--r-sm);
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 24px rgba(139,92,246,0.5),
+        0 0 48px rgba(139,92,246,0.2),
+        0 0 80px rgba(0,229,255,0.1),
+        0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .duel-start-btn::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet), #e05);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.7;
+    }
+
+    .duel-start-btn:hover {
+      background-position: 100% 0;
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 36px rgba(139,92,246,0.7),
+        0 0 72px rgba(139,92,246,0.3),
+        0 0 120px rgba(0,229,255,0.15),
+        0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .duel-start-btn:active { transform: translateY(0); }
+    .duel-start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* Duel loading */
+    .duel-loading {
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .duel-loading-step {
+      font-family: var(--font-d);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+      min-height: 1.2em;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Verdict */
+    .verdict-card {
+      border-radius: var(--r-sm);
+      padding: 22px 20px;
+      text-align: center;
+      background: rgba(10,14,28,0.9);
+      border: 1px solid rgba(52,211,153,0.3);
+      box-shadow: 0 0 30px rgba(52,211,153,0.1), inset 0 1px 0 rgba(52,211,153,0.1);
+      margin-bottom: 12px;
+    }
+
+    .verdict-main {
+      font-family: var(--font-d);
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      filter: drop-shadow(0 0 12px rgba(52,211,153,0.5));
+    }
+
+    .verdict-scores {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text2);
+      font-weight: 600;
+    }
+
+    .score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .score-pill.winner { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+    .score-pill.loser  { background: rgba(238,0,85,0.1); color: #ff4477; border: 1px solid rgba(238,0,85,0.2); }
 
     /* ── HUB ── */
     .hub-body { padding: 16px 18px; }
@@ -892,68 +1183,146 @@
 
   <!-- ═══════ MATCH TAB ═══════ -->
   <div id="match-tab" class="tab-content">
-    <div class="card card-cyan">
-      <div class="sh">
-        <h2>Face Match Duel</h2>
-        <p>Duel esthétique · Comparaison faciale IA temps réel</p>
+    <div class="card card-violet">
+      <div class="sh" style="border-color:var(--border-violet);">
+        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Match</h2>
+        <p>Duel esthétique · Face-to-face AI comparison</p>
       </div>
       <div class="mt-body">
+
+        <!-- ── INITIAL STATE ── -->
         <div id="match-initial">
-          <div class="txt-sm mb14">Comparez deux visages et découvrez qui a le meilleur potentiel esthétique.</div>
-          <div class="grid2 mb10">
-            <div>
-              <div id="match-face1-zone" class="up-zone">
-                <div id="match-face1-empty">
-                  <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
-                  <div style="font-size:0.8rem;font-weight:700;color:var(--cyan);margin-bottom:3px;">Face 1 (You)</div>
-                  <div style="font-size:0.7rem;color:var(--text3);">Click to upload</div>
-                </div>
-                <div id="match-face1-preview" class="face-prev hidden">
-                  <img id="match-face1-img" src="" alt="Face 1" />
-                  <div style="font-size:0.76rem;font-weight:700;color:var(--cyan);margin-top:6px;text-align:center;">Face 1 ✓</div>
+
+          <!-- ARENA: two avatars + VS + lightning -->
+          <div class="duel-arena">
+
+            <!-- Lightning SVG arc (decorative, behind avatars) -->
+            <svg class="lightning-svg" viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Top arc -->
+              <path class="arc-path" d="M60 65 C60 20, 260 20, 260 65" stroke="url(#arcGrad)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <!-- Bottom arc -->
+              <path class="arc-path2" d="M60 65 C60 110, 260 110, 260 65" stroke="url(#arcGrad2)" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <!-- Spark dots -->
+              <circle cx="160" cy="18" r="2.5" fill="#8b5cf6" opacity="0.7">
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="160" cy="112" r="2" fill="#00e5ff" opacity="0.6">
+                <animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.6s" repeatCount="indefinite" begin="0.5s"/>
+              </circle>
+              <defs>
+                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.6"/>
+                  <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#ee0055" stop-opacity="0.6"/>
+                </linearGradient>
+                <linearGradient id="arcGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.3"/>
+                  <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#ee0055" stop-opacity="0.3"/>
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <!-- YOU avatar -->
+            <div class="avatar-slot">
+              <div class="avatar-label c-green">YOU</div>
+              <div class="avatar-ring you" id="match-avatar1" onclick="document.getElementById('match-file1').click()">
+                <div class="avatar-inner">
+                  <div class="avatar-placeholder" id="match-ph1">
+                    <div class="avatar-placeholder-icon">📸</div>
+                    <div class="avatar-placeholder-text">Tap to<br>add photo</div>
+                  </div>
+                  <img id="match-face1-img" src="" alt="You" style="display:none;" />
                 </div>
               </div>
+              <div class="avatar-caption" id="match-cap1">Click to upload</div>
               <input id="match-file1" type="file" accept="image/*" style="display:none;" />
             </div>
-            <div>
-              <div id="match-face2-zone" class="up-zone v">
-                <div id="match-face2-empty">
-                  <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
-                  <div style="font-size:0.8rem;font-weight:700;color:var(--violet);margin-bottom:3px;">Face 2 (Opponent)</div>
-                  <div style="font-size:0.7rem;color:var(--text3);">Click to upload</div>
-                </div>
-                <div id="match-face2-preview" class="face-prev hidden">
-                  <img id="match-face2-img" src="" alt="Face 2" />
-                  <div style="font-size:0.76rem;font-weight:700;color:var(--violet);margin-top:6px;text-align:center;">Face 2 ✓</div>
+
+            <!-- VS -->
+            <div class="vs-col">
+              <div class="vs-badge">VS</div>
+            </div>
+
+            <!-- OPPONENT avatar -->
+            <div class="avatar-slot">
+              <div class="avatar-label" style="color:#ff4477;">OPPONENT</div>
+              <div class="avatar-ring opp" id="match-avatar2" onclick="document.getElementById('match-file2').click()">
+                <div class="avatar-inner">
+                  <div class="avatar-placeholder" id="match-ph2">
+                    <div class="avatar-placeholder-icon">📸</div>
+                    <div class="avatar-placeholder-text">Tap to<br>add photo</div>
+                  </div>
+                  <img id="match-face2-img" src="" alt="Opponent" style="display:none;" />
                 </div>
               </div>
+              <div class="avatar-caption" id="match-cap2">Pre-loaded photo</div>
               <input id="match-file2" type="file" accept="image/*" style="display:none;" />
             </div>
+
+          </div><!-- /duel-arena -->
+
+          <!-- Name inputs -->
+          <div class="name-row">
+            <input id="name1-input" class="cyber-name-input you-input" type="text" placeholder="Your name" maxlength="20" />
+            <div class="vs-sep">vs.</div>
+            <input id="name2-input" class="cyber-name-input opp-input" type="text" placeholder="Opponent" maxlength="20" />
           </div>
-          <button id="start-duel-btn" class="btn hidden" style="background:linear-gradient(135deg,var(--cyan),var(--violet));color:#fff;box-shadow:0 0 20px var(--cyan-glow);">⚔ Start Aesthetic Duel</button>
-          <div id="match-comparing" class="card hidden" style="padding:36px 18px;text-align:center;">
-            <div class="spin-ring"></div>
-            <div style="font-family:var(--font-d);font-size:0.76rem;letter-spacing:0.12em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);">Comparing facial features…</div>
+          <div class="txt-sm2" style="text-align:center;margin-bottom:14px;">Enter Match Names</div>
+
+          <!-- Email linked indicator -->
+          <div class="email-linked" id="email-linked-badge" style="display:none;">
+            📧 Email Linked: <span id="email-linked-val"></span> <span style="color:var(--text3);">(Verification pending)</span>
           </div>
-        </div>
+
+          <!-- Loading animation -->
+          <div id="match-comparing" class="card hidden" style="margin-bottom:14px;">
+            <div class="duel-loading">
+              <div class="spin-ring"></div>
+              <div class="duel-loading-step" id="duel-step-text">Initializing AI analysis…</div>
+            </div>
+          </div>
+
+          <!-- START button -->
+          <button id="start-duel-btn" class="duel-start-btn" disabled>
+            ⚡ START AESTHETIC DUEL
+          </button>
+          <div class="txt-sm2" style="text-align:center;margin-top:8px;color:var(--text3);" id="duel-hint">Upload both photos to start the duel</div>
+
+        </div><!-- /match-initial -->
+
+        <!-- ── VERDICT ── -->
         <div id="match-results" class="hidden">
-          <div class="grid2 mb10">
-            <div class="card" style="padding:18px;text-align:center;">
-              <div class="txt-sm2" style="margin-bottom:6px;">Your Score</div>
-              <div class="match-num c-cyan">86%</div>
+          <!-- Replay the arena with uploaded photos -->
+          <div class="duel-arena" style="margin-bottom:14px;">
+            <div class="avatar-slot">
+              <div class="avatar-label c-green">YOU</div>
+              <div class="avatar-ring you">
+                <div class="avatar-inner"><img id="verdict-face1" src="" alt="You" /></div>
+              </div>
             </div>
-            <div class="card" style="padding:18px;text-align:center;">
-              <div class="txt-sm2" style="margin-bottom:6px;">Opponent Score</div>
-              <div class="match-num c-violet">79%</div>
+            <div class="vs-col"><div class="vs-badge">VS</div></div>
+            <div class="avatar-slot">
+              <div class="avatar-label" style="color:#ff4477;">OPPONENT</div>
+              <div class="avatar-ring opp">
+                <div class="avatar-inner"><img id="verdict-face2" src="" alt="Opponent" /></div>
+              </div>
             </div>
           </div>
-          <div class="card" style="padding:22px;margin-bottom:10px;">
-            <div style="font-family:var(--font-d);font-size:1.1rem;font-weight:900;letter-spacing:0.06em;text-align:center;margin-bottom:6px;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">👑 YOU MOGGED HIM</div>
-            <div style="text-align:center;font-size:0.8rem;color:var(--cyan);margin-bottom:16px;">+7% Aesthetic Dominance</div>
-            <div class="gauge-track"><div class="gauge-fill" style="width:52%"></div></div>
+
+          <!-- Verdict card -->
+          <div class="verdict-card">
+            <div class="verdict-main" id="verdict-text">BEN B. MOGGED CHAD (+8%)</div>
+            <div class="verdict-scores">
+              <div class="score-pill winner" id="verdict-score1">⚡ 84%</div>
+              <div style="color:var(--text3);font-size:0.72rem;">vs</div>
+              <div class="score-pill loser" id="verdict-score2">💀 76%</div>
+            </div>
           </div>
-          <button id="new-duel-btn" class="btn btn-ghost">↻ Start New Duel</button>
-        </div>
+
+          <button id="new-duel-btn" class="btn btn-ghost">↻ New Duel</button>
+        </div><!-- /match-results -->
+
       </div>
     </div>
   </div>
@@ -1508,28 +1877,51 @@ document.getElementById('vocal-again-btn').addEventListener('click', () => {
 });
 
 /* ================================================================
-   MATCH (also behind email gate)
+   MATCH — Full Duel Logic
 ================================================================ */
-function updateDuelBtn() {
+function updateDuelState() {
   const btn = document.getElementById('start-duel-btn');
-  if (matchFace1 && matchFace2) btn.classList.remove('hidden');
-  else btn.classList.add('hidden');
+  const hint = document.getElementById('duel-hint');
+  const both = matchFace1 && matchFace2;
+  btn.disabled = !both;
+  if (both) {
+    hint.textContent = 'Ready — click to start the duel!';
+    hint.style.color = 'var(--cyan)';
+  } else {
+    hint.textContent = 'Upload both photos to start the duel';
+    hint.style.color = 'var(--text3)';
+  }
 }
 
-document.getElementById('match-face1-zone').addEventListener('click', () => document.getElementById('match-file1').click());
-document.getElementById('match-face2-zone').addEventListener('click', () => document.getElementById('match-file2').click());
+// Show linked email badge if already captured
+function refreshEmailBadge() {
+  const email = localStorage.getItem('mogged_email');
+  const badge = document.getElementById('email-linked-badge');
+  const val = document.getElementById('email-linked-val');
+  if (email && badge && val) {
+    val.textContent = email;
+    badge.style.display = 'block';
+  }
+}
+refreshEmailBadge();
 
+// File upload helpers
 document.getElementById('match-file1').addEventListener('change', e => {
   const f = e.target.files?.[0]; if (!f) return;
   const r = new FileReader();
   r.onload = ev => {
     matchFace1 = ev.target.result;
-    document.getElementById('match-face1-img').src = matchFace1;
-    document.getElementById('match-face1-empty').classList.add('hidden');
-    document.getElementById('match-face1-preview').classList.remove('hidden');
-    updateDuelBtn();
+    const img = document.getElementById('match-face1-img');
+    img.src = matchFace1;
+    img.style.display = 'block';
+    document.getElementById('match-ph1').style.display = 'none';
+    const cap = document.getElementById('match-cap1');
+    cap.textContent = 'Photo added ✓';
+    cap.classList.add('ok');
+    updateDuelState();
   };
   r.readAsDataURL(f);
+  e.target.value = '';
 });
 
 document.getElementById('match-file2').addEventListener('change', e => {
@@ -1537,35 +1929,147 @@ document.getElementById('match-file2').addEventListener('change', e => {
   const r = new FileReader();
   r.onload = ev => {
     matchFace2 = ev.target.result;
-    document.getElementById('match-face2-img').src = matchFace2;
-    document.getElementById('match-face2-empty').classList.add('hidden');
-    document.getElementById('match-face2-preview').classList.remove('hidden');
-    updateDuelBtn();
+    const img = document.getElementById('match-face2-img');
+    img.src = matchFace2;
+    img.style.display = 'block';
+    document.getElementById('match-ph2').style.display = 'none';
+    const cap = document.getElementById('match-cap2');
+    cap.textContent = 'Photo added ✓';
+    cap.classList.add('ok');
+    updateDuelState();
   };
   r.readAsDataURL(f);
+  e.target.value = '';
 });
 
+// START DUEL button
 document.getElementById('start-duel-btn').addEventListener('click', () => gateCheck('duel'));
 
 function startDuel() {
   if (localStorage.getItem('mogged_scans_done') === 'true') { showPaywall(); return; }
-  document.getElementById('start-duel-btn').classList.add('hidden');
-  document.getElementById('match-comparing').classList.remove('hidden');
+
+  // Hide button, show loading
+  document.getElementById('start-duel-btn').disabled = true;
+  document.getElementById('duel-hint').style.display = 'none';
+  const loading = document.getElementById('match-comparing');
+  loading.classList.remove('hidden');
+
+  const steps = [
+    { t: 0,    text: 'Initializing AI neural network…' },
+    { t: 550,  text: 'Analyzing jawline gap…' },
+    { t: 1100, text: 'Comparing facial symmetry…' },
+    { t: 1650, text: 'Calculating aesthetic dominance…' },
+    { t: 2200, text: 'Generating verdict…' },
+  ];
+
+  const stepEl = document.getElementById('duel-step-text');
+  steps.forEach(s => {
+    setTimeout(() => { stepEl.textContent = s.text; }, s.t);
+  });
+
   setTimeout(() => {
+    loading.classList.add('hidden');
     localStorage.setItem('mogged_scans_done', 'true');
-    document.getElementById('match-initial').classList.add('hidden');
-    document.getElementById('match-results').classList.remove('hidden');
-    document.getElementById('match-comparing').classList.add('hidden');
-  }, 2000);
+    showDuelVerdict();
+  }, 2800);
+}
+
+function showDuelVerdict() {
+  // Compute scores (deterministic but fun — based on name lengths + random seed)
+  const n1 = (document.getElementById('name1-input').value.trim() || 'You').toUpperCase();
+  const n2 = (document.getElementById('name2-input').value.trim() || 'Opponent').toUpperCase();
+
+  // Generate scores 75–95 range
+  const seed = (n1.length * 7 + n2.length * 13) % 20;
+  const score1 = 80 + seed % 8 + Math.floor(Math.random() * 7);
+  const score2 = 70 + seed % 6 + Math.floor(Math.random() * 9);
+  const winner = score1 >= score2 ? n1 : n2;
+  const loser  = score1 >= score2 ? n2 : n1;
+  const diff = Math.abs(score1 - score2);
+  const wScore = score1 >= score2 ? score1 : score2;
+  const lScore = score1 >= score2 ? score2 : score1;
+
+  // Short abbreviation (first letter + last name part)
+  const abbrev = (name) => name.length <= 5 ? name : name.slice(0, 1) + '. ' + name.slice(-Math.min(4, name.length - 1));
+
+  // Populate verdict faces
+  const vf1 = document.getElementById('verdict-face1');
+  const vf2 = document.getElementById('verdict-face2');
+  if (matchFace1) vf1.src = matchFace1;
+  if (matchFace2) vf2.src = matchFace2;
+
+  // Verdict text
+  document.getElementById('verdict-text').textContent = `${abbrev(winner)} MOGGED ${abbrev(loser)} (+${diff}%)`;
+
+  // Score pills — winner is always score1 side's label
+  const pill1 = document.getElementById('verdict-score1');
+  const pill2 = document.getElementById('verdict-score2');
+  if (score1 >= score2) {
+    pill1.innerHTML = `⚡ ${score1}%`;
+    pill1.className = 'score-pill winner';
+    pill2.innerHTML = `💀 ${score2}%`;
+    pill2.className = 'score-pill loser';
+  } else {
+    pill1.innerHTML = `💀 ${score1}%`;
+    pill1.className = 'score-pill loser';
+    pill2.innerHTML = `⚡ ${score2}%`;
+    pill2.className = 'score-pill winner';
+  }
+
+  // Flip winner verdict card color if opponent won
+  const vc = document.querySelector('.verdict-card');
+  if (score1 < score2) {
+    vc.style.borderColor = 'rgba(238,0,85,0.3)';
+    vc.style.boxShadow = '0 0 30px rgba(238,0,85,0.1), inset 0 1px 0 rgba(238,0,85,0.1)';
+    document.getElementById('verdict-text').style.background = 'linear-gradient(90deg, #ff4477, #ff8c00)';
+    document.getElementById('verdict-text').style.webkitBackgroundClip = 'text';
+    document.getElementById('verdict-text').style.webkitTextFillColor = 'transparent';
+    document.getElementById('verdict-text').style.backgroundClip = 'text';
+  }
+
+  document.getElementById('match-initial').classList.add('hidden');
+  document.getElementById('match-results').classList.remove('hidden');
 }
 
 document.getElementById('new-duel-btn').addEventListener('click', () => {
   matchFace1 = matchFace2 = null;
-  ['match-face1-empty','match-face2-empty'].forEach(id => document.getElementById(id).classList.remove('hidden'));
-  ['match-face1-preview','match-face2-preview'].forEach(id => document.getElementById(id).classList.add('hidden'));
-  document.getElementById('match-initial').classList.remove('hidden');
+
+  // Reset avatars
+  ['match-face1-img', 'match-face2-img'].forEach(id => {
+    const img = document.getElementById(id);
+    img.src = ''; img.style.display = 'none';
+  });
+  document.getElementById('match-ph1').style.display = '';
+  document.getElementById('match-ph2').style.display = '';
+
+  const cap1 = document.getElementById('match-cap1');
+  const cap2 = document.getElementById('match-cap2');
+  cap1.textContent = 'Click to upload'; cap1.classList.remove('ok');
+  cap2.textContent = 'Pre-loaded photo'; cap2.classList.remove('ok');
+
+  // Reset names
+  document.getElementById('name1-input').value = '';
+  document.getElementById('name2-input').value = '';
+
+  // Reset verdict card color
+  const vc = document.querySelector('.verdict-card');
+  vc.style.borderColor = '';
+  vc.style.boxShadow = '';
+  const vt = document.getElementById('verdict-text');
+  vt.style.background = '';
+  vt.style.webkitBackgroundClip = '';
+  vt.style.webkitTextFillColor = '';
+  vt.style.backgroundClip = '';
+
+  // Reset button/hint
+  document.getElementById('start-duel-btn').disabled = true;
+  document.getElementById('duel-hint').style.display = '';
+  document.getElementById('duel-hint').textContent = 'Upload both photos to start the duel';
+  document.getElementById('duel-hint').style.color = 'var(--text3)';
+
   document.getElementById('match-results').classList.add('hidden');
-  updateDuelBtn();
+  document.getElementById('match-initial').classList.remove('hidden');
+  refreshEmailBadge();
 });
 
 /* ================================================================
