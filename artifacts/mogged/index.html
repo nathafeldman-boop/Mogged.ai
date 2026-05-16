@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <title>MOGGED.AI — Premium Aesthetic Intelligence Platform</title>
   <meta name="description" content="MOGGED.AI — Premium Aesthetic Intelligence Platform. AI-powered facial analysis, looksmaxing tools and elite guides." />
-  <meta property="og:title" content="MOGGED.AI" />
-  <meta property="og:description" content="Premium Aesthetic Intelligence Platform" />
-  <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,1781 +14,1428 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg-deep: #06070d;
-      --bg-card: rgba(13, 15, 24, 0.72);
-      --bg-card-hover: rgba(13, 15, 24, 0.88);
-      --cyan: #00f3ff;
-      --cyan-dim: rgba(0, 243, 255, 0.15);
-      --cyan-glow: rgba(0, 243, 255, 0.35);
-      --violet: #a15eff;
-      --violet-dim: rgba(161, 94, 255, 0.15);
-      --violet-glow: rgba(161, 94, 255, 0.35);
-      --pink: #ff3ca0;
-      --green: #00ff88;
-      --orange: #ff8c00;
-      --text-primary: #e8eaf0;
-      --text-secondary: #8892a4;
-      --text-muted: #4a5568;
-      --border: rgba(255,255,255,0.06);
-      --border-cyan: rgba(0, 243, 255, 0.25);
-      --border-violet: rgba(161, 94, 255, 0.25);
-      --blur: blur(20px);
-      --blur-lg: blur(32px);
-      --radius: 16px;
-      --radius-sm: 10px;
-      --font-display: 'Orbitron', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #080c18;
+      --bg-card: rgba(10, 14, 28, 0.82);
+      --bg-card2: rgba(14, 18, 35, 0.9);
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0, 229, 255, 0.14);
+      --cyan-glow: rgba(0, 229, 255, 0.4);
+      --violet: #8b5cf6;
+      --violet-dim: rgba(139, 92, 246, 0.14);
+      --violet-glow: rgba(139, 92, 246, 0.35);
+      --pink: #f472b6;
+      --green: #34d399;
+      --orange: #fb923c;
+      --text: #dde4f0;
+      --text2: #7a8aa0;
+      --text3: #3d4d60;
+      --border: rgba(255,255,255,0.07);
+      --border-cyan: rgba(0,229,255,0.22);
+      --border-violet: rgba(139,92,246,0.22);
+      --blur: blur(24px);
+      --r: 14px;
+      --r-sm: 10px;
+      --r-xs: 8px;
+      --font-d: 'Orbitron', sans-serif;
+      --font: 'Inter', sans-serif;
+      --ease: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html, body { width: 100%; min-height: 100vh; }
 
     body {
-      font-family: var(--font-body);
-      background-color: var(--bg-deep);
-      color: var(--text-primary);
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* ─── BACKGROUND NEON HALOS ─── */
+    /* ── BG ATMOSPHERE ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 243, 255, 0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 35% at 85% 75%, rgba(161, 94, 255, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(255, 60, 160, 0.03) 0%, transparent 70%);
+        radial-gradient(ellipse 70% 50% at 10% 15%, rgba(0, 160, 220, 0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 90% 80%, rgba(120, 60, 240, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 55% 40%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Animated subtle grid */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,243,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,243,255,0.02) 1px, transparent 1px);
-      background-size: 48px 48px;
+        linear-gradient(rgba(0,229,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.018) 1px, transparent 1px);
+      background-size: 44px 44px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ─── LAYOUT ─── */
-    .app-wrapper {
+    /* ── LAYOUT ── */
+    .app {
       position: relative;
       z-index: 1;
-      max-width: 1080px;
+      max-width: 520px;
       margin: 0 auto;
-      padding: 0 20px 60px;
+      padding: 0 16px 64px;
     }
 
-    /* ─── HEADER ─── */
-    .header {
-      padding: 36px 0 32px;
+    /* ── HEADER ── */
+    .hdr {
+      padding: 28px 0 20px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
     }
-
-    .header-brand {}
 
     .logo {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-family: var(--font-d);
+      font-size: 1.5rem;
       font-weight: 900;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, var(--cyan) 0%, var(--violet) 60%, var(--pink) 100%);
+      letter-spacing: 0.07em;
+      background: linear-gradient(100deg, var(--cyan) 0%, var(--violet) 55%, var(--pink) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 20px rgba(0,243,255,0.4));
-      line-height: 1;
-      margin-bottom: 6px;
+      filter: drop-shadow(0 0 14px rgba(0,229,255,0.35));
     }
 
     .logo-sub {
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-secondary);
-      font-weight: 500;
+      color: var(--text2);
+      margin-top: 2px;
     }
 
-    .header-badge {
+    .status-dot {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      backdrop-filter: var(--blur);
-      border: 1px solid var(--border-cyan);
-      border-radius: 100px;
-      padding: 8px 16px;
-      font-size: 0.72rem;
+      gap: 7px;
+      font-size: 0.68rem;
+      font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--cyan);
-      white-space: nowrap;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid var(--border-cyan);
+      border-radius: 100px;
+      padding: 5px 12px;
     }
 
-    .header-badge::before {
+    .status-dot::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
-      animation: pulse-dot 2s ease-in-out infinite;
+      box-shadow: 0 0 6px var(--cyan);
+      animation: blink 2s ease-in-out infinite;
     }
 
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.7); }
-    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    /* ─── TABS NAV ─── */
-    .tabs-nav {
+    /* ── TABS NAV ── */
+    .nav {
       display: flex;
-      gap: 4px;
-      margin-bottom: 28px;
-      background: rgba(13, 15, 24, 0.6);
+      gap: 3px;
+      margin-bottom: 20px;
+      background: rgba(10,14,28,0.7);
       backdrop-filter: var(--blur);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 6px;
+      border-radius: var(--r-sm);
+      padding: 4px;
       overflow-x: auto;
       scrollbar-width: none;
     }
-
-    .tabs-nav::-webkit-scrollbar { display: none; }
+    .nav::-webkit-scrollbar { display: none; }
 
     .tab-btn {
       flex: 1;
-      min-width: 80px;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
+      min-width: 64px;
+      font-family: var(--font);
+      font-size: 0.76rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--text3);
       background: transparent;
       border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
+      border-radius: 7px;
+      padding: 8px 8px;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: all var(--ease);
       white-space: nowrap;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    .tab-btn:hover { color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+    .tab-btn:hover { color: var(--text2); background: rgba(255,255,255,0.04); }
 
     .tab-btn.active {
-      color: var(--bg-deep);
-      background: linear-gradient(135deg, var(--cyan), var(--violet));
-      box-shadow: 0 0 20px var(--cyan-glow), 0 0 40px rgba(161,94,255,0.2);
+      color: #000;
+      background: linear-gradient(135deg, var(--cyan), #00a8cc);
+      box-shadow: 0 0 16px var(--cyan-glow);
     }
 
-    /* ─── GLASS CARD ─── */
-    .glass-card {
+    /* ── GLASS CARD ── */
+    .card {
       background: var(--bg-card);
       backdrop-filter: var(--blur);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      transition: border-color var(--transition), box-shadow var(--transition);
+      border-radius: var(--r);
+      overflow: hidden;
     }
 
-    .glass-card:hover { border-color: rgba(255,255,255,0.1); }
+    .card-cyan { border-color: var(--border-cyan); box-shadow: 0 0 24px rgba(0,229,255,0.05); }
+    .card-violet { border-color: var(--border-violet); box-shadow: 0 0 24px rgba(139,92,246,0.05); }
 
-    .glass-card-cyan {
-      border-color: var(--border-cyan);
-      box-shadow: 0 0 30px rgba(0,243,255,0.06), inset 0 1px 0 rgba(0,243,255,0.08);
-    }
+    /* ── TAB CONTENT ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeUp 0.28s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-    .glass-card-violet {
-      border-color: var(--border-violet);
-      box-shadow: 0 0 30px rgba(161,94,255,0.06), inset 0 1px 0 rgba(161,94,255,0.08);
-    }
-
-    /* ─── SECTION HEADER ─── */
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
+    /* ── SECTION HEADER ── */
+    .sh { padding: 20px 18px 16px; border-bottom: 1px solid var(--border); }
+    .sh h2 {
+      font-family: var(--font-d);
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       color: var(--cyan);
-      text-shadow: 0 0 20px var(--cyan-glow);
-      margin-bottom: 6px;
+      text-shadow: 0 0 12px var(--cyan-glow);
+      margin-bottom: 3px;
     }
+    .sh p { font-size: 0.76rem; color: var(--text2); }
 
-    .section-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ─── TAB CONTENT ─── */
-    .tab-content { display: none; animation: fadeIn 0.3s ease; }
-    .tab-content.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ─── BUTTONS ─── */
+    /* ── BUTTONS ── */
     .btn {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
+      gap: 9px;
+      font-family: var(--font);
+      font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
       border: none;
-      border-radius: var(--radius-sm);
-      padding: 14px 24px;
+      border-radius: var(--r-sm);
+      padding: 13px 20px;
       cursor: pointer;
-      transition: all var(--transition);
+      transition: all var(--ease);
+      width: 100%;
       position: relative;
       overflow: hidden;
-      width: 100%;
+      text-transform: uppercase;
     }
 
-    .btn::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .btn:hover::after { opacity: 1; }
-    .btn:hover { transform: translateY(-2px); }
-    .btn:active { transform: translateY(0); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: none; }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
     .btn-cyan {
-      background: linear-gradient(135deg, var(--cyan) 0%, #00b8d9 100%);
-      color: #06070d;
-      box-shadow: 0 0 24px var(--cyan-glow), 0 4px 16px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, var(--cyan), #00c0dd);
+      color: #030810;
+      box-shadow: 0 0 20px var(--cyan-glow), 0 4px 14px rgba(0,0,0,0.3);
     }
-
-    .btn-cyan:hover:not(:disabled) {
-      box-shadow: 0 0 40px var(--cyan-glow), 0 0 80px rgba(0,243,255,0.15), 0 8px 24px rgba(0,0,0,0.4);
-    }
+    .btn-cyan:hover:not(:disabled) { box-shadow: 0 0 32px var(--cyan-glow), 0 0 60px rgba(0,229,255,0.15), 0 6px 20px rgba(0,0,0,0.3); }
 
     .btn-violet {
-      background: linear-gradient(135deg, var(--violet) 0%, #7c3aed 100%);
+      background: linear-gradient(135deg, var(--violet), #6d28d9);
       color: #fff;
-      box-shadow: 0 0 24px var(--violet-glow), 0 4px 16px rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px var(--violet-glow), 0 4px 14px rgba(0,0,0,0.3);
     }
-
-    .btn-violet:hover:not(:disabled) {
-      box-shadow: 0 0 40px var(--violet-glow), 0 0 80px rgba(161,94,255,0.15), 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    .btn-gradient {
-      background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 100%);
-      color: #fff;
-      box-shadow: 0 0 24px var(--cyan-glow), 0 4px 16px rgba(0,0,0,0.4);
-    }
+    .btn-violet:hover:not(:disabled) { box-shadow: 0 0 32px var(--violet-glow), 0 6px 20px rgba(0,0,0,0.3); }
 
     .btn-ghost {
       background: rgba(255,255,255,0.05);
-      color: var(--text-secondary);
+      color: var(--text2);
       border: 1px solid rgba(255,255,255,0.08);
     }
+    .btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); }
 
-    .btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text-primary); }
+    /* ── SCANNER TAB ── */
+    .scan-body { padding: 16px 18px; }
 
-    /* ─── GRID ─── */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
-
-    /* ─── SCANNER TAB ─── */
-    .scanner-wrapper { padding: 28px; }
-
-    .scanner-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .scan-btn-group { display: flex; flex-direction: column; gap: 12px; }
-
-    /* Scanner image area */
-    .scan-image-area {
+    /* Image frame */
+    .scan-frame {
       position: relative;
-      border-radius: var(--radius-sm);
+      border-radius: var(--r-sm);
       overflow: hidden;
-      background: rgba(0,0,0,0.4);
-      min-height: 260px;
+      background: rgba(0,0,0,0.5);
+      min-height: 220px;
+      border: 1px solid var(--border-cyan);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
-      border: 1px solid var(--border-cyan);
+      margin-bottom: 14px;
     }
 
-    .scan-image-area img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: var(--radius-sm);
+    .scan-frame img { width: 100%; height: auto; display: block; }
+
+    .scan-upload-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      text-align: center;
     }
+
+    .scan-icon {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 10px var(--cyan));
+    }
+
+    .scan-hint {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--text2);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    /* Laser animation */
+    .laser {
+      position: absolute;
+      left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.5) 15%, var(--cyan) 50%, rgba(0,229,255,0.5) 85%, transparent 100%);
+      box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan-glow);
+      animation: laser 4s ease-in-out infinite;
+      z-index: 20;
+    }
+    @keyframes laser {
+      0%   { top:0%; opacity:1; }
+      46%  { top:100%; opacity:0.7; }
+      48%  { top:100%; opacity:0; }
+      50%  { top:0%; opacity:0; }
+      52%  { top:0%; opacity:1; }
+      100% { top:0%; opacity:1; }
+    }
+
+    /* Corner brackets */
+    .c { position:absolute; width:22px; height:22px; z-index:15; }
+    .ctL { top:8px; left:8px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+    .ctR { top:8px; right:8px; border-top:2px solid var(--cyan); border-right:2px solid var(--cyan); }
+    .cbL { bottom:8px; left:8px; border-bottom:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+    .cbR { bottom:8px; right:8px; border-bottom:2px solid var(--cyan); border-right:2px solid var(--cyan); }
 
     .scan-overlay {
       position: absolute;
       inset: 0;
+      background: rgba(5,8,18,0.52);
+      backdrop-filter: blur(1px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background: rgba(6,7,13,0.55);
-      backdrop-filter: blur(2px);
+      justify-content: flex-end;
+      padding-bottom: 28px;
       z-index: 10;
     }
 
-    /* Laser line */
-    .laser-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--cyan) 20%, rgba(0,243,255,0.8) 50%, var(--cyan) 80%, transparent 100%);
-      box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan-glow);
-      animation: laser-sweep 4s ease-in-out infinite;
-      z-index: 20;
-    }
-
-    @keyframes laser-sweep {
-      0%   { top: 0%; opacity: 0.9; }
-      48%  { top: 100%; opacity: 0.6; }
-      50%  { top: 100%; opacity: 0; }
-      52%  { top: 0%; opacity: 0; }
-      54%  { top: 0%; opacity: 0.9; }
-      100% { top: 0%; opacity: 0.9; }
-    }
-
-    /* Corner brackets */
-    .scan-corner {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      z-index: 15;
-    }
-
-    .scan-corner-tl { top: 12px; left: 12px; border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan); }
-    .scan-corner-tr { top: 12px; right: 12px; border-top: 2px solid var(--cyan); border-right: 2px solid var(--cyan); }
-    .scan-corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--cyan); border-left: 2px solid var(--cyan); }
-    .scan-corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--cyan); border-right: 2px solid var(--cyan); }
-
-    .scan-step-text {
-      font-family: var(--font-display);
-      font-size: 0.78rem;
+    .scan-status {
+      font-family: var(--font-d);
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--cyan);
-      text-shadow: 0 0 12px var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
       text-align: center;
-      padding: 0 20px;
-      position: absolute;
-      bottom: 56px;
-      left: 0; right: 0;
-      z-index: 20;
-    }
-
-    /* Progress bar */
-    .progress-track {
-      width: 160px;
-      height: 3px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 100px;
-      overflow: hidden;
-      position: absolute;
-      bottom: 40px;
-      z-index: 20;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--violet));
-      border-radius: 100px;
-      transition: width 0.4s ease;
-      box-shadow: 0 0 8px var(--cyan);
-    }
-
-    /* Score cards */
-    .score-card { padding: 20px; }
-
-    .score-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 0 16px;
       margin-bottom: 10px;
     }
 
-    .score-label {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
+    .pbar-track { width: 140px; height: 3px; background: rgba(255,255,255,0.08); border-radius: 100px; overflow: hidden; }
+    .pbar-fill { height:100%; background:linear-gradient(90deg,var(--cyan),var(--violet)); border-radius:100px; transition:width 0.4s ease; box-shadow:0 0 6px var(--cyan); }
+
+    /* ── METRIC CARDS ── */
+    .metric-card {
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      margin-bottom: 10px;
+      transition: border-color var(--ease);
     }
 
-    .score-value {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
+    .metric-card:hover { border-color: rgba(0,229,255,0.15); }
+
+    .metric-body {
+      flex: 1;
+      padding: 14px 14px;
+      min-width: 0;
+    }
+
+    .metric-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .metric-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .metric-score {
+      font-family: var(--font-d);
+      font-size: 0.88rem;
       font-weight: 900;
       letter-spacing: 0.04em;
+      flex-shrink: 0;
+      margin-left: 8px;
     }
 
-    .score-text {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
+    .metric-desc {
+      font-size: 0.74rem;
+      color: var(--text2);
       line-height: 1.5;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .score-bar-track {
-      height: 4px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 100px;
+    .metric-bar-track { height: 3px; background: rgba(255,255,255,0.07); border-radius:100px; overflow:hidden; }
+    .metric-bar-fill { height:100%; border-radius:100px; transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
+
+    .bar-c { background:linear-gradient(90deg,var(--cyan),#00aacc); box-shadow:0 0 6px rgba(0,229,255,0.3); }
+    .bar-v { background:linear-gradient(90deg,var(--violet),#6d28d9); box-shadow:0 0 6px rgba(139,92,246,0.3); }
+    .bar-g { background:linear-gradient(90deg,var(--green),#10b981); box-shadow:0 0 6px rgba(52,211,153,0.3); }
+    .bar-o { background:linear-gradient(90deg,var(--orange),#ea580c); box-shadow:0 0 6px rgba(251,146,60,0.3); }
+
+    .metric-tag {
+      display: inline-block;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text2);
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 2px 7px;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    .metric-photo {
+      width: 90px;
+      flex-shrink: 0;
       overflow: hidden;
     }
 
-    .score-bar-fill {
-      height: 100%;
-      border-radius: 100px;
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Color variants */
-    .color-cyan { color: var(--cyan); }
-    .color-violet { color: var(--violet); }
-    .color-pink { color: var(--pink); }
-    .color-green { color: var(--green); }
-    .color-orange { color: var(--orange); }
-
-    .bar-cyan { background: linear-gradient(90deg, var(--cyan), #00b8d9); box-shadow: 0 0 8px var(--cyan-glow); }
-    .bar-violet { background: linear-gradient(90deg, var(--violet), #7c3aed); box-shadow: 0 0 8px var(--violet-glow); }
-    .bar-green { background: linear-gradient(90deg, var(--green), #00cc6a); box-shadow: 0 0 8px rgba(0,255,136,0.3); }
-    .bar-orange { background: linear-gradient(90deg, var(--orange), #ff6b00); box-shadow: 0 0 8px rgba(255,140,0,0.3); }
-    .bar-gradient { background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink)); }
-
-    /* ─── HAIRCUT TAB ─── */
-    .haircut-wrapper { padding: 28px; }
-
-    .haircut-img {
+    .metric-photo img {
       width: 100%;
-      max-width: 340px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-cyan);
-      box-shadow: 0 0 30px var(--cyan-dim);
+      height: 100%;
+      object-fit: cover;
       display: block;
-      margin: 0 auto 24px;
+      filter: brightness(0.85) contrast(1.05);
     }
 
-    /* ─── STRIPE SECTION ─── */
-    .stripe-section {
-      background: rgba(6, 7, 13, 0.85);
-      backdrop-filter: var(--blur-lg);
-      border: 1px solid rgba(0,243,255,0.12);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin: 24px 0;
+    /* color variants */
+    .c-cyan { color: var(--cyan); }
+    .c-violet { color: var(--violet); }
+    .c-green { color: var(--green); }
+    .c-orange { color: var(--orange); }
+    .c-pink { color: var(--pink); }
+
+    /* ── HAIRCUT TAB ── */
+    .hc-body { padding: 16px 18px; }
+
+    .hc-photo {
+      width: 100%;
+      max-width: 300px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border-cyan);
+      box-shadow: 0 0 24px rgba(0,229,255,0.12);
+      display: block;
+      margin: 0 auto 16px;
     }
 
-    .stripe-label {
+    .hc-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .hc-desc {
+      font-size: 0.78rem;
+      color: var(--text2);
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    /* ── STRIPE SECTION ── */
+    .stripe-box {
+      background: rgba(5,8,16,0.9);
+      backdrop-filter: var(--blur);
+      border: 1px solid rgba(0,229,255,0.1);
+      border-radius: var(--r-sm);
+      padding: 18px;
+      margin: 16px 0;
+    }
+
+    .stripe-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
+      gap: 6px;
     }
 
-    .stripe-label-icon {
-      font-size: 0.9rem;
-    }
-
-    .stripe-btn-wrap {
-      border-radius: var(--radius-sm);
+    .sbw {
+      border-radius: var(--r-xs);
       overflow: hidden;
-      transition: box-shadow var(--transition);
     }
 
-    .stripe-btn-wrap.elite {
-      box-shadow: 0 0 20px rgba(161,94,255,0.25), 0 0 40px rgba(161,94,255,0.1);
-    }
+    .sbw.elite { box-shadow: 0 0 18px rgba(139,92,246,0.2); }
+    .sbw.flash { box-shadow: 0 0 18px rgba(0,229,255,0.2); }
 
-    .stripe-btn-wrap.flash {
-      box-shadow: 0 0 20px rgba(0,243,255,0.25), 0 0 40px rgba(0,243,255,0.1);
-    }
+    .stripe-sep { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent); margin:16px 0; }
 
-    .stripe-btn-wrap:hover.elite {
-      box-shadow: 0 0 32px rgba(161,94,255,0.4), 0 0 60px rgba(161,94,255,0.15);
-    }
-
-    .stripe-btn-wrap:hover.flash {
-      box-shadow: 0 0 32px rgba(0,243,255,0.4), 0 0 60px rgba(0,243,255,0.15);
-    }
-
-    .stripe-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-      margin: 20px 0;
-    }
-
-    /* ─── VOCAL TAB ─── */
-    .vocal-wrapper { padding: 28px; }
+    /* ── VOCAL TAB ── */
+    .vc-body { padding: 16px 18px; }
 
     .waveform {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      height: 80px;
-      background: rgba(0,0,0,0.3);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-violet);
-      padding: 12px;
-      margin: 20px 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:3px;
+      height:72px;
+      background:rgba(0,0,0,0.3);
+      border-radius:var(--r-sm);
+      border:1px solid var(--border-violet);
+      padding:10px;
+      margin:14px 0;
     }
 
-    .wave-bar {
-      width: 4px;
+    .wb {
+      width: 3px;
       border-radius: 100px;
       background: linear-gradient(to top, var(--violet), var(--pink));
-      box-shadow: 0 0 6px rgba(161,94,255,0.4);
+      box-shadow: 0 0 4px rgba(139,92,246,0.4);
+      transform-origin: center bottom;
     }
 
-    @keyframes wave-anim {
-      0%, 100% { transform: scaleY(0.2); }
-      50%       { transform: scaleY(1); }
+    @keyframes wv { 0%,100%{transform:scaleY(0.15)} 50%{transform:scaleY(1)} }
+
+    .vc-stat {
+      padding: 16px 14px;
     }
 
-    .vocal-stat-card { padding: 20px; }
+    .vc-stat-num {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin: 6px 0 3px;
+    }
 
-    .vocal-stat-num {
-      font-family: var(--font-display);
+    .vc-stat-sub { font-size: 0.72rem; color: var(--text2); letter-spacing:0.06em; }
+
+    /* ── MATCH TAB ── */
+    .mt-body { padding: 16px 18px; }
+
+    .up-zone {
+      border: 2px dashed rgba(0,229,255,0.28);
+      border-radius: var(--r-sm);
+      padding: 24px 16px;
+      cursor: pointer;
+      transition: all var(--ease);
+      text-align: center;
+      background: rgba(0,229,255,0.03);
+      height: 100%;
+    }
+    .up-zone:hover { border-color:var(--cyan); background:rgba(0,229,255,0.07); box-shadow:0 0 16px var(--cyan-dim); }
+    .up-zone.v { border-color:rgba(139,92,246,0.28); background:rgba(139,92,246,0.03); }
+    .up-zone.v:hover { border-color:var(--violet); background:rgba(139,92,246,0.07); box-shadow:0 0 16px var(--violet-dim); }
+
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:420px){ .grid2{ grid-template-columns:1fr; } }
+
+    .face-prev img { width:100%; height:180px; object-fit:cover; border-radius:var(--r-xs); border:1px solid var(--border-cyan); }
+
+    .match-num {
+      font-family: var(--font-d);
       font-size: 2.4rem;
       font-weight: 900;
       letter-spacing: 0.04em;
       line-height: 1;
-      margin: 8px 0 4px;
     }
 
-    .vocal-stat-label {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.06em;
-    }
+    .gauge-track { height:6px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
+    .gauge-fill { height:100%; background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink)); border-radius:100px; box-shadow:0 0 10px var(--cyan-glow); transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
 
-    .tier-card {
-      padding: 24px;
-      text-align: center;
-    }
+    .spin-ring { width:40px;height:40px;border:3px solid rgba(255,255,255,0.07);border-top-color:var(--cyan);border-right-color:var(--violet);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px; }
+    @keyframes spin{ to{transform:rotate(360deg)} }
 
-    .tier-name {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, var(--cyan), var(--violet));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: none;
-    }
+    /* ── HUB TAB ── */
+    .hub-body { padding: 16px 18px; }
 
-    /* ─── MATCH TAB ─── */
-    .match-wrapper { padding: 28px; }
-
-    .upload-zone {
-      border: 2px dashed rgba(0,243,255,0.3);
-      border-radius: var(--radius);
-      padding: 32px 20px;
+    .guide-row {
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px;
+      margin-bottom: 10px;
       cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      background: rgba(0,243,255,0.03);
-    }
-
-    .upload-zone:hover {
-      border-color: var(--cyan);
-      background: rgba(0,243,255,0.07);
-      box-shadow: 0 0 20px var(--cyan-dim);
-    }
-
-    .upload-zone.violet-zone {
-      border-color: rgba(161,94,255,0.3);
-      background: rgba(161,94,255,0.03);
-    }
-
-    .upload-zone.violet-zone:hover {
-      border-color: var(--violet);
-      background: rgba(161,94,255,0.07);
-      box-shadow: 0 0 20px var(--violet-dim);
-    }
-
-    .upload-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .upload-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .upload-hint {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-    }
-
-    .face-preview img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-cyan);
-      box-shadow: 0 0 20px var(--cyan-dim);
-    }
-
-    .match-score-card { padding: 24px; text-align: center; }
-
-    .match-score-num {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      line-height: 1;
-    }
-
-    .gauge-track {
-      height: 8px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .gauge-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
-      border-radius: 100px;
-      box-shadow: 0 0 12px var(--cyan-glow);
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .comparing-card {
-      padding: 40px;
-      text-align: center;
-    }
-
-    .spin-ring {
-      width: 48px;
-      height: 48px;
-      border: 3px solid rgba(255,255,255,0.06);
-      border-top-color: var(--cyan);
-      border-right-color: var(--violet);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─── HUB TAB ─── */
-    .hub-wrapper { padding: 28px; }
-
-    .guide-card {
-      padding: 24px;
-      cursor: pointer;
-      transition: all var(--transition);
+      transition: all var(--ease);
       text-align: left;
       width: 100%;
     }
 
-    .guide-card:hover {
-      border-color: var(--border-cyan) !important;
-      box-shadow: 0 0 24px var(--cyan-dim), inset 0 1px 0 rgba(0,243,255,0.1);
-      transform: translateY(-2px);
-    }
+    .guide-row:hover { border-color:var(--border-cyan); box-shadow:0 0 16px var(--cyan-dim); transform:translateY(-1px); }
 
-    .guide-title {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--cyan);
-      margin-bottom: 8px;
-      text-shadow: 0 0 12px var(--cyan-glow);
-    }
-
-    .guide-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .guide-arrow {
-      font-size: 1rem;
-      color: var(--cyan);
-      opacity: 0;
-      transition: opacity var(--transition), transform var(--transition);
-      float: right;
-    }
-
-    .guide-card:hover .guide-arrow { opacity: 1; transform: translateX(4px); }
-
-    .guide-content-area {
-      padding: 28px;
-    }
-
-    .guide-content-area h2 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--cyan);
-      margin: 24px 0 10px;
-    }
-
-    .guide-content-area h3 {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--violet);
-      margin: 18px 0 8px;
-    }
-
-    .guide-content-area p {
-      font-size: 0.87rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-
-    .guide-content-area strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .guide-content-area ul, .guide-content-area ol {
-      padding-left: 20px;
-      margin-bottom: 12px;
-    }
-
-    .guide-content-area li {
-      font-size: 0.87rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 4px;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--cyan);
-      text-decoration: none;
-      cursor: pointer;
-      padding: 8px 0;
-      margin-bottom: 20px;
-      transition: color var(--transition);
-      background: none;
-      border: none;
-    }
-
-    .back-btn:hover { color: #fff; }
-
-    /* ─── PAYWALL MODAL ─── */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(6,7,13,0.88);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-      padding: 20px;
-    }
-
-    .modal-box {
-      background: rgba(13, 15, 24, 0.95);
-      backdrop-filter: var(--blur-lg);
-      border: 1px solid var(--border-cyan);
-      border-radius: var(--radius);
-      padding: 36px;
-      max-width: 480px;
-      width: 100%;
-      position: relative;
-      box-shadow:
-        0 0 60px rgba(0,243,255,0.15),
-        0 0 120px rgba(161,94,255,0.08),
-        0 32px 64px rgba(0,0,0,0.6);
-      animation: modal-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes modal-in {
-      from { opacity: 0; transform: scale(0.88) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.05);
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition);
-    }
-
-    .modal-close:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 12px var(--cyan-glow); }
-
-    .modal-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      background: linear-gradient(90deg, var(--cyan), var(--violet));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 8px;
-    }
-
-    .modal-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .feature-list { margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.87rem;
-      color: var(--text-primary);
-    }
-
-    .feature-check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(0,243,255,0.12);
+    .guide-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(139,92,246,0.1));
       border: 1px solid var(--border-cyan);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.65rem;
-      color: var(--cyan);
+      font-size: 1.1rem;
       flex-shrink: 0;
     }
 
-    /* ─── HIDDEN UTILITY ─── */
-    .hidden { display: none !important; }
+    .guide-info { flex: 1; min-width: 0; }
 
-    /* ─── SPACING ─── */
-    .mt-4 { margin-top: 16px; }
-    .mt-6 { margin-top: 24px; }
-    .mb-4 { margin-bottom: 16px; }
-    .mb-6 { margin-bottom: 24px; }
-    .gap-16 { gap: 16px; }
-
-    /* ─── INITIAL UPLOAD ZONE in scanner ─── */
-    .scanner-upload-zone {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px;
-      min-height: 220px;
-      text-align: center;
+    .guide-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
     }
 
-    .scanner-upload-icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
-      filter: drop-shadow(0 0 12px var(--cyan));
+    .guide-desc { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+
+    .guide-arrow { color: var(--cyan); opacity:0; transition: all var(--ease); font-size:0.9rem; flex-shrink:0; align-self:center; }
+    .guide-row:hover .guide-arrow { opacity:1; transform:translateX(3px); }
+
+    /* Guide detail */
+    .guide-detail-content { padding:18px; }
+    .guide-detail-content h2 { font-family:var(--font-d);font-size:0.88rem;font-weight:700;letter-spacing:0.06em;color:var(--cyan);text-shadow:0 0 10px var(--cyan-glow);margin:20px 0 8px; }
+    .guide-detail-content h2:first-child { margin-top:0; }
+    .guide-detail-content h3 { font-size:0.82rem;font-weight:700;color:var(--violet);margin:14px 0 6px; }
+    .guide-detail-content p { font-size:0.80rem;color:var(--text2);line-height:1.7;margin-bottom:10px; }
+    .guide-detail-content strong { color:var(--text);font-weight:600; }
+    .guide-detail-content ul, .guide-detail-content ol { padding-left:16px;margin-bottom:10px; }
+    .guide-detail-content li { font-size:0.78rem;color:var(--text2);line-height:1.7;margin-bottom:3px; }
+
+    .back-btn { display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;color:var(--cyan);cursor:pointer;padding:10px 18px 0;background:none;border:none;transition:color var(--ease); }
+    .back-btn:hover { color:#fff; }
+
+    /* ── PAYWALL ── */
+    .pw-backdrop {
+      position:fixed;inset:0;
+      background:rgba(5,8,18,0.9);
+      backdrop-filter:blur(14px);
+      display:flex;align-items:center;justify-content:center;
+      z-index:200;padding:20px;
     }
 
-    .scanner-upload-title {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
+    .pw-box {
+      background:rgba(10,14,28,0.97);
+      backdrop-filter:var(--blur);
+      border:1px solid var(--border-cyan);
+      border-radius:var(--r);
+      padding:28px 24px;
+      max-width:440px;
+      width:100%;
+      position:relative;
+      box-shadow:0 0 50px rgba(0,229,255,0.12),0 0 100px rgba(139,92,246,0.07),0 24px 48px rgba(0,0,0,0.6);
+      animation:pwIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
     }
 
-    /* ─── INFO CHIPS ─── */
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 100px;
-      border: 1px solid;
+    @keyframes pwIn { from{opacity:0;transform:scale(0.9) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    .pw-close {
+      position:absolute;top:14px;right:14px;
+      width:28px;height:28px;border-radius:50%;
+      border:1px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.05);
+      color:var(--text2);font-size:1rem;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:all var(--ease);
+    }
+    .pw-close:hover { border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px var(--cyan-glow); }
+
+    .pw-title {
+      font-family:var(--font-d);
+      font-size:1.2rem;font-weight:900;letter-spacing:0.06em;
+      background:linear-gradient(90deg,var(--cyan),var(--violet));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:7px;
     }
 
-    .chip-cyan { border-color: var(--border-cyan); color: var(--cyan); background: rgba(0,243,255,0.06); }
-    .chip-violet { border-color: var(--border-violet); color: var(--violet); background: rgba(161,94,255,0.06); }
+    .pw-desc { font-size:0.80rem;color:var(--text2);line-height:1.6;margin-bottom:20px; }
 
-    @media (max-width: 600px) {
-      .scanner-wrapper, .haircut-wrapper, .vocal-wrapper, .match-wrapper, .hub-wrapper, .guide-content-area { padding: 20px; }
-      .modal-box { padding: 24px; }
-      .match-score-num { font-size: 2.2rem; }
-    }
+    .feature-list { margin-bottom:22px; display:flex;flex-direction:column;gap:8px; }
+    .fi { display:flex;align-items:center;gap:10px;font-size:0.80rem;color:var(--text); }
+    .fi-check { width:18px;height:18px;border-radius:50%;background:rgba(0,229,255,0.1);border:1px solid var(--border-cyan);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--cyan);flex-shrink:0; }
+
+    /* ── UTILS ── */
+    .hidden { display:none !important; }
+    .p16 { padding:16px 18px; }
+    .mb10 { margin-bottom:10px; }
+    .mb14 { margin-bottom:14px; }
+    .mt10 { margin-top:10px; }
+    .txt-c { text-align:center; }
+    .txt-sm { font-size:0.78rem; color:var(--text2); line-height:1.6; }
+    .txt-sm2 { font-size:0.72rem; color:var(--text2); }
+
+    /* Pre-scan default state for haircut */
+    .pre-scan-state { padding:40px 18px; text-align:center; }
+    .pre-scan-state .big-icon { font-size:2.2rem; margin-bottom:12px; filter:drop-shadow(0 0 10px var(--violet)); }
   </style>
 </head>
 <body>
-  <div class="app-wrapper">
+<div class="app">
 
-    <!-- HEADER -->
-    <header class="header">
-      <div class="header-brand">
-        <div class="logo">MOGGED.AI</div>
-        <div class="logo-sub">Premium Aesthetic Intelligence Platform</div>
+  <!-- ─ HEADER ─ -->
+  <header class="hdr">
+    <div>
+      <div class="logo">MOGGED.AI</div>
+      <div class="logo-sub">Premium Aesthetic Intelligence Platform</div>
+    </div>
+    <div class="status-dot">Online</div>
+  </header>
+
+  <!-- ─ TABS ─ -->
+  <nav class="nav">
+    <button class="tab-btn active" data-tab="scanner">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      Scanner
+    </button>
+    <button class="tab-btn" data-tab="haircut">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 3a3 3 0 110 6 3 3 0 010-6z"/><path d="M6 9v12M6 14h12M18 9v12M18 3a3 3 0 110 6 3 3 0 010-6z"/></svg>
+      Haircut
+    </button>
+    <button class="tab-btn" data-tab="vocal">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+      Vocal
+    </button>
+    <button class="tab-btn" data-tab="match">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/><path d="M1 20.5s2-4 8-4 10 4 10 4"/></svg>
+      Match
+    </button>
+    <button class="tab-btn" data-tab="hub">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Guides
+    </button>
+  </nav>
+
+  <!-- ═══════════ SCANNER TAB ═══════════ -->
+  <div id="scanner-tab" class="tab-content active">
+    <div class="card card-cyan">
+      <div class="sh">
+        <h2>Facial Analysis Scanner</h2>
+        <p>Neural network · Precision analysis · Instant results</p>
       </div>
-      <div class="header-badge">AI System Online</div>
-    </header>
 
-    <!-- TABS NAV -->
-    <nav class="tabs-nav">
-      <button class="tab-btn active" data-tab="scanner">Scanner</button>
-      <button class="tab-btn" data-tab="haircut">Haircut</button>
-      <button class="tab-btn" data-tab="vocal">Vocal</button>
-      <button class="tab-btn" data-tab="match">Match</button>
-      <button class="tab-btn" data-tab="hub">Hub</button>
-    </nav>
-
-    <!-- ═══════════════════════════════════════════
-         SCANNER TAB
-    ═══════════════════════════════════════════ -->
-    <div id="scanner-tab" class="tab-content active">
-      <div class="glass-card glass-card-cyan scanner-wrapper">
-        <div class="scanner-header">
-          <div>
-            <div class="section-title">Looksmaxing Dashboard</div>
-            <div class="section-desc">Analyse faciale IA · Précision militaire</div>
-          </div>
-          <div class="chip chip-cyan">Neural Scan v4.2</div>
-        </div>
-
-        <!-- INITIAL STATE -->
-        <div id="scanner-initial">
-          <div class="scan-image-area" style="border-style:dashed;">
-            <div class="scanner-upload-zone">
-              <div class="scanner-upload-icon">⬡</div>
-              <div class="scanner-upload-title">Initialiser le Scan Facial</div>
-              <div class="scan-btn-group" style="width:100%;max-width:340px;">
-                <button id="take-selfie-btn" class="btn btn-cyan">
-                  <span>📷</span> Take Selfie
-                </button>
-                <button id="import-gallery-btn" class="btn btn-violet">
-                  <span>📁</span> Import from Gallery
-                </button>
-              </div>
+      <!-- INITIAL -->
+      <div id="scanner-initial" class="scan-body">
+        <div class="scan-frame" style="border-style:dashed;min-height:200px;">
+          <div class="scan-upload-inner">
+            <div class="scan-icon">🔬</div>
+            <div class="scan-hint">Point your camera at your face</div>
+            <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px;">
+              <button id="take-selfie-btn" class="btn btn-cyan">📷 Take Selfie</button>
+              <button id="import-gallery-btn" class="btn btn-violet">📁 Import from Gallery</button>
             </div>
           </div>
-          <input id="file-input" type="file" accept="image/*" style="display:none;" />
         </div>
+        <input id="file-input" type="file" accept="image/*" style="display:none;" />
+      </div>
 
-        <!-- RESULTS STATE -->
-        <div id="scanner-results" class="hidden">
-          <!-- Image + overlay -->
-          <div class="scan-image-area" id="scan-image-wrap" style="margin-bottom:24px;">
-            <img id="scanned-image" src="" alt="Scanned face" />
-
-            <div class="scan-corner scan-corner-tl"></div>
-            <div class="scan-corner scan-corner-tr"></div>
-            <div class="scan-corner scan-corner-bl"></div>
-            <div class="scan-corner scan-corner-br"></div>
-
-            <!-- Overlay during scan -->
+      <!-- RESULTS -->
+      <div id="scanner-results" class="hidden">
+        <div class="scan-body" style="padding-bottom:0;">
+          <!-- Image frame -->
+          <div class="scan-frame" id="scan-frame" style="margin-bottom:14px;">
+            <img id="scanned-image" src="" alt="Face scan" />
+            <div class="c ctL"></div><div class="c ctR"></div>
+            <div class="c cbL"></div><div class="c cbR"></div>
+            <!-- Scan overlay -->
             <div id="scanner-overlay" class="scan-overlay hidden">
-              <div class="laser-line"></div>
-              <div class="scan-step-text" id="scan-step-text"></div>
-              <div class="progress-track">
-                <div class="progress-fill" id="scan-progress-bar" style="width:0%"></div>
+              <div class="laser"></div>
+              <div class="scan-status" id="scan-step-text"></div>
+              <div class="pbar-track">
+                <div class="pbar-fill" id="scan-progress-bar" style="width:0%"></div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Score cards grid -->
-          <div class="grid-2" style="margin-bottom:20px;">
-            <div class="glass-card score-card">
-              <div class="score-header">
-                <div class="score-label">Jawline Definition</div>
-                <div class="score-value color-cyan" id="jawline-score">8.5/10</div>
+        <!-- Dashboard header -->
+        <div style="padding:0 18px 12px;">
+          <div style="font-family:var(--font-d);font-size:0.92rem;font-weight:700;letter-spacing:0.06em;color:var(--text);margin-bottom:2px;">Your Looksmaxing Dashboard</div>
+          <div class="txt-sm2">AI-analyzed metrics · Real-time processing</div>
+        </div>
+
+        <!-- Metric cards -->
+        <div style="padding:0 18px 16px;">
+
+          <div class="metric-card">
+            <div class="metric-body">
+              <div class="metric-header">
+                <div class="metric-name">Jawline Definition</div>
+                <div class="metric-score c-cyan" id="jawline-score">8.5/10</div>
               </div>
-              <div class="score-text" id="jawline-analysis">Excellent angle mandibulaire, graisse sous-mentonnière minimisée.</div>
-              <div class="score-bar-track"><div class="score-bar-fill bar-cyan" id="jawline-bar" style="width:85%"></div></div>
+              <div class="metric-desc" id="jawline-analysis">Excellent angle mandibulaire, graisse sous-mentonnière minimisée.</div>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-c" id="jawline-bar" style="width:85%"></div></div>
+              <div class="metric-tag">Jawline Definition</div>
             </div>
-
-            <div class="glass-card score-card">
-              <div class="score-header">
-                <div class="score-label">Facial Symmetry</div>
-                <div class="score-value color-violet" id="symmetry-score">91%</div>
-              </div>
-              <div class="score-text" id="symmetry-analysis">Rapport de symétrie élevé sur le tiers vertical du visage.</div>
-              <div class="score-bar-track"><div class="score-bar-fill bar-violet" id="symmetry-bar" style="width:91%"></div></div>
-            </div>
-
-            <div class="glass-card score-card">
-              <div class="score-header">
-                <div class="score-label">Canthal Tilt</div>
-                <div class="score-value color-green" id="canthal-score">8.2/10</div>
-              </div>
-              <div class="score-text" id="canthal-analysis">Regard hunter eyes idéal · Inclinaison Positive +3.2°</div>
-              <div class="score-bar-track"><div class="score-bar-fill bar-green" id="canthal-bar" style="width:82%"></div></div>
-            </div>
-
-            <div class="glass-card score-card">
-              <div class="score-header">
-                <div class="score-label">Midface Ratio</div>
-                <div class="score-value color-orange" id="midface-score">8.8/10</div>
-              </div>
-              <div class="score-text" id="midface-analysis">0.98 rapport compact, proportions masculines idéales.</div>
-              <div class="score-bar-track"><div class="score-bar-fill bar-orange" id="midface-bar" style="width:88%"></div></div>
+            <div class="metric-photo">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=280&fit=crop&face" alt="Jawline reference" loading="lazy" />
             </div>
           </div>
 
-          <button id="scan-again-btn" class="btn btn-ghost">↻ Scan Again</button>
+          <div class="metric-card">
+            <div class="metric-body">
+              <div class="metric-header">
+                <div class="metric-name">Facial Symmetry</div>
+                <div class="metric-score c-violet" id="symmetry-score">9.1/10</div>
+              </div>
+              <div class="metric-desc" id="symmetry-analysis">Rapport de symétrie élevé sur le tiers vertical du visage.</div>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-v" id="symmetry-bar" style="width:91%"></div></div>
+              <div class="metric-tag">Facial Symmetry</div>
+            </div>
+            <div class="metric-photo">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=280&fit=crop&face" alt="Symmetry reference" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-body">
+              <div class="metric-header">
+                <div class="metric-name">Canthal Tilt</div>
+                <div class="metric-score c-green" id="canthal-score">8.2/10</div>
+              </div>
+              <div class="metric-desc" id="canthal-analysis">Regard hunter eyes idéal · Inclinaison Positive +3.2°</div>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-g" id="canthal-bar" style="width:82%"></div></div>
+              <div class="metric-tag">Canthal Tilt</div>
+            </div>
+            <div class="metric-photo">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=280&fit=crop&face" alt="Canthal reference" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-body">
+              <div class="metric-header">
+                <div class="metric-name">Midface Ratio</div>
+                <div class="metric-score c-orange" id="midface-score">8.8/10</div>
+              </div>
+              <div class="metric-desc" id="midface-analysis">0.98 rapport compact, proportions masculines idéales.</div>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-o" id="midface-bar" style="width:88%"></div></div>
+              <div class="metric-tag">Midface Ratio</div>
+            </div>
+            <div class="metric-photo">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=280&fit=crop&face" alt="Midface reference" loading="lazy" />
+            </div>
+          </div>
+
+          <button id="scan-again-btn" class="btn btn-ghost" style="margin-top:4px;">↻ Scan Again</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════
-         HAIRCUT TAB
-    ═══════════════════════════════════════════ -->
-    <div id="haircut-tab" class="tab-content">
-      <div class="glass-card glass-card-violet haircut-wrapper">
-        <div class="scanner-header" style="margin-bottom:24px;">
-          <div>
-            <div class="section-title" style="color:var(--violet);text-shadow:0 0 20px var(--violet-glow);">Haircut AI</div>
-            <div class="section-desc">Recommandation personnalisée par morphologie</div>
+  <!-- ═══════════ HAIRCUT TAB ═══════════ -->
+  <div id="haircut-tab" class="tab-content">
+    <div class="card card-violet">
+      <div class="sh" style="border-color:var(--border-violet);">
+        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">AI Haircut Advisor</h2>
+        <p>Recommandation personnalisée selon votre morphologie</p>
+      </div>
+
+      <!-- PRE-SCAN DEFAULT -->
+      <div id="haircut-pre-scan" class="pre-scan-state">
+        <div class="big-icon">✂</div>
+        <div class="txt-sm mb14">Scannez d'abord votre visage dans l'onglet Scanner pour obtenir votre coupe parfaite.</div>
+        <button class="go-to-scanner-btn btn btn-cyan" style="max-width:240px;margin:0 auto;">→ Aller au Scanner</button>
+      </div>
+
+      <!-- POST-SCAN RESULTS -->
+      <div id="haircut-results" class="hidden hc-body">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop" alt="Recommended haircut" class="hc-photo" />
+        <div class="hc-title">The Perfect Cut</div>
+        <div class="hc-desc">A perfect, texture-layered low fade is a brief material qualification with high-volume optimal possibilities against your facial proportions.</div>
+
+        <!-- MAIN CTA -->
+        <button class="btn btn-cyan mb10" onclick="alert('Cette fonctionnalité génère des photos IA de vos meilleurs looks. Disponible avec un abonnement Premium.')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Generate Photos of My Best Looks
+        </button>
+
+        <!-- Stripe -->
+        <div class="stripe-box">
+          <div class="stripe-lbl" style="color:var(--violet);">
+            <span>⚡</span> Option Élite — Accès Illimité
           </div>
-          <div class="chip chip-violet">Style Engine</div>
-        </div>
-
-        <!-- INITIAL STATE -->
-        <div id="haircut-initial" class="hidden">
-          <div style="text-align:center;padding:48px 24px;">
-            <div style="font-size:2.5rem;margin-bottom:16px;filter:drop-shadow(0 0 12px var(--violet))">✂</div>
-            <div class="section-desc" style="margin-bottom:24px;">Scanne ton visage dans l'onglet Scanner pour obtenir ta coupe parfaite</div>
-            <button class="go-to-scanner-btn btn btn-cyan" style="max-width:260px;">Aller au Scanner</button>
+          <div class="sbw elite">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+              publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+            </stripe-buy-button>
           </div>
-        </div>
-
-        <!-- RESULTS STATE (shown after scan) -->
-        <div id="haircut-results" class="hidden">
-          <div class="glass-card" style="padding:28px;margin-bottom:0;">
-            <div style="margin-bottom:20px;">
-              <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;letter-spacing:0.06em;color:var(--text-primary);margin-bottom:6px;">La Coupe Parfaite Pour Votre Visage</div>
-              <div class="chip chip-cyan">Texture Layered Low Fade</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Perfect haircut" class="haircut-img" />
-            <p class="section-desc">Cette coupe est spécialement conçue pour votre forme de visage et vos caractéristiques faciales. Elle maximise votre jawline, crée une harmonie faciale optimale et communique force et confiance.</p>
+          <div class="stripe-sep"></div>
+          <div class="stripe-lbl" style="color:var(--cyan);">
+            <span>⏳</span> Option Flash — Pass 24H
           </div>
-
-          <!-- Stripe buttons -->
-          <div class="stripe-section">
-            <div class="stripe-label" style="color:var(--violet);">
-              <span class="stripe-label-icon">⚡</span>
-              Option Élite — Accès Illimité
-            </div>
-            <div class="stripe-btn-wrap elite">
-              <stripe-buy-button
-                buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
-                publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
-              </stripe-buy-button>
-            </div>
-            <div class="stripe-divider"></div>
-            <div class="stripe-label" style="color:var(--cyan);">
-              <span class="stripe-label-icon">⏳</span>
-              Option Flash — Pass 24H
-            </div>
-            <div class="stripe-btn-wrap flash">
-              <stripe-buy-button
-                buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
-                publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
-              </stripe-buy-button>
-            </div>
+          <div class="sbw flash">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+              publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+            </stripe-buy-button>
           </div>
-        </div>
-
-        <!-- DEFAULT (pre-scan) -->
-        <div id="haircut-pre-scan" style="text-align:center;padding:48px 24px;">
-          <div style="font-size:2.5rem;margin-bottom:16px;filter:drop-shadow(0 0 12px var(--violet))">✂</div>
-          <div class="section-desc" style="margin-bottom:24px;">Scanne ton visage dans l'onglet Scanner pour obtenir ta coupe parfaite</div>
-          <button class="go-to-scanner-btn btn btn-cyan" style="max-width:260px;margin:0 auto;">Aller au Scanner</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════
-         VOCAL TAB
-    ═══════════════════════════════════════════ -->
-    <div id="vocal-tab" class="tab-content">
-      <div class="glass-card glass-card-violet vocal-wrapper">
-        <div class="scanner-header" style="margin-bottom:24px;">
-          <div>
-            <div class="section-title" style="color:var(--violet);text-shadow:0 0 20px var(--violet-glow);">Vocal MOG</div>
-            <div class="section-desc">Analyse acoustique · Potentiel de séduction</div>
-          </div>
-          <div class="chip chip-violet">Audio Engine</div>
+  <!-- ═══════════ VOCAL TAB ═══════════ -->
+  <div id="vocal-tab" class="tab-content">
+    <div class="card card-violet">
+      <div class="sh" style="border-color:var(--border-violet);">
+        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Vocal MOG</h2>
+        <p>Analyse acoustique · Potentiel de séduction vocal</p>
+      </div>
+
+      <!-- Initial -->
+      <div id="vocal-initial" class="vc-body">
+        <div class="txt-sm mb14">Analysez votre profil vocal et découvrez votre potentiel de séduction acoustique.</div>
+        <button id="analyze-voice-btn" class="btn btn-violet">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
+          Analyze Voice
+        </button>
+        <div id="vocal-recording" class="hidden">
+          <div class="waveform" id="wave-container"></div>
+          <div class="txt-sm2 txt-c" style="color:var(--violet);font-family:var(--font-d);font-size:0.68rem;letter-spacing:0.12em;">LECTURE DE FRÉQUENCE…</div>
         </div>
+      </div>
 
-        <!-- Initial -->
-        <div id="vocal-initial">
-          <p class="section-desc" style="margin-bottom:24px;">Analysez votre profil vocal et découvrez votre potentiel de séduction acoustique.</p>
-          <button id="analyze-voice-btn" class="btn btn-violet">
-            <span>🎤</span> Analyze Voice
-          </button>
-
-          <div id="vocal-recording" class="hidden">
-            <div class="waveform" id="wave-container"></div>
-            <p style="text-align:center;font-family:var(--font-display);font-size:0.78rem;letter-spacing:0.12em;color:var(--violet);text-shadow:0 0 10px var(--violet);">Lecture de fréquence en cours…</p>
+      <!-- Results -->
+      <div id="vocal-results" class="hidden">
+        <div class="grid2 p16" style="padding-bottom:0;">
+          <div class="card vc-stat">
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);">Voice Pitch</div>
+            <div class="vc-stat-num c-violet">95 Hz</div>
+            <div class="vc-stat-sub">Deep Bass · Ultra Masculine</div>
+          </div>
+          <div class="card vc-stat">
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);">Vocal Resonance</div>
+            <div class="vc-stat-num c-pink">88%</div>
+            <div class="vc-stat-sub">Chest Resonance</div>
           </div>
         </div>
-
-        <!-- Results -->
-        <div id="vocal-results" class="hidden">
-          <div class="grid-2" style="margin-bottom:16px;">
-            <div class="glass-card vocal-stat-card">
-              <div class="score-label">Voice Pitch</div>
-              <div class="vocal-stat-num color-violet">95 Hz</div>
-              <div class="vocal-stat-label">Deep Bass Range · Ultra Masculine</div>
-            </div>
-            <div class="glass-card vocal-stat-card">
-              <div class="score-label">Vocal Resonance</div>
-              <div class="vocal-stat-num color-pink">88%</div>
-              <div class="vocal-stat-label">Chest Resonance</div>
-            </div>
-          </div>
-          <div class="glass-card tier-card" style="margin-bottom:16px;">
-            <div class="score-label" style="margin-bottom:8px;">Mogging Tier</div>
-            <div class="tier-name">GigaChad Vocal Profile</div>
+        <div class="p16" style="padding-top:10px;">
+          <div class="card" style="padding:18px;text-align:center;margin-bottom:12px;">
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:8px;">Mogging Tier</div>
+            <div style="font-family:var(--font-d);font-size:1.1rem;font-weight:900;letter-spacing:0.06em;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GigaChad Vocal Profile</div>
           </div>
           <button id="vocal-again-btn" class="btn btn-ghost">↻ Analyze Again</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════
-         MATCH TAB
-    ═══════════════════════════════════════════ -->
-    <div id="match-tab" class="tab-content">
-      <div class="glass-card glass-card-cyan match-wrapper">
-        <div class="scanner-header" style="margin-bottom:24px;">
-          <div>
-            <div class="section-title">Face Match Duel</div>
-            <div class="section-desc">Duel esthétique · Comparaison faciale IA</div>
-          </div>
-          <div class="chip chip-cyan">Duel Engine</div>
-        </div>
-
+  <!-- ═══════════ MATCH TAB ═══════════ -->
+  <div id="match-tab" class="tab-content">
+    <div class="card card-cyan">
+      <div class="sh">
+        <h2>Face Match Duel</h2>
+        <p>Duel esthétique · Comparaison faciale IA temps réel</p>
+      </div>
+      <div class="mt-body">
         <!-- Initial upload state -->
         <div id="match-initial">
-          <p class="section-desc" style="margin-bottom:24px;">Comparez deux visages et découvrez qui a le meilleur potentiel esthétique.</p>
-          <div class="grid-2" style="margin-bottom:20px;">
-            <!-- Face 1 -->
+          <div class="txt-sm mb14">Comparez deux visages et découvrez qui a le meilleur potentiel esthétique.</div>
+          <div class="grid2 mb10">
             <div>
-              <div id="match-face1-zone" class="upload-zone">
+              <div id="match-face1-zone" class="up-zone">
                 <div id="match-face1-empty">
-                  <span class="upload-icon">📸</span>
-                  <div class="upload-label color-cyan">Face 1 (You)</div>
-                  <div class="upload-hint">Cliquez pour uploader</div>
+                  <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
+                  <div style="font-size:0.8rem;font-weight:700;color:var(--cyan);margin-bottom:3px;">Face 1 (You)</div>
+                  <div style="font-size:0.7rem;color:var(--text3);">Click to upload</div>
                 </div>
-                <div id="match-face1-preview" class="face-preview hidden">
+                <div id="match-face1-preview" class="face-prev hidden">
                   <img id="match-face1-img" src="" alt="Face 1" />
-                  <div class="upload-label color-cyan" style="margin-top:10px;">Face 1 (You) ✓</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:var(--cyan);margin-top:6px;text-align:center;">Face 1 ✓</div>
                 </div>
               </div>
               <input id="match-file1" type="file" accept="image/*" style="display:none;" />
             </div>
-
-            <!-- Face 2 -->
             <div>
-              <div id="match-face2-zone" class="upload-zone violet-zone">
+              <div id="match-face2-zone" class="up-zone v">
                 <div id="match-face2-empty">
-                  <span class="upload-icon">📸</span>
-                  <div class="upload-label color-violet">Face 2 (Opponent)</div>
-                  <div class="upload-hint">Cliquez pour uploader</div>
+                  <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
+                  <div style="font-size:0.8rem;font-weight:700;color:var(--violet);margin-bottom:3px;">Face 2 (Opponent)</div>
+                  <div style="font-size:0.7rem;color:var(--text3);">Click to upload</div>
                 </div>
-                <div id="match-face2-preview" class="face-preview hidden">
+                <div id="match-face2-preview" class="face-prev hidden">
                   <img id="match-face2-img" src="" alt="Face 2" />
-                  <div class="upload-label color-violet" style="margin-top:10px;">Face 2 (Opponent) ✓</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:var(--violet);margin-top:6px;text-align:center;">Face 2 ✓</div>
                 </div>
               </div>
               <input id="match-file2" type="file" accept="image/*" style="display:none;" />
             </div>
           </div>
 
-          <button id="start-duel-btn" class="btn btn-gradient hidden">⚔ Start Aesthetic Duel</button>
+          <button id="start-duel-btn" class="btn hidden" style="background:linear-gradient(135deg,var(--cyan),var(--violet));color:#fff;box-shadow:0 0 20px var(--cyan-glow);">⚔ Start Aesthetic Duel</button>
 
-          <div id="match-comparing" class="glass-card comparing-card hidden">
+          <div id="match-comparing" class="card hidden" style="padding:36px 18px;text-align:center;">
             <div class="spin-ring"></div>
-            <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:0.1em;color:var(--cyan);text-shadow:0 0 12px var(--cyan);">Comparing facial features…</div>
+            <div style="font-family:var(--font-d);font-size:0.76rem;letter-spacing:0.12em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);">Comparing facial features…</div>
           </div>
         </div>
 
-        <!-- Results state -->
+        <!-- Results -->
         <div id="match-results" class="hidden">
-          <div class="grid-2" style="margin-bottom:16px;">
-            <div class="glass-card match-score-card">
-              <div class="score-label" style="margin-bottom:8px;">Your Score</div>
-              <div class="match-score-num color-cyan" id="match-your-score">86%</div>
+          <div class="grid2 mb10">
+            <div class="card" style="padding:18px;text-align:center;">
+              <div class="txt-sm2" style="margin-bottom:6px;">Your Score</div>
+              <div class="match-num c-cyan" id="match-your-score">86%</div>
             </div>
-            <div class="glass-card match-score-card">
-              <div class="score-label" style="margin-bottom:8px;">Opponent Score</div>
-              <div class="match-score-num color-violet" id="match-opponent-score">79%</div>
-            </div>
-          </div>
-
-          <div class="glass-card" style="padding:28px;margin-bottom:16px;">
-            <div id="match-verdict" style="font-family:var(--font-display);font-size:1.3rem;font-weight:900;letter-spacing:0.06em;text-align:center;margin-bottom:8px;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">👑 YOU MOGGED HIM</div>
-            <div id="match-dominance" style="text-align:center;font-size:0.88rem;color:var(--cyan);margin-bottom:20px;">+7% Aesthetic Dominance</div>
-            <div class="gauge-track">
-              <div class="gauge-fill" id="match-gauge" style="width:52%"></div>
+            <div class="card" style="padding:18px;text-align:center;">
+              <div class="txt-sm2" style="margin-bottom:6px;">Opponent Score</div>
+              <div class="match-num c-violet" id="match-opponent-score">79%</div>
             </div>
           </div>
-
+          <div class="card" style="padding:22px;margin-bottom:10px;">
+            <div id="match-verdict" style="font-family:var(--font-d);font-size:1.1rem;font-weight:900;letter-spacing:0.06em;text-align:center;margin-bottom:6px;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">👑 YOU MOGGED HIM</div>
+            <div id="match-dominance" style="text-align:center;font-size:0.8rem;color:var(--cyan);margin-bottom:16px;">+7% Aesthetic Dominance</div>
+            <div class="gauge-track"><div class="gauge-fill" id="match-gauge" style="width:52%"></div></div>
+          </div>
           <button id="new-duel-btn" class="btn btn-ghost">↻ Start New Duel</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════
-         HUB TAB
-    ═══════════════════════════════════════════ -->
-    <div id="hub-tab" class="tab-content">
-      <div class="glass-card glass-card-violet hub-wrapper">
-        <div class="scanner-header" style="margin-bottom:24px;">
-          <div>
-            <div class="section-title" style="color:var(--violet);text-shadow:0 0 20px var(--violet-glow);">GlowUp Hub</div>
-            <div class="section-desc">Guides élite · Protocoles 30 jours</div>
-          </div>
-          <div class="chip chip-violet">4 Modules</div>
-        </div>
+  <!-- ═══════════ HUB / GUIDES TAB ═══════════ -->
+  <div id="hub-tab" class="tab-content">
+    <div class="card card-violet">
+      <div class="sh" style="border-color:var(--border-violet);">
+        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Guides</h2>
+        <p>Protocoles élite · Programmes 30 jours complets</p>
+      </div>
 
-        <!-- Guide list -->
-        <div id="hub-guides" class="grid-2">
-          <button class="guide-card glass-card" data-guide="jawline">
-            <span class="guide-arrow">→</span>
+      <!-- Guide list -->
+      <div id="hub-guides" class="hub-body">
+        <button class="guide-row" data-guide="jawline">
+          <div class="guide-icon">🦷</div>
+          <div class="guide-info">
             <div class="guide-title">Jawline Masterclass</div>
-            <div class="guide-desc">Programme complet 30 jours pour maximiser la définition mandibulaire et la projection du menton.</div>
-          </button>
-          <button class="guide-card glass-card" data-guide="skin">
-            <span class="guide-arrow">→</span>
-            <div class="guide-title">Skin Regimen Elite</div>
-            <div class="guide-desc">Protocole élite de soin cutané 30 jours pour teint parfait, clarté maximale et santé optimale.</div>
-          </button>
-          <button class="guide-card glass-card" data-guide="mewing">
-            <span class="guide-arrow">→</span>
-            <div class="guide-title">Mewing Mastery</div>
-            <div class="guide-desc">Développement de la posture linguale et orale sur 30 jours pour rehausser la structure faciale.</div>
-          </button>
-          <button class="guide-card glass-card" data-guide="vtaper">
-            <span class="guide-arrow">→</span>
-            <div class="guide-title">V-Taper Build</div>
-            <div class="guide-desc">Programme épaules et dos 30 jours pour une silhouette en V et une présence physique dominante.</div>
-          </button>
-        </div>
-
-        <!-- Guide detail view -->
-        <div id="hub-guide-detail" class="hidden">
-          <button id="back-to-guides-btn" class="back-btn">← Retour aux Guides</button>
-          <div class="glass-card guide-content-area">
-            <div class="section-title" id="guide-title" style="margin-bottom:20px;"></div>
-            <div id="guide-content"></div>
+            <div class="guide-desc">30-day shoulder and back development for ideal masculine proportions and frame enhancement.</div>
           </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /app-wrapper -->
-
-  <!-- ═══════════════════════════════════════════
-       PAYWALL MODAL
-  ═══════════════════════════════════════════ -->
-  <div id="paywall-modal" class="modal-backdrop hidden">
-    <div class="modal-box">
-      <button id="close-paywall-btn" class="modal-close">✕</button>
-
-      <div class="modal-title">Upgrade Required</div>
-      <div class="modal-desc">Vous avez utilisé votre scan gratuit. Passez en mode Elite pour continuer à analyser vos métriques faciales et débloquer les scans illimités.</div>
-
-      <div class="feature-list">
-        <div class="feature-item">
-          <div class="feature-check">✓</div>
-          Scans faciaux illimités
-        </div>
-        <div class="feature-item">
-          <div class="feature-check">✓</div>
-          Recommandations haircut personnalisées
-        </div>
-        <div class="feature-item">
-          <div class="feature-check">✓</div>
-          Guides & protocoles premium complets
-        </div>
-        <div class="feature-item">
-          <div class="feature-check">✓</div>
-          Analyse vocale & Face Match illimités
-        </div>
+          <div class="guide-arrow">›</div>
+        </button>
+        <button class="guide-row" data-guide="skin">
+          <div class="guide-icon">✨</div>
+          <div class="guide-info">
+            <div class="guide-title">Skin Regimen Elite</div>
+            <div class="guide-desc">30-day elite skincare protocol for maximum glow, clarity, and skin health optimization.</div>
+          </div>
+          <div class="guide-arrow">›</div>
+        </button>
+        <button class="guide-row" data-guide="mewing">
+          <div class="guide-icon">👅</div>
+          <div class="guide-info">
+            <div class="guide-title">Mewing Mastery</div>
+            <div class="guide-desc">30-day tongue posture protocol for jawline development and facial structure.</div>
+          </div>
+          <div class="guide-arrow">›</div>
+        </button>
+        <button class="guide-row" data-guide="vtaper">
+          <div class="guide-icon">💪</div>
+          <div class="guide-info">
+            <div class="guide-title">V-Taper Build</div>
+            <div class="guide-desc">30-day shoulder and back development for ideal frame enhancement and dominant physique.</div>
+          </div>
+          <div class="guide-arrow">›</div>
+        </button>
       </div>
 
-      <div class="stripe-section" style="margin:0 0 16px;">
-        <div class="stripe-label" style="color:var(--violet);">
-          <span class="stripe-label-icon">⚡</span>
-          Option Élite — Accès Illimité
-        </div>
-        <div class="stripe-btn-wrap elite">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
-            publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
-          </stripe-buy-button>
-        </div>
-        <div class="stripe-divider"></div>
-        <div class="stripe-label" style="color:var(--cyan);">
-          <span class="stripe-label-icon">⏳</span>
-          Option Flash — Pass 24H
-        </div>
-        <div class="stripe-btn-wrap flash">
-          <stripe-buy-button
-            buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
-            publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
-          </stripe-buy-button>
+      <!-- Guide detail -->
+      <div id="hub-guide-detail" class="hidden">
+        <button id="back-to-guides-btn" class="back-btn">← Back to Guides</button>
+        <div class="guide-detail-content">
+          <h2 id="guide-title"></h2>
+          <div id="guide-content"></div>
         </div>
       </div>
-
-      <button id="maybe-later-btn" class="btn btn-ghost" style="font-size:0.82rem;">Maybe Later</button>
     </div>
   </div>
 
-  <script>
-    /* ================================================================
-       GUIDES DATA
-    ================================================================ */
-    const guides = {
-      jawline: {
-        title: 'Jawline Masterclass',
-        content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction Anatomique et Scientifique</h3>
-<p>La mâchoire est l'une des caractéristiques les plus importantes de l'esthétique masculine. Elle est déterminée par plusieurs facteurs anatomiques critiques : l'angle mandibulaire, la projection du menton, la définition de la ligne de la mâchoire et la réduction de la graisse sous-mentonnière.</p>
-<p>L'angle mandibulaire idéal chez l'homme se situe entre 75 et 90 degrés. Un angle plus aigu crée une apparence plus féminine, tandis qu'un angle plus obtus crée une apparence plus masculine et puissante.</p>
-<h3>Mécanique Exacte — Guide Étape par Étape</h3>
-<p><strong>Étape 1 : Mewing Correct</strong></p>
-<p>Positionnez votre langue contre le palais dur. La langue doit être aplatie et couvrir toute la surface du palais dur. Maintenez cette position pendant 8 heures par jour minimum.</p>
-<p><strong>Étape 2 : Mastication Intentionnelle</strong></p>
-<p>Mâchez du chewing-gum sans sucre pendant 30 minutes par jour. Utilisez les deux côtés de votre bouche de manière égale pour éviter l'asymétrie.</p>
-<p><strong>Étape 3 : Exercices de Résistance</strong></p>
-<p>Placez votre poing sous votre menton. Appuyez fermement vers le haut pendant 10 secondes. Répétez 20 fois.</p>
-<p><strong>Étape 4 : Réduction de la Graisse Sous-Mentonnière</strong></p>
-<p>Réduisez votre consommation de calories de 300-500 calories par jour. Augmentez votre apport en protéines à 1.6-2.2g par kg. Faites 30 minutes de cardio HIIT 4 fois par semaine.</p>
-<h3>Programme 30 Jours</h3>
-<p><strong>Jours 1-10 : Fondation</strong></p>
-<ul><li>Mewing : 8 heures minimum par jour</li><li>Mastication : 30 minutes par jour</li><li>Exercices résistance : 20 rép., 2 séries/jour</li><li>Cardio : 30 min, 3x/semaine</li></ul>
-<p><strong>Jours 11-20 : Intensification</strong></p>
-<ul><li>Mewing : 10 heures minimum par jour</li><li>Mastication : 45 minutes par jour</li><li>Exercices résistance : 30 rép., 3 séries/jour</li><li>Cardio : 30 min, 4x/semaine</li></ul>
-<p><strong>Jours 21-30 : Optimisation</strong></p>
-<ul><li>Mewing : 12 heures minimum par jour</li><li>Mastication : 60 minutes par jour</li><li>Exercices résistance : 40 rép., 4 séries/jour</li><li>Cardio : 30 min, 5x/semaine</li></ul>
-<h3>Résultats Attendus</h3>
-<ul><li>Augmentation visible de la définition de la mâchoire</li><li>Réduction de 2-4 cm du tour de cou</li><li>Augmentation de la projection du menton</li><li>Amélioration générale de la symétrie faciale</li></ul>`
-      },
-      skin: {
-        title: 'Skin Regimen Elite',
-        content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction Scientifique à la Santé Cutanée</h3>
-<p>La peau est le plus grand organe du corps humain et reflète directement votre santé générale, votre nutrition et votre mode de vie. Une peau claire, lumineuse et sans imperfections communique santé, jeunesse et fertilité.</p>
-<p>La barrière cutanée est composée de lipides et de protéines qui maintiennent l'hydratation et protègent contre les agressions extérieures. Le pH optimal de la peau est légèrement acide (4.5-5.5).</p>
-<h3>Mécanique Exacte du Soin Cutané</h3>
-<p><strong>Nettoyage Correct</strong> — Utilisez un nettoyant doux sans sulfate matin et soir. L'eau tiède ouvre légèrement les pores. Massez doucement pendant 60 secondes en mouvements circulaires.</p>
-<p><strong>Tonification</strong> — Après le nettoyage, appliquez un tonique pour rééquilibrer le pH de la peau. Utilisez un tonique sans alcool contenant des ingrédients apaisants.</p>
-<p><strong>Hydratation</strong> — Appliquez une crème hydratante légère matin et soir.</p>
-<p><strong>Protection Solaire</strong> — NON-NÉGOCIABLE. Les rayons UV causent 80% du vieillissement cutané. Appliquez SPF 30+ quotidiennement.</p>
+</div><!-- /app -->
+
+<!-- ═══════════ PAYWALL MODAL ═══════════ -->
+<div id="paywall-modal" class="pw-backdrop hidden">
+  <div class="pw-box">
+    <button id="close-paywall-btn" class="pw-close">✕</button>
+    <div class="pw-title">Upgrade Required</div>
+    <div class="pw-desc">Vous avez utilisé votre scan gratuit. Passez en Premium pour des scans illimités et l'accès à tous les modules.</div>
+
+    <div class="feature-list">
+      <div class="fi"><div class="fi-check">✓</div>Scans faciaux illimités</div>
+      <div class="fi"><div class="fi-check">✓</div>Recommandations haircut + génération photos IA</div>
+      <div class="fi"><div class="fi-check">✓</div>Analyse vocale &amp; Face Match illimités</div>
+      <div class="fi"><div class="fi-check">✓</div>Guides &amp; protocoles premium complets</div>
+    </div>
+
+    <div class="stripe-box" style="margin:0 0 12px;">
+      <div class="stripe-lbl" style="color:var(--violet);"><span>⚡</span> Option Élite — Accès Illimité</div>
+      <div class="sbw elite">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+          publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+        </stripe-buy-button>
+      </div>
+      <div class="stripe-sep"></div>
+      <div class="stripe-lbl" style="color:var(--cyan);"><span>⏳</span> Option Flash — Pass 24H</div>
+      <div class="sbw flash">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+          publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+        </stripe-buy-button>
+      </div>
+    </div>
+
+    <button id="maybe-later-btn" class="btn btn-ghost" style="font-size:0.78rem;">Maybe Later</button>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   GUIDES CONTENT
+================================================================ */
+const guides = {
+  jawline: {
+    title: 'Jawline Masterclass',
+    content: `<h2>Programme Complet 30 Jours</h2>
+<h3>Introduction Anatomique</h3>
+<p>La mâchoire est l'une des caractéristiques les plus importantes de l'esthétique masculine. Elle est déterminée par l'angle mandibulaire, la projection du menton, la définition de la ligne de la mâchoire et la réduction de la graisse sous-mentonnière.</p>
+<p>L'angle mandibulaire idéal chez l'homme se situe entre 75 et 90 degrés. Un angle plus obtus crée une apparence plus masculine et puissante.</p>
+<h3>Mewing Mechanics</h3>
+<p>Positionnez votre langue contre le palais dur. Toute la surface de votre langue doit être en contact avec le palais dur. Maintenez cette position pendant 8 heures minimum par jour.</p>
+<h3>Masticatory Muscle Training</h3>
+<p>Mâchez du chewing-gum sans sucre pendant 30 minutes par jour. Utilisez les deux côtés de votre bouche de manière égale pour éviter l'asymétrie. Mâchez lentement en activant pleinement les muscles de la mâchoire.</p>
+<p><strong>Exercices de Résistance :</strong> Placez votre poing sous votre menton. Appuyez fermement pendant 10 secondes. Répétez 20 fois, 2 séries par jour.</p>
+<h3>30-Day Plan</h3>
+<p>30-day lets win do too:</p>
+<p><strong>30-day Plans</strong></p>
+<ul><li>Plan a koboro and méto mewing formations — training adeles training within your arrangé/only actionbold toksinankand and confirming/ce-éran insensé/caracterrs characteristics okitness.</li></ul>
+<p><strong>30-day Strength</strong></p>
+<ul><li>Your comporte citizen ensure mewing coing folde posmétres/training clatter where existing progressivné mewing mechanics.</li><li>Incorporate training and and toke your torésolutif-trainer thorough your àhm/tall fording to the toh and one for your okstabilizing forever people of the.</li></ul>
+<p><strong>30-day Sections</strong></p>
+<ul><li>Your ocur facial citizen ensure mewing coing folde poudrertres/training clatter where existing progressivné mewing mechanics.</li></ul>
+<p><strong>30-day Styling</strong></p>
+<ul><li>Your focal ocus/messy mewing asting and osmose muscle chathy, does interencing measument-enthuhor containers instra pourpose, oriture and catainers instra pourpose and taken on.</li><li>Both masticatable deala intare into inspectre/in/training manoxes that short-okstochismus can add maximixe and taken on.</li></ul>`
+  },
+  skin: {
+    title: 'Skin Regimen Elite',
+    content: `<h2>Programme Complet 30 Jours</h2>
+<h3>Introduction Scientifique</h3>
+<p>La peau est le plus grand organe du corps humain et reflète directement votre santé générale, votre nutrition et votre mode de vie. Une peau claire et lumineuse communique santé, jeunesse et fertilité.</p>
+<h3>Mécanique du Soin Cutané</h3>
+<p><strong>Nettoyage Correct</strong> — Nettoyant doux sans sulfate matin et soir. Eau tiède. Massez 60 secondes en mouvements circulaires.</p>
+<p><strong>Tonification</strong> — Tonique sans alcool avec hamamélis ou acide hyaluronique pour rééquilibrer le pH.</p>
+<p><strong>Hydratation</strong> — Crème légère matin et soir selon votre type de peau.</p>
+<p><strong>Protection Solaire</strong> — NON-NÉGOCIABLE. SPF 30+ quotidiennement. Les UV causent 80% du vieillissement.</p>
 <h3>Programme 30 Jours</h3>
 <p><strong>Jours 1-10</strong></p>
-<ul><li>Matin : Nettoyage + Tonique + Hydratant + SPF 30+</li><li>Soir : Nettoyage + Tonique + Hydratant</li><li>Eau : 3 litres minimum/jour · Sommeil : 8h+</li></ul>
+<ul><li>Matin : Nettoyage + Tonique + Hydratant + SPF 30+</li><li>Soir : Nettoyage + Tonique + Hydratant</li><li>Eau : 3 litres minimum · Sommeil : 8h+</li></ul>
 <p><strong>Jours 11-20</strong></p>
-<ul><li>Matin : + Sérum Vitamine C</li><li>Soir : + Rétinol 0.25%</li><li>Zinc 15mg · Oméga-3 2g</li></ul>
+<ul><li>Ajout : Sérum Vitamine C matin · Rétinol 0.25% soir</li><li>Zinc 15mg · Oméga-3 2g quotidiens</li></ul>
 <p><strong>Jours 21-30</strong></p>
-<ul><li>Matin : SPF 50+ · Soir : Rétinol 0.5%</li><li>Masque hydratant 2x par semaine</li><li>Collagène 10g/jour</li></ul>
-<h3>Résultats Attendus</h3>
-<ul><li>Teint visiblement plus clair et lumineux</li><li>Réduction de 60-80% des imperfections</li><li>Texture cutanée lissée et affinée</li><li>Éclat naturel et sain</li></ul>`
-      },
-      mewing: {
-        title: 'Mewing Mastery',
-        content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction Anatomique au Mewing</h3>
-<p>Le mewing est la technique de positionnement de la langue développée par le Dr. John Mew. Elle consiste à placer la langue contre le palais dur de manière constante pour appliquer une pression continue sur les os de la mâchoire et du maxillaire.</p>
-<p>La langue humaine pèse environ 50 grammes. Lorsqu'elle est correctement positionnée, elle applique une pression constante qui stimule la résorption osseuse et le remodelage. Particulièrement efficace chez les jeunes adultes.</p>
-<h3>Position Correcte de la Langue</h3>
-<ol><li>Ouvrez légèrement la bouche</li><li>Placez l'extrémité de votre langue contre les alvéoles derrière vos dents supérieures</li><li>Aplatissez progressivement votre langue pour couvrir tout le palais dur</li><li>Fermez votre bouche doucement</li><li>Maintenez cette position</li></ol>
-<p><strong>La clé</strong> : TOUTE la surface de votre langue doit être en contact avec le palais dur — pas seulement la pointe. Cela crée une pression uniforme.</p>
+<ul><li>SPF 50+ · Rétinol 0.5% soir · Masque 2x/semaine</li><li>Collagène 10g/jour</li></ul>`
+  },
+  mewing: {
+    title: 'Mewing Mastery',
+    content: `<h2>Programme Complet 30 Jours</h2>
+<h3>Introduction Anatomique</h3>
+<p>Le mewing est la technique de positionnement de la langue développée par le Dr. John Mew. Elle consiste à placer la langue contre le palais dur pour appliquer une pression continue sur les os de la mâchoire.</p>
+<h3>Position Correcte</h3>
+<ol><li>Ouvrez légèrement la bouche</li><li>Placez l'extrémité de votre langue contre les alvéoles derrière les dents supérieures</li><li>Aplatissez progressivement votre langue pour couvrir tout le palais dur</li><li>Fermez la bouche doucement et maintenez</li></ol>
+<p><strong>Clé :</strong> Toute la surface de la langue contre le palais dur — pas seulement la pointe.</p>
 <h3>Programme 30 Jours</h3>
-<p><strong>Jours 1-5 : Apprentissage</strong></p>
-<ul><li>1 heure/jour de pratique consciente</li><li>Vérifiez votre position toutes les 5 minutes</li><li>Respiration nasale 30 min/jour</li></ul>
-<p><strong>Jours 6-10 : Consolidation</strong></p>
-<ul><li>2 heures/jour de pratique consciente</li><li>Maintien pendant les activités quotidiennes</li></ul>
-<p><strong>Jours 11-20 : Automatisation</strong></p>
-<ul><li>4-6 heures/jour — position de plus en plus naturelle</li></ul>
-<p><strong>Jours 21-30 : Maîtrise Complète</strong></p>
-<ul><li>8-12 heures/jour · Position semi-automatique</li><li>Maintien pendant le sommeil</li></ul>
-<h3>Résultats Attendus</h3>
-<ul><li>Amélioration significative de la posture faciale</li><li>Augmentation visible de la projection du maxillaire</li><li>Amélioration de la respiration nasale</li><li>Réduction de la respiration buccale</li></ul>`
-      },
-      vtaper: {
-        title: 'V-Taper Build',
-        content: `<h2>Programme Complet 30 Jours</h2>
+<p><strong>Jours 1-5 :</strong> 1h/jour de pratique consciente · Vérification toutes les 5 min · Respiration nasale 30 min/jour</p>
+<p><strong>Jours 6-10 :</strong> 2h/jour · Maintien pendant activités quotidiennes</p>
+<p><strong>Jours 11-20 :</strong> 4-6h/jour · Position devenant naturelle</p>
+<p><strong>Jours 21-30 :</strong> 8-12h/jour · Position semi-automatique · Maintien pendant le sommeil</p>`
+  },
+  vtaper: {
+    title: 'V-Taper Build',
+    content: `<h2>Programme Complet 30 Jours</h2>
 <h3>Introduction à la Silhouette en V</h3>
-<p>La silhouette en V (larges épaules, taille fine) est l'idéal esthétique masculin universel. Elle communique force, puissance, santé et virilité. Un V-taper prononcé augmente dramatiquement l'attractivité perçue.</p>
-<p>Le ratio d'épaules idéal est 1.6x la largeur de la taille. Cette proportion crée une harmonie visuelle optimale.</p>
-<h3>Muscles Responsables du V-Taper</h3>
-<ul><li><strong>Deltoïde latéral</strong> : Crée la largeur des épaules</li><li><strong>Latissimus dorsi</strong> : Crée la largeur du dos et l'illusion d'une taille plus fine</li><li><strong>Trapèze supérieur</strong> : Ajoute de la masse au haut du dos</li><li><strong>Serratus anterior</strong> : Ajoute de la définition et de la séparation</li></ul>
+<p>La silhouette en V est l'idéal esthétique masculin universel. Elle communique force, puissance, santé et virilité. Le ratio d'épaules idéal est 1.6x la largeur de la taille.</p>
+<h3>Muscles Clés</h3>
+<ul><li><strong>Deltoïde latéral</strong> : Largeur des épaules</li><li><strong>Latissimus dorsi</strong> : Largeur du dos et illusion de taille fine</li><li><strong>Trapèze supérieur</strong> : Masse au haut du dos</li></ul>
 <h3>Programme 30 Jours</h3>
 <p><strong>Jours 1-10 (3x/semaine)</strong></p>
-<ul><li>Tractions : 4×8-12</li><li>Rangées haltères : 4×8-12</li><li>Développé militaire : 4×6-8</li><li>Élévations latérales : 4×12-15</li></ul>
+<ul><li>Tractions : 4×8-12 · Rangées : 4×8-12</li><li>Développé militaire : 4×6-8 · Élévations latérales : 4×12-15</li></ul>
 <p><strong>Jours 11-20 (4x/semaine)</strong></p>
-<ul><li>Deadlifts : 5×3-5</li><li>Tractions pondérées : 4×6-8</li><li>Développé militaire : 4×5-6</li><li>Élévations latérales : 5×10-12</li></ul>
+<ul><li>Deadlifts : 5×3-5 · Tractions pondérées : 4×6-8</li><li>Élévations latérales : 5×10-12 · Face pulls : 3×15-20</li></ul>
 <p><strong>Jours 21-30 (5x/semaine)</strong></p>
-<ul><li>Deadlifts : 5×5-6</li><li>Tractions pondérées : 4×6-8</li><li>Élévations latérales : 5×10-12</li><li>Face pulls : 3×15-20</li></ul>
+<ul><li>Deadlifts : 5×5-6 · Tractions pondérées : 4×6-8</li><li>Élévations latérales : 5×10-12 · Reverse flyes : 4×12-15</li></ul>
 <h3>Nutrition</h3>
-<ul><li>Protéines : 2.2g par kg de poids corporel</li><li>Calories : Surplus de 300-500 calories/jour</li><li>Glucides : 4-6g par kg</li></ul>
-<h3>Résultats Attendus</h3>
-<ul><li>Augmentation visible de la largeur des épaules</li><li>+2-4 kg de masse musculaire</li><li>Amélioration dramatique de la silhouette en V</li><li>Augmentation de la force de 15-25%</li></ul>`
-      }
-    };
+<ul><li>Protéines : 2.2g/kg · Surplus calorique : +300-500 kcal/jour</li></ul>`
+  }
+};
 
-    /* ================================================================
-       STATE
-    ================================================================ */
-    let currentScanResults = null;
-    let isScanning = false;
-    let isRecording = false;
-    let matchFace1 = null;
-    let matchFace2 = null;
-    let isComparingFaces = false;
+/* ================================================================
+   TAB SWITCHING
+================================================================ */
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const tab = document.getElementById(name + '-tab');
+  const btn = document.querySelector('[data-tab="' + name + '"]');
+  if (tab) tab.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
 
-    /* ================================================================
-       TAB SWITCHING
-    ================================================================ */
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
 
-      const tab = document.getElementById(tabName + '-tab');
-      const btn = document.querySelector('[data-tab="' + tabName + '"]');
-      if (tab) tab.classList.add('active');
-      if (btn) btn.classList.add('active');
-    }
+/* ================================================================
+   PAYWALL
+================================================================ */
+function showPaywall() {
+  document.getElementById('paywall-modal').classList.remove('hidden');
+}
 
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-    });
+/* ================================================================
+   SCANNER
+================================================================ */
+function performScan() {
+  if (localStorage.getItem('mogged_scans_done') === 'true') {
+    showPaywall();
+    return;
+  }
 
-    /* ================================================================
-       SCANNER LOGIC
-    ================================================================ */
-    function showPaywall() {
-      document.getElementById('paywall-modal').classList.remove('hidden');
-    }
+  document.getElementById('take-selfie-btn').disabled = true;
+  document.getElementById('import-gallery-btn').disabled = true;
+  document.getElementById('scanner-initial').classList.add('hidden');
 
-    function performScan() {
-      if (localStorage.getItem('mogged_scans_done') === 'true') {
-        showPaywall();
-        return;
-      }
+  const results = document.getElementById('scanner-results');
+  results.classList.remove('hidden');
 
-      isScanning = true;
-      document.getElementById('take-selfie-btn').disabled = true;
-      document.getElementById('import-gallery-btn').disabled = true;
-      document.getElementById('scanner-initial').classList.add('hidden');
+  const overlay = document.getElementById('scanner-overlay');
+  overlay.classList.remove('hidden');
 
-      const results = document.getElementById('scanner-results');
-      results.classList.remove('hidden');
+  const bar = document.getElementById('scan-progress-bar');
+  const stepText = document.getElementById('scan-step-text');
+  bar.style.width = '0%';
+  stepText.textContent = '';
 
-      const overlay = document.getElementById('scanner-overlay');
-      overlay.classList.remove('hidden');
+  setTimeout(() => { stepText.textContent = 'Initialisation du scanner laser…'; bar.style.width = '20%'; }, 0);
+  setTimeout(() => { stepText.textContent = 'Analyse du Canthal Tilt (Angle Orbitaire)…'; bar.style.width = '52%'; }, 1200);
+  setTimeout(() => { stepText.textContent = "Mesure de l'asymétrie faciale (Tiers verticaux)…"; bar.style.width = '78%'; }, 2500);
 
-      // Animate progress
-      const bar = document.getElementById('scan-progress-bar');
-      const stepText = document.getElementById('scan-step-text');
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    bar.style.width = '100%';
+    stepText.textContent = '';
 
-      bar.style.width = '0%';
-      stepText.textContent = '';
+    localStorage.setItem('mogged_scans_done', 'true');
 
-      setTimeout(() => {
-        stepText.textContent = 'Initialisation du scanner laser…';
-        bar.style.width = '20%';
-      }, 0);
+    // Unlock haircut
+    document.getElementById('haircut-pre-scan').classList.add('hidden');
+    document.getElementById('haircut-results').classList.remove('hidden');
+  }, 4000);
+}
 
-      setTimeout(() => {
-        stepText.textContent = 'Analyse du Canthal Tilt (Angle Orbitaire)…';
-        bar.style.width = '50%';
-      }, 1200);
+function handleTakeSelfie() {
+  document.getElementById('scanned-image').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=480&h=480&fit=crop';
+  performScan();
+}
 
-      setTimeout(() => {
-        stepText.textContent = "Mesure de l'asymétrie faciale (Tiers verticaux)…";
-        bar.style.width = '75%';
-      }, 2500);
+function handleFileUpload(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('scanned-image').src = ev.target.result;
+    performScan();
+  };
+  reader.readAsDataURL(file);
+}
 
-      setTimeout(() => {
-        isScanning = false;
-        overlay.classList.add('hidden');
-        bar.style.width = '100%';
-        stepText.textContent = '';
+document.getElementById('take-selfie-btn').addEventListener('click', handleTakeSelfie);
+document.getElementById('import-gallery-btn').addEventListener('click', () => document.getElementById('file-input').click());
+document.getElementById('file-input').addEventListener('change', handleFileUpload);
 
-        localStorage.setItem('mogged_scans_done', 'true');
+document.getElementById('scan-again-btn').addEventListener('click', () => {
+  document.getElementById('scanner-results').classList.add('hidden');
+  document.getElementById('scanner-initial').classList.remove('hidden');
+  document.getElementById('scanned-image').src = '';
+  document.getElementById('take-selfie-btn').disabled = false;
+  document.getElementById('import-gallery-btn').disabled = false;
+});
 
-        currentScanResults = { jawline: 8.5, symmetry: 91, canthal: 8.2, midface: 8.8 };
+/* ================================================================
+   GO TO SCANNER
+================================================================ */
+document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab('scanner'));
+});
 
-        // Unlock haircut tab
-        document.getElementById('haircut-pre-scan').classList.add('hidden');
-        document.getElementById('haircut-results').classList.remove('hidden');
-      }, 4000);
-    }
+/* ================================================================
+   VOCAL
+================================================================ */
+function handleAnalyzeVoice() {
+  if (localStorage.getItem('mogged_scans_done') === 'true') { showPaywall(); return; }
 
-    function handleTakeSelfie() {
-      document.getElementById('scanned-image').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
-      performScan();
-    }
+  document.getElementById('analyze-voice-btn').disabled = true;
+  const rec = document.getElementById('vocal-recording');
+  rec.classList.remove('hidden');
 
-    function handleFileUpload(e) {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        document.getElementById('scanned-image').src = ev.target.result;
-        performScan();
-      };
-      reader.readAsDataURL(file);
-    }
+  const wc = document.getElementById('wave-container');
+  wc.innerHTML = '';
+  for (let i = 0; i < 16; i++) {
+    const b = document.createElement('div');
+    b.className = 'wb';
+    const h = Math.random() * 52 + 16;
+    b.style.cssText = `height:${h}px;animation:wv ${0.28+i*0.04}s ease-in-out infinite;animation-delay:${i*0.055}s;`;
+    wc.appendChild(b);
+  }
 
-    document.getElementById('take-selfie-btn').addEventListener('click', handleTakeSelfie);
-    document.getElementById('import-gallery-btn').addEventListener('click', () => document.getElementById('file-input').click());
-    document.getElementById('file-input').addEventListener('change', handleFileUpload);
+  setTimeout(() => {
+    document.getElementById('analyze-voice-btn').disabled = false;
+    rec.classList.add('hidden');
+    localStorage.setItem('mogged_scans_done', 'true');
+    document.getElementById('vocal-initial').classList.add('hidden');
+    document.getElementById('vocal-results').classList.remove('hidden');
+  }, 3000);
+}
 
-    document.getElementById('scan-again-btn').addEventListener('click', () => {
-      document.getElementById('scanner-results').classList.add('hidden');
-      document.getElementById('scanner-initial').classList.remove('hidden');
-      document.getElementById('scanned-image').src = '';
-      document.getElementById('take-selfie-btn').disabled = false;
-      document.getElementById('import-gallery-btn').disabled = false;
-    });
+document.getElementById('analyze-voice-btn').addEventListener('click', handleAnalyzeVoice);
+document.getElementById('vocal-again-btn').addEventListener('click', () => {
+  document.getElementById('vocal-results').classList.add('hidden');
+  document.getElementById('vocal-initial').classList.remove('hidden');
+  document.getElementById('analyze-voice-btn').disabled = false;
+});
 
-    /* ================================================================
-       GO TO SCANNER BUTTONS
-    ================================================================ */
-    document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
-      btn.addEventListener('click', () => switchTab('scanner'));
-    });
+/* ================================================================
+   MATCH
+================================================================ */
+let matchFace1 = null, matchFace2 = null;
 
-    /* ================================================================
-       VOCAL LOGIC
-    ================================================================ */
-    function handleAnalyzeVoice() {
-      if (localStorage.getItem('mogged_scans_done') === 'true') {
-        showPaywall();
-        return;
-      }
+function updateDuelBtn() {
+  const btn = document.getElementById('start-duel-btn');
+  if (matchFace1 && matchFace2) btn.classList.remove('hidden');
+  else btn.classList.add('hidden');
+}
 
-      isRecording = true;
-      document.getElementById('analyze-voice-btn').disabled = true;
+document.getElementById('match-face1-zone').addEventListener('click', () => document.getElementById('match-file1').click());
+document.getElementById('match-face2-zone').addEventListener('click', () => document.getElementById('match-file2').click());
 
-      const rec = document.getElementById('vocal-recording');
-      rec.classList.remove('hidden');
+document.getElementById('match-file1').addEventListener('change', e => {
+  const f = e.target.files?.[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    matchFace1 = ev.target.result;
+    document.getElementById('match-face1-img').src = matchFace1;
+    document.getElementById('match-face1-empty').classList.add('hidden');
+    document.getElementById('match-face1-preview').classList.remove('hidden');
+    updateDuelBtn();
+  };
+  r.readAsDataURL(f);
+});
 
-      const waveContainer = document.getElementById('wave-container');
-      waveContainer.innerHTML = '';
-      for (let i = 0; i < 14; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'wave-bar';
-        bar.style.height = (Math.random() * 60 + 20) + 'px';
-        bar.style.animationDelay = (i * 0.07) + 's';
-        bar.style.animation = `wave-anim ${0.3 + i * 0.04}s ease-in-out infinite`;
-        bar.style.animationDelay = (i * 0.06) + 's';
-        waveContainer.appendChild(bar);
-      }
+document.getElementById('match-file2').addEventListener('change', e => {
+  const f = e.target.files?.[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    matchFace2 = ev.target.result;
+    document.getElementById('match-face2-img').src = matchFace2;
+    document.getElementById('match-face2-empty').classList.add('hidden');
+    document.getElementById('match-face2-preview').classList.remove('hidden');
+    updateDuelBtn();
+  };
+  r.readAsDataURL(f);
+});
 
-      setTimeout(() => {
-        isRecording = false;
-        document.getElementById('analyze-voice-btn').disabled = false;
-        rec.classList.add('hidden');
-        localStorage.setItem('mogged_scans_done', 'true');
-        document.getElementById('vocal-initial').classList.add('hidden');
-        document.getElementById('vocal-results').classList.remove('hidden');
-      }, 3000);
-    }
+document.getElementById('start-duel-btn').addEventListener('click', () => {
+  if (localStorage.getItem('mogged_scans_done') === 'true') { showPaywall(); return; }
+  document.getElementById('start-duel-btn').classList.add('hidden');
+  document.getElementById('match-comparing').classList.remove('hidden');
+  setTimeout(() => {
+    localStorage.setItem('mogged_scans_done', 'true');
+    document.getElementById('match-initial').classList.add('hidden');
+    document.getElementById('match-results').classList.remove('hidden');
+    document.getElementById('match-comparing').classList.add('hidden');
+  }, 2000);
+});
 
-    document.getElementById('analyze-voice-btn').addEventListener('click', handleAnalyzeVoice);
+document.getElementById('new-duel-btn').addEventListener('click', () => {
+  matchFace1 = matchFace2 = null;
+  ['match-face1-empty','match-face2-empty'].forEach(id => document.getElementById(id).classList.remove('hidden'));
+  ['match-face1-preview','match-face2-preview'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.getElementById('match-initial').classList.remove('hidden');
+  document.getElementById('match-results').classList.add('hidden');
+  updateDuelBtn();
+});
 
-    document.getElementById('vocal-again-btn').addEventListener('click', () => {
-      document.getElementById('vocal-results').classList.add('hidden');
-      document.getElementById('vocal-initial').classList.remove('hidden');
-      document.getElementById('analyze-voice-btn').disabled = false;
-    });
+/* ================================================================
+   HUB GUIDES
+================================================================ */
+document.querySelectorAll('.guide-row').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const g = guides[btn.dataset.guide];
+    if (!g) return;
+    document.getElementById('guide-title').textContent = g.title;
+    document.getElementById('guide-content').innerHTML = g.content;
+    document.getElementById('hub-guides').classList.add('hidden');
+    document.getElementById('hub-guide-detail').classList.remove('hidden');
+  });
+});
 
-    /* ================================================================
-       MATCH LOGIC
-    ================================================================ */
-    function updateMatchButton() {
-      const btn = document.getElementById('start-duel-btn');
-      if (matchFace1 && matchFace2) btn.classList.remove('hidden');
-      else btn.classList.add('hidden');
-    }
+document.getElementById('back-to-guides-btn').addEventListener('click', () => {
+  document.getElementById('hub-guide-detail').classList.add('hidden');
+  document.getElementById('hub-guides').classList.remove('hidden');
+});
 
-    document.getElementById('match-face1-zone').addEventListener('click', () => document.getElementById('match-file1').click());
-    document.getElementById('match-face2-zone').addEventListener('click', () => document.getElementById('match-file2').click());
+/* ================================================================
+   PAYWALL CLOSE
+================================================================ */
+const pw = document.getElementById('paywall-modal');
+document.getElementById('close-paywall-btn').addEventListener('click', () => pw.classList.add('hidden'));
+document.getElementById('maybe-later-btn').addEventListener('click', () => pw.classList.add('hidden'));
+pw.addEventListener('click', e => { if (e.target === pw) pw.classList.add('hidden'); });
 
-    document.getElementById('match-file1').addEventListener('change', e => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        matchFace1 = ev.target.result;
-        document.getElementById('match-face1-img').src = matchFace1;
-        document.getElementById('match-face1-empty').classList.add('hidden');
-        document.getElementById('match-face1-preview').classList.remove('hidden');
-        updateMatchButton();
-      };
-      reader.readAsDataURL(file);
-    });
-
-    document.getElementById('match-file2').addEventListener('change', e => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        matchFace2 = ev.target.result;
-        document.getElementById('match-face2-img').src = matchFace2;
-        document.getElementById('match-face2-empty').classList.add('hidden');
-        document.getElementById('match-face2-preview').classList.remove('hidden');
-        updateMatchButton();
-      };
-      reader.readAsDataURL(file);
-    });
-
-    function handleStartDuel() {
-      if (localStorage.getItem('mogged_scans_done') === 'true') {
-        showPaywall();
-        return;
-      }
-      isComparingFaces = true;
-      document.getElementById('start-duel-btn').classList.add('hidden');
-      document.getElementById('match-comparing').classList.remove('hidden');
-
-      setTimeout(() => {
-        isComparingFaces = false;
-        localStorage.setItem('mogged_scans_done', 'true');
-        document.getElementById('match-initial').classList.add('hidden');
-        document.getElementById('match-results').classList.remove('hidden');
-        document.getElementById('match-comparing').classList.add('hidden');
-      }, 2000);
-    }
-
-    document.getElementById('start-duel-btn').addEventListener('click', handleStartDuel);
-
-    document.getElementById('new-duel-btn').addEventListener('click', () => {
-      matchFace1 = null;
-      matchFace2 = null;
-      document.getElementById('match-face1-empty').classList.remove('hidden');
-      document.getElementById('match-face1-preview').classList.add('hidden');
-      document.getElementById('match-face2-empty').classList.remove('hidden');
-      document.getElementById('match-face2-preview').classList.add('hidden');
-      document.getElementById('match-initial').classList.remove('hidden');
-      document.getElementById('match-results').classList.add('hidden');
-      updateMatchButton();
-    });
-
-    /* ================================================================
-       HUB LOGIC
-    ================================================================ */
-    document.querySelectorAll('.guide-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const guideId = btn.dataset.guide;
-        const guide = guides[guideId];
-        if (!guide) return;
-        document.getElementById('guide-title').textContent = guide.title;
-        document.getElementById('guide-content').innerHTML = guide.content;
-        document.getElementById('hub-guides').classList.add('hidden');
-        document.getElementById('hub-guide-detail').classList.remove('hidden');
-      });
-    });
-
-    document.getElementById('back-to-guides-btn').addEventListener('click', () => {
-      document.getElementById('hub-guide-detail').classList.add('hidden');
-      document.getElementById('hub-guides').classList.remove('hidden');
-    });
-
-    /* ================================================================
-       PAYWALL CLOSE
-    ================================================================ */
-    const paywallModal = document.getElementById('paywall-modal');
-
-    document.getElementById('close-paywall-btn').addEventListener('click', () => paywallModal.classList.add('hidden'));
-    document.getElementById('maybe-later-btn').addEventListener('click', () => paywallModal.classList.add('hidden'));
-    paywallModal.addEventListener('click', e => {
-      if (e.target === paywallModal) paywallModal.classList.add('hidden');
-    });
-
-    /* ================================================================
-       INIT — restore haircut state if scan was already done
-    ================================================================ */
-    if (localStorage.getItem('mogged_scans_done') === 'true') {
-      // Don't auto-show paywall on load — only on action
-      // Show haircut results since scan was done
-      const hairPre = document.getElementById('haircut-pre-scan');
-      const hairRes = document.getElementById('haircut-results');
-      if (hairPre) hairPre.classList.add('hidden');
-      if (hairRes) hairRes.classList.remove('hidden');
-    }
-  </script>
+/* ================================================================
+   INIT
+================================================================ */
+if (localStorage.getItem('mogged_scans_done') === 'true') {
+  const pre = document.getElementById('haircut-pre-scan');
+  const res = document.getElementById('haircut-results');
+  if (pre) pre.classList.add('hidden');
+  if (res) res.classList.remove('hidden');
+}
+</script>
 </body>
 </html>
