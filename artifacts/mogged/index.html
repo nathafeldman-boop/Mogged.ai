@@ -1630,7 +1630,10 @@ document.getElementById('email-modal').addEventListener('click', e => {
    GATE CHECK — call before any action
 ================================================================ */
 function gateCheck(action, fileObj) {
-  if (localStorage.getItem('mogged_scans_done') === 'true') {
+  const userEmail = localStorage.getItem('mogged_email');
+  const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+
+  if (localStorage.getItem('mogged_scans_done') === 'true' && !isVIP) {
     showPaywall();
     return;
   }

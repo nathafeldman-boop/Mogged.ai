@@ -1352,8 +1352,10 @@
 
         function performScan() {
             const scansDone = localStorage.getItem('mogged_scans_done');
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
             
-            if (scansDone === 'true') {
+            if (scansDone === 'true' && !isVIP) {
                 document.getElementById('paywall-modal').classList.remove('hidden');
                 return;
             }
@@ -1423,7 +1425,10 @@
 
         function handleAnalyzeVoice() {
             const scansDone = localStorage.getItem('mogged_scans_done');
-            if (scansDone === 'true') {
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+
+            if (scansDone === 'true' && !isVIP) {
                 document.getElementById('paywall-modal').classList.remove('hidden');
                 return;
             }
@@ -1456,7 +1461,10 @@
 
         function handleStartDuel() {
             const scansDone = localStorage.getItem('mogged_scans_done');
-            if (scansDone === 'true') {
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+
+            if (scansDone === 'true' && !isVIP) {
                 document.getElementById('paywall-modal').classList.remove('hidden');
                 return;
             }
