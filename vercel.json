@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter @workspace/mogged run build",
-  "outputDirectory": "artifacts/mogged/dist/public",
-  "framework": "vite",
+  "buildCommand": "bash build-vercel.sh",
+  "outputDirectory": "public",
+  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
