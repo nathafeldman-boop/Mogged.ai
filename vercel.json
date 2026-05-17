@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter @workspace/mogged run build",
+  "buildCommand": "pnpm install && pnpm --filter @workspace/mogged run build",
   "outputDirectory": "artifacts/mogged/dist/public",
   "framework": "vite",
   "rewrites": [
