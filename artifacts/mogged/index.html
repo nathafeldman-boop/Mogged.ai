@@ -1,2500 +1,1627 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Mogged.ai — AI Looksmaxing, Facial Analysis & Aesthetic Intelligence</title>
-  <meta name="description" content="Mogged.ai analyse ton visage avec l’IA, recommande des coupes de cheveux, des axes looksmaxing et des guides premium pour améliorer ton potentiel esthétique." />
-  <link rel="canonical" href="https://mogged-ai-oyzu.vercel.app/" />
-  <meta name="google-site-verification" content="I8y7x7GMiFMyPn3Y8kpjSNQ-wJEEkLBB5ENx1Q5GI1A" />
-  <meta property="og:title" content="Mogged.ai — AI Looksmaxing & Aesthetic Intelligence" />
-  <meta property="og:description" content="Découvre ton potentiel esthétique avec une analyse faciale IA, des recommandations de style et des guides looksmaxing premium." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mogged-ai-oyzu.vercel.app/" />
-  <meta property="og:image" content="https://mogged-ai-oyzu.vercel.app/opengraph.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mogged.ai — AI Looksmaxing & Aesthetic Intelligence" />
-  <meta name="twitter:description" content="Analyse faciale IA, recommandations de style et guides premium pour optimiser ton apparence." />
-  <meta name="twitter:image" content="https://mogged-ai-oyzu.vercel.app/opengraph.jpg" />
-  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#00e5ff" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #080c18;
-      --bg-card: rgba(10, 14, 28, 0.82);
-      --bg-card2: rgba(14, 18, 35, 0.9);
-      --cyan: #00e5ff;
-      --cyan-dim: rgba(0, 229, 255, 0.14);
-      --cyan-glow: rgba(0, 229, 255, 0.4);
-      --violet: #8b5cf6;
-      --violet-dim: rgba(139, 92, 246, 0.14);
-      --violet-glow: rgba(139, 92, 246, 0.35);
-      --pink: #f472b6;
-      --green: #34d399;
-      --orange: #fb923c;
-      --text: #dde4f0;
-      --text2: #7a8aa0;
-      --text3: #3d4d60;
-      --border: rgba(255,255,255,0.07);
-      --border-cyan: rgba(0,229,255,0.22);
-      --border-violet: rgba(139,92,246,0.22);
-      --blur: blur(24px);
-      --r: 14px;
-      --r-sm: 10px;
-      --r-xs: 8px;
-      --font-d: 'Orbitron', sans-serif;
-      --font: 'Inter', sans-serif;
-      --ease: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html, body { width: 100%; min-height: 100vh; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 50% at 10% 15%, rgba(0,160,220,0.09) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 45% at 90% 80%, rgba(120,60,240,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 55% 40%, rgba(244,114,182,0.04) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,229,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,229,255,0.018) 1px, transparent 1px);
-      background-size: 44px 44px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── LAYOUT ── */
-    .app {
-      position: relative;
-      z-index: 1;
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 0 16px 64px;
-    }
-
-    /* ── HEADER ── */
-    .hdr { padding: 28px 0 20px; display: flex; align-items: center; justify-content: space-between; }
-
-    .logo {
-      font-family: var(--font-d);
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: 0.07em;
-      background: linear-gradient(100deg, var(--cyan) 0%, var(--violet) 55%, var(--pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 14px rgba(0,229,255,0.35));
-    }
-
-    .logo-sub { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); margin-top: 2px; }
-
-    .status-dot {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      background: rgba(0,229,255,0.07);
-      border: 1px solid var(--border-cyan);
-      border-radius: 100px;
-      padding: 5px 12px;
-    }
-    .status-dot::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 6px var(--cyan);
-      animation: blink 2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-    /* ── NAV TABS ── */
-    .nav {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 20px;
-      background: rgba(10,14,28,0.7);
-      backdrop-filter: var(--blur);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 4px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-    .nav::-webkit-scrollbar { display: none; }
-
-    .tab-btn {
-      flex: 0 0 auto;
-      min-width: max-content;
-      font-family: var(--font);
-      font-size: 0.74rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--text3);
-      background: transparent;
-      border: none;
-      border-radius: 7px;
-      padding: 8px 6px;
-      cursor: pointer;
-      transition: all var(--ease);
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-    .tab-btn:hover { color: var(--text2); background: rgba(255,255,255,0.04); }
-    .tab-btn.active { color: #000; background: linear-gradient(135deg, var(--cyan), #00a8cc); box-shadow: 0 0 16px var(--cyan-glow); }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--bg-card);
-      backdrop-filter: var(--blur);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      overflow: hidden;
-    }
-    .card-cyan { border-color: var(--border-cyan); box-shadow: 0 0 24px rgba(0,229,255,0.05); }
-    .card-violet { border-color: var(--border-violet); box-shadow: 0 0 24px rgba(139,92,246,0.05); }
-
-    /* ── TAB CONTENT ── */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeUp 0.28s ease; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ── SECTION HEADER ── */
-    .sh { padding: 20px 18px 16px; border-bottom: 1px solid var(--border); }
-    .sh h2 { font-family: var(--font-d); font-size: 1rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cyan); text-shadow: 0 0 12px var(--cyan-glow); margin-bottom: 3px; }
-    .sh p { font-size: 0.76rem; color: var(--text2); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      font-family: var(--font);
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border: none;
-      border-radius: var(--r-sm);
-      padding: 13px 20px;
-      cursor: pointer;
-      transition: all var(--ease);
-      width: 100%;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: none; }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-    .btn-cyan { background: linear-gradient(135deg, var(--cyan), #00c0dd); color: #030810; box-shadow: 0 0 20px var(--cyan-glow), 0 4px 14px rgba(0,0,0,0.3); }
-    .btn-cyan:hover:not(:disabled) { box-shadow: 0 0 32px var(--cyan-glow), 0 0 60px rgba(0,229,255,0.15); }
-
-    .btn-violet { background: linear-gradient(135deg, var(--violet), #6d28d9); color: #fff; box-shadow: 0 0 20px var(--violet-glow), 0 4px 14px rgba(0,0,0,0.3); }
-    .btn-violet:hover:not(:disabled) { box-shadow: 0 0 32px var(--violet-glow); }
-
-    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid rgba(255,255,255,0.08); }
-    .btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); }
-
-    /* ── SCAN FRAME ── */
-    .scan-frame {
-      position: relative;
-      border-radius: var(--r-sm);
-      overflow: hidden;
-      background: #000;
-      min-height: 200px;
-      border: 1px solid var(--border-cyan);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .scan-frame video,
-    .scan-frame canvas,
-    .scan-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .scan-frame video { min-height: 240px; }
-
-    .scan-upload-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .scan-icon { font-size: 2.4rem; margin-bottom: 10px; filter: drop-shadow(0 0 10px var(--cyan)); }
-    .scan-hint { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--text2); margin-bottom: 20px; text-transform: uppercase; }
-
-    /* Laser */
-    .laser {
-      position: absolute;
-      left: 0; width: 100%; height: 2px;
-      background: linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.5) 15%, var(--cyan) 50%, rgba(0,229,255,0.5) 85%, transparent 100%);
-      box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan-glow);
-      animation: laser 4s ease-in-out infinite;
-      z-index: 20;
-    }
-    @keyframes laser {
-      0%   { top:0%; opacity:1; }
-      46%  { top:100%; opacity:0.7; }
-      48%  { top:100%; opacity:0; }
-      50%  { top:0%; opacity:0; }
-      52%  { top:0%; opacity:1; }
-      100% { top:0%; opacity:1; }
-    }
-
-    /* Corner brackets */
-    .c { position:absolute; width:22px; height:22px; z-index:15; }
-    .ctL { top:8px; left:8px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); }
-    .ctR { top:8px; right:8px; border-top:2px solid var(--cyan); border-right:2px solid var(--cyan); }
-    .cbL { bottom:8px; left:8px; border-bottom:2px solid var(--cyan); border-left:2px solid var(--cyan); }
-    .cbR { bottom:8px; right:8px; border-bottom:2px solid var(--cyan); border-right:2px solid var(--cyan); }
-
-    /* Scan overlay (scanning phase) */
-    .scan-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(5,8,18,0.45);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 24px;
-      z-index: 10;
-    }
-
-    .scan-status {
-      font-family: var(--font-d);
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan);
-      text-align: center;
-      padding: 0 16px;
-      margin-bottom: 10px;
-    }
-
-    .pbar-track { width: 140px; height: 3px; background: rgba(255,255,255,0.08); border-radius: 100px; overflow: hidden; }
-    .pbar-fill { height:100%; background:linear-gradient(90deg,var(--cyan),var(--violet)); border-radius:100px; transition:width 0.4s ease; box-shadow:0 0 6px var(--cyan); }
-
-    /* Live camera capture button bar */
-    .capture-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 12px 16px;
-      background: linear-gradient(to top, rgba(5,8,18,0.88) 0%, transparent 100%);
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      z-index: 30;
-    }
-
-    .capture-btn {
-      font-family: var(--font);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--cyan), #00b0cc);
-      color: #030810;
-      border: none;
-      border-radius: var(--r-sm);
-      padding: 11px 24px;
-      cursor: pointer;
-      transition: all var(--ease);
-      box-shadow: 0 0 20px var(--cyan-glow);
-    }
-    .capture-btn:hover { transform: scale(1.04); box-shadow: 0 0 32px var(--cyan-glow); }
-
-    .cancel-cam-btn {
-      font-family: var(--font);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.08);
-      color: var(--text2);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--r-sm);
-      padding: 11px 16px;
-      cursor: pointer;
-      transition: all var(--ease);
-    }
-    .cancel-cam-btn:hover { background: rgba(255,255,255,0.13); color: var(--text); }
-
-    /* ── METRIC CARDS ── */
-    .metric-card {
-      display: flex;
-      align-items: stretch;
-      background: var(--bg-card2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      overflow: hidden;
-      margin-bottom: 10px;
-      transition: border-color var(--ease);
-    }
-    .metric-card:hover { border-color: rgba(0,229,255,0.15); }
-
-    .metric-body { flex: 1; padding: 14px; min-width: 0; }
-
-    .metric-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
-    .metric-name { font-size: 0.82rem; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
-    .metric-score { font-family: var(--font-d); font-size: 0.88rem; font-weight: 900; letter-spacing: 0.04em; flex-shrink: 0; margin-left: 8px; }
-    .metric-desc { font-size: 0.74rem; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
-    .metric-bar-track { height: 3px; background: rgba(255,255,255,0.07); border-radius:100px; overflow:hidden; }
-    .metric-bar-fill { height:100%; border-radius:100px; transition:width 1.2s cubic-bezier(0.4,0,0.2,1); }
-    .bar-c { background:linear-gradient(90deg,var(--cyan),#00aacc); box-shadow:0 0 6px rgba(0,229,255,0.3); }
-    .bar-v { background:linear-gradient(90deg,var(--violet),#6d28d9); box-shadow:0 0 6px rgba(139,92,246,0.3); }
-    .bar-g { background:linear-gradient(90deg,var(--green),#10b981); box-shadow:0 0 6px rgba(52,211,153,0.3); }
-    .bar-o { background:linear-gradient(90deg,var(--orange),#ea580c); box-shadow:0 0 6px rgba(251,146,60,0.3); }
-    .metric-tag { display:inline-block; font-size:0.66rem; font-weight:600; letter-spacing:0.08em; color:var(--text2); background:rgba(255,255,255,0.05); border-radius:4px; padding:2px 7px; margin-top:6px; text-transform:uppercase; }
-    .metric-photo { width: 88px; flex-shrink: 0; overflow: hidden; }
-    .metric-photo img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.85) contrast(1.05); }
-
-    /* Color */
-    .c-cyan { color: var(--cyan); }
-    .c-violet { color: var(--violet); }
-    .c-green { color: var(--green); }
-    .c-orange { color: var(--orange); }
-    .c-pink { color: var(--pink); }
-
-    /* ── HAIRCUT ── */
-    .hc-body { padding: 16px 18px; }
-    .hc-photo { width:100%; max-width:300px; border-radius:var(--r-sm); border:1px solid var(--border-cyan); box-shadow:0 0 24px rgba(0,229,255,0.12); display:block; margin:0 auto 16px; }
-    .hc-title { font-size:1rem; font-weight:700; color:var(--text); text-align:center; margin-bottom:6px; }
-    .hc-desc { font-size:0.78rem; color:var(--text2); text-align:center; line-height:1.6; margin-bottom:18px; }
-
-    /* ── STRIPE ── */
-    .stripe-box { background:rgba(5,8,16,0.9); backdrop-filter:var(--blur); border:1px solid rgba(0,229,255,0.1); border-radius:var(--r-sm); padding:18px; margin:16px 0; }
-    .stripe-lbl { font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
-    .sbw { border-radius:var(--r-xs); overflow:hidden; }
-    .sbw.elite { box-shadow:0 0 18px rgba(139,92,246,0.2); }
-    .sbw.flash { box-shadow:0 0 18px rgba(0,229,255,0.2); }
-    .stripe-sep { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent); margin:16px 0; }
-
-    /* ── VOCAL ── */
-    .vc-body { padding: 16px 18px; }
-
-    .waveform {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:3px;
-      height:72px;
-      background:rgba(0,0,0,0.3);
-      border-radius:var(--r-sm);
-      border:1px solid var(--border-violet);
-      padding:10px;
-      margin:14px 0;
-    }
-    .wb { width:3px; border-radius:100px; background:linear-gradient(to top,var(--violet),var(--pink)); box-shadow:0 0 4px rgba(139,92,246,0.4); transform-origin:center bottom; }
-    @keyframes wv { 0%,100%{transform:scaleY(0.1)} 50%{transform:scaleY(1)} }
-
-    .mic-countdown {
-      font-family: var(--font-d);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--violet);
-      text-shadow: 0 0 10px var(--violet-glow);
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    /* ── MATCH ── */
-    .mt-body { padding: 16px 18px; }
-    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .spin-ring { width:40px;height:40px;border:3px solid rgba(255,255,255,0.07);border-top-color:var(--cyan);border-right-color:var(--violet);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px; }
-    @keyframes spin{ to{transform:rotate(360deg)} }
-
-    /* Duel arena */
-    .duel-arena {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .avatar-slot { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
-
-    .avatar-ring {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 3px solid;
-      padding: 4px;
-      cursor: pointer;
-      transition: all var(--ease);
-      position: relative;
-      background: rgba(10,14,28,0.8);
-      flex-shrink: 0;
-    }
-
-    .avatar-ring.you {
-      border-color: var(--green);
-      box-shadow: 0 0 16px rgba(52,211,153,0.4), 0 0 32px rgba(52,211,153,0.15), inset 0 0 16px rgba(52,211,153,0.06);
-    }
-    .avatar-ring.you:hover { box-shadow: 0 0 24px rgba(52,211,153,0.6), 0 0 48px rgba(52,211,153,0.25); transform: scale(1.04); }
-
-    .avatar-ring.opp {
-      border-color: #e05;
-      box-shadow: 0 0 16px rgba(238,0,85,0.4), 0 0 32px rgba(238,0,85,0.15), inset 0 0 16px rgba(238,0,85,0.06);
-    }
-    .avatar-ring.opp:hover { box-shadow: 0 0 24px rgba(238,0,85,0.6), 0 0 48px rgba(238,0,85,0.25); transform: scale(1.04); }
-
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-inner img { width:100%; height:100%; object-fit:cover; display:block; }
-
-    .avatar-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      gap: 4px;
-    }
-
-    .avatar-placeholder-icon { font-size: 1.6rem; }
-    .avatar-placeholder-text { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); text-align: center; }
-
-    .avatar-label {
-      font-family: var(--font-d);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .avatar-caption {
-      font-size: 0.68rem;
-      color: var(--text3);
-      text-align: center;
-      max-width: 110px;
-      line-height: 1.3;
-    }
-
-    .avatar-caption.ok { color: var(--green); }
-
-    /* VS separator with lightning */
-    .vs-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0 4px;
-      position: relative;
-      z-index: 2;
-      flex-shrink: 0;
-    }
-
-    .vs-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(139,92,246,0.15));
-      border: 1px solid rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-d);
-      font-size: 0.7rem;
-      font-weight: 900;
-      color: var(--text2);
-      box-shadow: 0 0 12px rgba(139,92,246,0.2);
-    }
-
-    /* Lightning arcs (SVG-drawn decorative elements) */
-    .lightning-svg {
-      position: absolute;
-      top: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 320px;
-      height: 130px;
-      pointer-events: none;
-      overflow: visible;
-    }
-
-    @keyframes arc-pulse {
-      0%, 100% { opacity: 0.5; stroke-width: 1.5; }
-      50%       { opacity: 1;   stroke-width: 2.5; }
-    }
-    .arc-path { animation: arc-pulse 1.8s ease-in-out infinite; }
-    .arc-path2 { animation: arc-pulse 1.8s ease-in-out infinite; animation-delay: 0.4s; }
-
-    /* Name inputs row */
-    .name-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .cyber-name-input {
-      flex: 1;
-      font-family: var(--font);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--r-xs);
-      padding: 11px 12px;
-      outline: none;
-      transition: all var(--ease);
-      text-align: center;
-      min-width: 0;
-    }
-
-    .cyber-name-input::placeholder { color: var(--text3); font-weight: 400; font-size: 0.78rem; }
-
-    .cyber-name-input.you-input:focus {
-      border-color: var(--green);
-      background: rgba(52,211,153,0.06);
-      box-shadow: 0 0 0 3px rgba(52,211,153,0.1), 0 0 16px rgba(52,211,153,0.08);
-    }
-    .cyber-name-input.opp-input:focus {
-      border-color: #e05;
-      background: rgba(238,0,85,0.06);
-      box-shadow: 0 0 0 3px rgba(238,0,85,0.1), 0 0 16px rgba(238,0,85,0.08);
-    }
-
-    .vs-sep {
-      font-family: var(--font-d);
-      font-size: 0.72rem;
-      font-weight: 900;
-      color: var(--text2);
-      flex-shrink: 0;
-    }
-
-    /* Email linked badge */
-    .email-linked {
-      font-size: 0.68rem;
-      color: var(--text3);
-      text-align: center;
-      margin-bottom: 14px;
-    }
-
-    .email-linked span { color: var(--cyan); }
-
-    /* START DUEL button */
-    .duel-start-btn {
-      width: 100%;
-      font-family: var(--font);
-      font-size: 0.9rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #fff;
-      background: linear-gradient(135deg, var(--violet) 0%, #5b21b6 50%, var(--cyan) 100%);
-      background-size: 200% 100%;
-      border: none;
-      border-radius: var(--r-sm);
-      padding: 15px 20px;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        0 0 24px rgba(139,92,246,0.5),
-        0 0 48px rgba(139,92,246,0.2),
-        0 0 80px rgba(0,229,255,0.1),
-        0 4px 20px rgba(0,0,0,0.4);
-    }
-
-    .duel-start-btn::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      padding: 1px;
-      background: linear-gradient(135deg, var(--cyan), var(--violet), #e05);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.7;
-    }
-
-    .duel-start-btn:hover {
-      background-position: 100% 0;
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 36px rgba(139,92,246,0.7),
-        0 0 72px rgba(139,92,246,0.3),
-        0 0 120px rgba(0,229,255,0.15),
-        0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    .duel-start-btn:active { transform: translateY(0); }
-    .duel-start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-    /* Duel loading */
-    .duel-loading {
-      padding: 28px 20px;
-      text-align: center;
-    }
-
-    .duel-loading-step {
-      font-family: var(--font-d);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan);
-      min-height: 1.2em;
-      transition: opacity 0.2s ease;
-    }
-
-    /* Verdict */
-    .verdict-card {
-      border-radius: var(--r-sm);
-      padding: 22px 20px;
-      text-align: center;
-      background: rgba(10,14,28,0.9);
-      border: 1px solid rgba(52,211,153,0.3);
-      box-shadow: 0 0 30px rgba(52,211,153,0.1), inset 0 1px 0 rgba(52,211,153,0.1);
-      margin-bottom: 12px;
-    }
-
-    .verdict-main {
-      font-family: var(--font-d);
-      font-size: 1.05rem;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, var(--green), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: none;
-      filter: drop-shadow(0 0 12px rgba(52,211,153,0.5));
-    }
-
-    .verdict-scores {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--text2);
-      font-weight: 600;
-    }
-
-    .score-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-
-    .score-pill.winner { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
-    .score-pill.loser  { background: rgba(238,0,85,0.1); color: #ff4477; border: 1px solid rgba(238,0,85,0.2); }
-
-    /* ── HUB ── */
-    .hub-body { padding: 16px 18px; }
-    .guide-row { display:flex; align-items:flex-start; gap:14px; background:var(--bg-card2); border:1px solid var(--border); border-radius:var(--r-sm); padding:16px; margin-bottom:10px; cursor:pointer; transition:all var(--ease); text-align:left; width:100%; }
-    .guide-row:hover { border-color:var(--border-cyan); box-shadow:0 0 16px var(--cyan-dim); transform:translateY(-1px); }
-    .guide-icon { width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(139,92,246,0.1)); border:1px solid var(--border-cyan); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-    .guide-info { flex:1; min-width:0; }
-    .guide-title { font-size:0.88rem; font-weight:700; color:var(--text); margin-bottom:4px; }
-    .guide-desc { font-size:0.74rem; color:var(--text2); line-height:1.5; }
-    .guide-arrow { color:var(--cyan); opacity:0; transition:all var(--ease); font-size:0.9rem; flex-shrink:0; align-self:center; }
-    .guide-row:hover .guide-arrow { opacity:1; transform:translateX(3px); }
-
-    /* Guide detail */
-    .guide-detail-content { padding:18px; }
-    .guide-detail-content h2 { font-family:var(--font-d); font-size:0.88rem; font-weight:700; letter-spacing:0.06em; color:var(--cyan); text-shadow:0 0 10px var(--cyan-glow); margin:20px 0 8px; }
-    .guide-detail-content h2:first-child { margin-top:0; }
-    .guide-detail-content h3 { font-size:0.82rem; font-weight:700; color:var(--violet); margin:14px 0 6px; }
-    .guide-detail-content p { font-size:0.80rem; color:var(--text2); line-height:1.7; margin-bottom:10px; }
-    .guide-detail-content strong { color:var(--text); font-weight:600; }
-    .guide-detail-content ul, .guide-detail-content ol { padding-left:16px; margin-bottom:10px; }
-    .guide-detail-content li { font-size:0.78rem; color:var(--text2); line-height:1.7; margin-bottom:3px; }
-    .back-btn { display:inline-flex; align-items:center; gap:7px; font-size:0.78rem; font-weight:600; letter-spacing:0.06em; color:var(--cyan); cursor:pointer; padding:10px 18px 0; background:none; border:none; transition:color var(--ease); }
-    .back-btn:hover { color:#fff; }
-
-    /* ─────────────────────────────────────────
-       EMAIL GATE MODAL
-    ───────────────────────────────────────── */
-    .email-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(5,8,18,0.88);
-      backdrop-filter: blur(14px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 300;
-      padding: 20px;
-    }
-
-    .email-box {
-      background: rgba(10,14,28,0.97);
-      backdrop-filter: var(--blur);
-      border: 1px solid var(--border-cyan);
-      border-radius: var(--r);
-      padding: 32px 24px;
-      max-width: 400px;
-      width: 100%;
-      position: relative;
-      box-shadow:
-        0 0 60px rgba(0,229,255,0.14),
-        0 0 120px rgba(139,92,246,0.07),
-        0 24px 48px rgba(0,0,0,0.6);
-      animation: emailIn 0.32s cubic-bezier(0.34,1.56,0.64,1);
-    }
-
-    @keyframes emailIn { from{opacity:0;transform:scale(0.88) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
-
-    .email-icon-ring {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(139,92,246,0.12));
-      border: 1px solid var(--border-cyan);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      margin: 0 auto 18px;
-      box-shadow: 0 0 20px rgba(0,229,255,0.15);
-    }
-
-    .email-title {
-      font-family: var(--font-d);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      color: var(--text);
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .email-subtitle {
-      font-size: 0.78rem;
-      color: var(--text2);
-      text-align: center;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
-    /* Cyberpunk input */
-    .cyber-input-wrap {
-      position: relative;
-      margin-bottom: 14px;
-    }
-
-    .cyber-input {
-      width: 100%;
-      font-family: var(--font);
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text);
-      background: rgba(0,229,255,0.04);
-      border: 1px solid rgba(0,229,255,0.22);
-      border-radius: var(--r-sm);
-      padding: 13px 46px 13px 14px;
-      outline: none;
-      transition: all var(--ease);
-      letter-spacing: 0.02em;
-    }
-
-    .cyber-input::placeholder { color: var(--text3); }
-
-    .cyber-input:focus {
-      border-color: var(--cyan);
-      background: rgba(0,229,255,0.07);
-      box-shadow: 0 0 0 3px rgba(0,229,255,0.1), 0 0 20px rgba(0,229,255,0.08);
-    }
-
-    .cyber-input.error {
-      border-color: var(--pink);
-      background: rgba(244,114,182,0.05);
-      box-shadow: 0 0 0 3px rgba(244,114,182,0.1);
-    }
-
-    .cyber-input-icon {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text3);
-      font-size: 1rem;
-      pointer-events: none;
-    }
-
-    /* Left accent line */
-    .cyber-input-wrap::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 20%; bottom: 20%;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--cyan), transparent);
-      border-radius: 100px;
-      opacity: 0;
-      transition: opacity var(--ease);
-    }
-    .cyber-input:focus ~ .cyber-input-wrap::before,
-    .cyber-input-wrap:focus-within::before { opacity: 1; }
-
-    .email-error { font-size: 0.72rem; color: var(--pink); margin-bottom: 12px; padding-left: 2px; min-height: 1em; }
-
-    .email-privacy {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.70rem;
-      color: var(--text3);
-      margin-top: 14px;
-      text-align: center;
-      justify-content: center;
-    }
-
-    /* ── PAYWALL ── */
-    .pw-backdrop {
-      position:fixed; inset:0;
-      background:rgba(5,8,18,0.9);
-      backdrop-filter:blur(14px);
-      display:flex; align-items:center; justify-content:center;
-      z-index:200; padding:20px;
-    }
-
-    .pw-box {
-      background:rgba(10,14,28,0.97);
-      backdrop-filter:var(--blur);
-      border:1px solid var(--border-cyan);
-      border-radius:var(--r);
-      padding:28px 24px;
-      max-width:440px;
-      width:100%;
-      position:relative;
-      box-shadow:0 0 50px rgba(0,229,255,0.12),0 0 100px rgba(139,92,246,0.07),0 24px 48px rgba(0,0,0,0.6);
-      animation:pwIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    @keyframes pwIn { from{opacity:0;transform:scale(0.9) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
-
-    .pw-close { position:absolute; top:14px; right:14px; width:28px; height:28px; border-radius:50%; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:var(--text2); font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all var(--ease); }
-    .pw-close:hover { border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 10px var(--cyan-glow); }
-    .pw-title { font-family:var(--font-d); font-size:1.2rem; font-weight:900; letter-spacing:0.06em; background:linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:7px; }
-    .pw-desc { font-size:0.80rem; color:var(--text2); line-height:1.6; margin-bottom:20px; }
-    .feature-list { margin-bottom:22px; display:flex; flex-direction:column; gap:8px; }
-    .fi { display:flex; align-items:center; gap:10px; font-size:0.80rem; color:var(--text); }
-    .fi-check { width:18px; height:18px; border-radius:50%; background:rgba(0,229,255,0.1); border:1px solid var(--border-cyan); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--cyan); flex-shrink:0; }
-
-
-    /* ── UTILS ── */
-    .hidden { display:none !important; }
-    .p16 { padding:16px 18px; }
-    .mb10 { margin-bottom:10px; }
-    .mb14 { margin-bottom:14px; }
-    .mt10 { margin-top:10px; }
-    .txt-c { text-align:center; }
-    .txt-sm { font-size:0.78rem; color:var(--text2); line-height:1.6; }
-    .txt-sm2 { font-size:0.72rem; color:var(--text2); }
-    .pre-scan-state { padding:40px 18px; text-align:center; }
-    .pre-scan-state .big-icon { font-size:2.2rem; margin-bottom:12px; filter:drop-shadow(0 0 10px var(--violet)); }
-
-    /* ── SIDEBAR MENU ── */
-    .sidebar-backdrop { position:fixed; inset:0; background:rgba(5,8,18,0.7); backdrop-filter:blur(8px); z-index:400; display:none; }
-    .sidebar-menu { position:fixed; top:0; left:-280px; width:280px; height:100%; background:var(--bg-card); border-right:1px solid var(--border-cyan); z-index:401; transition:left 0.3s ease; padding:24px 20px; display:flex; flex-direction:column; }
-    .sidebar-menu.open { left:0; }
-    .sidebar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-    .sidebar-logo { font-family:var(--font-d); font-size:1.1rem; font-weight:900; color:var(--cyan); letter-spacing:0.05em; }
-    .sidebar-links { display:flex; flex-direction:column; gap:8px; flex:1; }
-    .sidebar-link { display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--r-sm); color:var(--text2); text-decoration:none; font-weight:600; font-size:0.9rem; transition:all var(--ease); cursor:pointer; background:none; border:none; width:100%; text-align:left; }
-    .sidebar-link:hover { background:rgba(255,255,255,0.05); color:var(--text); }
-    .sidebar-link.active { background:var(--cyan-dim); color:var(--cyan); border:1px solid var(--border-cyan); }
-    .sidebar-footer { padding-top:20px; border-top:1px solid var(--border); }
-    .pro-badge { background:linear-gradient(135deg, var(--green), #10b981); color:#000; font-size:0.6rem; font-weight:800; padding:2px 6px; border-radius:4px; text-transform:uppercase; margin-left:auto; }
-
-    /* ── PRICING GRID ── */
-    .pricing-container { display:flex; flex-direction:column; gap:20px; padding:10px 0; }
-    .pricing-card { background:var(--bg-card2); border:1px solid var(--border); border-radius:var(--r); padding:24px; position:relative; transition:all var(--ease); }
-    .pricing-card.pro { border-color:var(--green); box-shadow:0 0 20px rgba(52,211,153,0.1); }
-    .pricing-card.lifetime { border-color:#fbbf24; box-shadow:0 0 20px rgba(251,191,36,0.1); }
-    .pricing-header { margin-bottom:20px; }
-    .plan-name { font-family:var(--font-d); font-size:1.2rem; font-weight:800; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-    .plan-price { font-size:2rem; font-weight:900; display:flex; align-items:baseline; gap:4px; }
-    .plan-price span { font-size:0.9rem; color:var(--text2); font-weight:500; }
-    .plan-features { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
-    .plan-features li { display:flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--text2); }
-    .plan-features li svg { color:var(--green); flex-shrink:0; }
-    .popular-badge { position:absolute; top:-12px; right:20px; background:var(--green); color:#000; font-size:0.7rem; font-weight:800; padding:4px 12px; border-radius:100px; display:flex; align-items:center; gap:4px; }
-    .lifetime-badge { position:absolute; top:-12px; right:20px; background:#fbbf24; color:#000; font-size:0.7rem; font-weight:800; padding:4px 12px; border-radius:100px; display:flex; align-items:center; gap:4px; }
-    .btn-pricing { font-weight:800; padding:14px; border-radius:var(--r-sm); border:none; cursor:pointer; width:100%; text-transform:uppercase; font-size:0.9rem; transition:all var(--ease); }
-    .btn-starter { background:linear-gradient(135deg, var(--cyan), #00b0cc); color:#000; }
-    .btn-pro { background:linear-gradient(135deg, var(--green), #10b981); color:#000; }
-    .btn-lifetime { background:linear-gradient(135deg, #fb923c, #f97316); color:#000; }
-    .save-badge { color:var(--green); font-size:0.8rem; font-weight:600; margin-bottom:12px; display:block; }
-    .stripe-button-container { margin-top: 10px; min-height: 44px; display: flex; justify-content: center; }
-
-    /* ── AUTH MODAL ── */
-    .auth-box { background:rgba(10,14,28,0.98); border:1px solid var(--border); border-radius:var(--r); padding:32px 24px; max-width:400px; width:100%; position:relative; box-shadow:0 24px 48px rgba(0,0,0,0.5); }
-    .auth-title { font-family:var(--font-d); font-size:1.5rem; font-weight:800; text-align:center; margin-bottom:8px; }
-    .auth-subtitle { font-size:0.85rem; color:var(--text2); text-align:center; margin-bottom:24px; }
-    .google-btn { width:100%; background:#fff; color:#000; border:none; border-radius:var(--r-sm); padding:12px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; margin-bottom:20px; transition:all var(--ease); }
-    .google-btn:hover { background:#f1f5f9; }
-    .auth-sep { display:flex; align-items:center; gap:10px; margin-bottom:20px; color:var(--text3); font-size:0.75rem; text-transform:uppercase; }
-    .auth-sep::before, .auth-sep::after { content:''; flex:1; height:1px; background:var(--border); }
-    .auth-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:var(--r-sm); padding:12px 16px; color:var(--text); margin-bottom:12px; outline:none; transition:all var(--ease); }
-    .auth-input:focus { border-color:var(--cyan); background:rgba(255,255,255,0.08); }
-    .auth-submit { width:100%; background:linear-gradient(135deg, #065f46, #064e3b); color:#fff; border:none; border-radius:var(--r-sm); padding:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; }
-    .auth-switch { text-align:center; font-size:0.85rem; color:var(--text2); }
-    .auth-switch a { color:var(--cyan); text-decoration:none; font-weight:600; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOGGED.AI - Premium Aesthetic Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #0f172a, #0f1419, #0f172a);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .max-w-6xl {
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 0.75rem;
+        }
+
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: bold;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-weight: bold;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            font-weight: bold;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-cyan-400 {
+            color: #22d3ee;
+        }
+
+        .text-slate-400 {
+            color: #94a3b8;
+        }
+
+        .text-slate-300 {
+            color: #cbd5e1;
+        }
+
+        .text-slate-500 {
+            color: #64748b;
+        }
+
+        .text-slate-700 {
+            color: #334155;
+        }
+
+        .text-white {
+            color: #ffffff;
+        }
+
+        .text-black {
+            color: #000000;
+        }
+
+        .text-purple-400 {
+            color: #c084fc;
+        }
+
+        .text-pink-400 {
+            color: #f472b6;
+        }
+
+        .text-green-500 {
+            color: #22c55e;
+        }
+
+        .text-emerald-500 {
+            color: #10b981;
+        }
+
+        .text-orange-500 {
+            color: #f97316;
+        }
+
+        .text-red-500 {
+            color: #ef4444;
+        }
+
+        .text-cyan-300 {
+            color: #06b6d4;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.05em;
+        }
+
+        .bg-white\/5 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-black\/20 {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .bg-black\/30 {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .bg-black\/40 {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .bg-black\/80 {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .bg-slate-700 {
+            background-color: #334155;
+        }
+
+        .bg-slate-600 {
+            background-color: #475569;
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+
+        .from-cyan-400 {
+            --tw-gradient-stops: #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .to-cyan-400 {
+            --tw-gradient-to: #22d3ee;
+        }
+
+        .from-cyan-300 {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .to-cyan-500 {
+            --tw-gradient-to: #06b6d4;
+        }
+
+        .from-purple-600 {
+            --tw-gradient-stops: #9333ea, var(--tw-gradient-to, rgba(147, 51, 234, 0));
+        }
+
+        .to-pink-600 {
+            --tw-gradient-to: #be185d;
+        }
+
+        .from-purple-500 {
+            --tw-gradient-stops: #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .to-pink-500 {
+            --tw-gradient-to: #ec4899;
+        }
+
+        .from-cyan-500 {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .to-purple-600 {
+            --tw-gradient-to: #9333ea;
+        }
+
+        .via-cyan-400 {
+            --tw-gradient-stops: #22d3ee, #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .via-purple-500 {
+            --tw-gradient-stops: var(--tw-gradient-from), #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .border {
+            border-width: 1px;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .border-dashed {
+            border-style: dashed;
+        }
+
+        .border-white\/10 {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .border-slate-700 {
+            border-color: #334155;
+        }
+
+        .border-cyan-400\/50 {
+            border-color: rgba(34, 211, 238, 0.5);
+        }
+
+        .border-cyan-400 {
+            border-color: #22d3ee;
+        }
+
+        .border-purple-400\/50 {
+            border-color: rgba(192, 132, 252, 0.5);
+        }
+
+        .border-purple-400 {
+            border-color: #c084fc;
+        }
+
+        .border-cyan-400\/30 {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .backdrop-blur-xl {
+            backdrop-filter: blur(20px);
+        }
+
+        .backdrop-blur-lg {
+            backdrop-filter: blur(16px);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-1 {
+            gap: 0.25rem;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        .items-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-40 {
+            width: 10rem;
+        }
+
+        .w-8 {
+            width: 2rem;
+        }
+
+        .w-2 {
+            width: 0.5rem;
+        }
+
+        .h-auto {
+            height: auto;
+        }
+
+        .h-64 {
+            height: 16rem;
+        }
+
+        .h-24 {
+            height: 6rem;
+        }
+
+        .h-4 {
+            height: 1rem;
+        }
+
+        .h-2 {
+            height: 0.5rem;
+        }
+
+        .h-8 {
+            height: 2rem;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .max-w-sm {
+            max-width: 24rem;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .max-w-none {
+            max-width: none;
+        }
+
+        .max-w-6xl {
+            max-width: 64rem;
+        }
+
+        .object-cover {
+            object-fit: cover;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .pb-4 {
+            padding-bottom: 1rem;
+        }
+
+        .ml-4 {
+            margin-left: 1rem;
+        }
+
+        .mx-4 {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+        }
+
+        .inset-0 {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .top-4 {
+            top: 1rem;
+        }
+
+        .right-4 {
+            right: 1rem;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        .transform {
+            transform: translateZ(0);
+        }
+
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+
+        .hover\:bg-slate-600:hover {
+            background-color: #475569;
+        }
+
+        .hover\:text-slate-300:hover {
+            color: #cbd5e1;
+        }
+
+        .hover\:text-slate-200:hover {
+            color: #e2e8f0;
+        }
+
+        .hover\:text-cyan-300:hover {
+            color: #06b6d4;
+        }
+
+        .hover\:border-cyan-400:hover {
+            border-color: #22d3ee;
+        }
+
+        .hover\:border-purple-400:hover {
+            border-color: #c084fc;
+        }
+
+        .hover\:bg-black\/40:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .hover\:from-cyan-300:hover {
+            --tw-gradient-stops: #06b6d4, var(--tw-gradient-to, rgba(6, 182, 212, 0));
+        }
+
+        .hover\:to-cyan-400:hover {
+            --tw-gradient-to: #22d3ee;
+        }
+
+        .hover\:from-purple-500:hover {
+            --tw-gradient-stops: #a855f7, var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+
+        .hover\:to-pink-500:hover {
+            --tw-gradient-to: #ec4899;
+        }
+
+        .hover\:from-cyan-400:hover {
+            --tw-gradient-stops: #22d3ee, var(--tw-gradient-to, rgba(34, 211, 238, 0));
+        }
+
+        .hover\:to-purple-500:hover {
+            --tw-gradient-to: #a855f7;
+        }
+
+        .disabled\:opacity-50:disabled {
+            opacity: 0.5;
+        }
+
+        .disabled\:cursor-not-allowed:disabled {
+            cursor: not-allowed;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes scan-laser-down {
+            0% {
+                top: 0;
+                opacity: 1;
+            }
+            50% {
+                top: 100%;
+                opacity: 0.5;
+            }
+            100% {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                height: 20%;
+            }
+            50% {
+                height: 100%;
+            }
+        }
+
+        .scanner-laser-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .stripe-container {
+            background: rgba(10, 11, 16, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+        }
+
+        .stripe-container > div[class*="rounded-xl"] {
+            background: transparent;
+            border: none;
+        }
+
+        .stripe-container > div:nth-child(2) {
+            box-shadow: 0 0 15px rgba(161, 94, 255, 0.2);
+        }
+
+        .stripe-container > div:nth-child(4) {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .shadow-\[0_0_50px_rgba\(0\,243\,255\,0\.2\)\] {
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+        }
+
+        .shadow-\[0_0_15px_rgba\(161\,94\,255\,0\.2\)\] {
+            box-shadow: 0 0 15px rgba(161, 94, 255, 0.2);
+        }
+
+        .shadow-\[0_0_15px_rgba\(0\,243\,255\,0\.2\)\] {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .duration-500 {
+            transition-duration: 500ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .prose {
+            color: #cbd5e1;
+        }
+
+        .prose-invert {
+            color: #cbd5e1;
+        }
+
+        .prose-invert h2 {
+            color: #22d3ee;
+        }
+
+        .prose-invert h3 {
+            color: #06b6d4;
+        }
+
+        .prose-invert p {
+            color: #cbd5e1;
+        }
+
+        .prose-invert li {
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 640px) {
+            .text-5xl {
+                font-size: 2rem;
+            }
+
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+
+            .gap-8 {
+                gap: 1rem;
+            }
+
+            .p-8 {
+                padding: 1rem;
+            }
+
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-<aside class="sidebar-menu" id="sidebar-menu">
-  <div class="sidebar-header">
-    <div class="sidebar-logo">MOGGED.AI</div>
-    <button id="close-menu-btn" style="background:none; border:none; color:var(--text2); cursor:pointer;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="sidebar-links">
-    <button class="sidebar-link active" data-tab="scanner">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      Scanner
-    </button>
-    <button class="sidebar-link" data-tab="haircut">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 3a3 3 0 110 6 3 3 0 010-6z"/><path d="M6 9v12M6 14h12M18 9v12M18 3a3 3 0 110 6 3 3 0 010-6z"/></svg>
-      Haircut
-    </button>
-    <button class="sidebar-link" data-tab="vocal">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
-      Vocal
-    </button>
-    <button class="sidebar-link" data-tab="match">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/><path d="M1 20.5s2-4 8-4 10 4 10 4"/></svg>
-      Match
-    </button>
-    <button class="sidebar-link" data-tab="hub">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-      Guides
-    </button>
-    <button class="sidebar-link" data-tab="pricing" id="sidebar-pricing-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      Pricing <span class="pro-badge">Pro</span>
-    </button>
-  </div>
-  <div class="sidebar-footer">
-    <button class="sidebar-link" id="sidebar-auth-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Se connecter
-    </button>
-  </div>
-</aside>
-
-<div id="auth-modal" class="email-backdrop hidden">
-  <div class="auth-box">
-    <button id="close-auth-btn" class="pw-close">✕</button>
-    <div class="auth-title">Créer un compte</div>
-    <div class="auth-subtitle">Inscris-toi gratuitement pour débloquer l'analyse complète</div>
-    
-    <button class="google-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      Continuer avec Google
-    </button>
-
-    <div class="auth-sep">ou</div>
-
-    <input type="email" class="auth-input" placeholder="Email" id="auth-email">
-    <input type="password" class="auth-input" placeholder="Mot de passe (min. 6 caractères)" id="auth-password">
-
-    <button class="auth-submit" id="auth-submit-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      S'inscrire
-    </button>
-
-    <div class="auth-switch">
-      Déjà un compte ? <a href="#" id="switch-to-login">Se connecter</a>
-    </div>
-
-    <button id="close-auth-footer" style="width:100%; background:none; border:none; color:var(--text3); font-size:0.8rem; margin-top:20px; cursor:pointer;">Fermer</button>
-  </div>
-</div>
-
-<div class="app">
-
-  <!-- ─ HEADER ─ -->
-  <header class="hdr">
-    <div>
-      <div class="logo">MOGGED.AI</div>
-      <div class="logo-sub">Premium Aesthetic Intelligence Platform</div>
-    </div>
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <button id="open-menu-btn" style="background:none; border:none; color:var(--cyan); cursor:pointer; padding:4px;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <div class="status-dot">Online</div>
-    </div>
-  </header>
-
-  <!-- ─ TABS ─ -->
-  <nav class="nav">
-    <button class="tab-btn active" data-tab="scanner">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      Scanner
-    </button>
-    <button class="tab-btn" data-tab="haircut">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 3a3 3 0 110 6 3 3 0 010-6z"/><path d="M6 9v12M6 14h12M18 9v12M18 3a3 3 0 110 6 3 3 0 010-6z"/></svg>
-      Haircut
-    </button>
-    <button class="tab-btn" data-tab="vocal">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
-      Vocal
-    </button>
-    <button class="tab-btn" data-tab="match">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/><path d="M1 20.5s2-4 8-4 10 4 10 4"/></svg>
-      Match
-    </button>
-    <button class="tab-btn" data-tab="hub">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-      Guides
-    </button>
-    <button class="tab-btn" data-tab="pricing" id="nav-pricing-btn">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      Pricing
-    </button>
-  </nav>
-
-  <!-- ═══════ SCANNER TAB ═══════ -->
-  <div id="scanner-tab" class="tab-content active">
-    <div class="card card-cyan">
-      <div class="sh">
-        <h2>Facial Analysis Scanner</h2>
-        <p>Neural network · Precision analysis · Instant results</p>
-      </div>
-
-      <!-- STATE 1: INITIAL BUTTONS -->
-      <div id="scanner-initial" style="padding:16px 18px;">
-        <div class="scan-frame" style="border-style:dashed; min-height:200px; margin-bottom:14px;">
-          <div class="scan-upload-inner">
-            <div class="scan-icon">🔬</div>
-            <div class="scan-hint">Point your camera at your face</div>
-            <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px;">
-              <button id="take-selfie-btn" class="btn btn-cyan">📷 Take Selfie</button>
-              <button id="import-gallery-btn" class="btn btn-violet">📁 Import from Gallery</button>
+    <div class="min-h-screen">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="mb-12">
+                <h1 class="text-5xl font-bold text-cyan-400 mb-2">MOGGED.AI</h1>
+                <p class="text-slate-400 text-lg">Premium Aesthetic Intelligence Platform</p>
             </div>
-          </div>
-        </div>
-        <input id="file-input" type="file" accept="image/*" capture="user" style="display:none;" />
-      </div>
 
-      <!-- STATE 2: LIVE CAMERA FEED -->
-      <div id="scanner-camera" class="hidden" style="padding:16px 18px;">
-        <div class="scan-frame" style="margin-bottom:14px;" id="camera-frame">
-          <video id="camera-video" autoplay playsinline muted></video>
-          <canvas id="camera-canvas" style="display:none;"></canvas>
-          <!-- Corner brackets always visible on camera -->
-          <div class="c ctL"></div><div class="c ctR"></div>
-          <div class="c cbL"></div><div class="c cbR"></div>
-          <!-- Live label -->
-          <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:25;background:rgba(0,229,255,0.12);border:1px solid var(--border-cyan);border-radius:100px;padding:3px 12px;font-family:var(--font-d);font-size:0.62rem;font-weight:700;letter-spacing:0.14em;color:var(--cyan);">
-            ● LIVE
-          </div>
-          <!-- Capture controls -->
-          <div class="capture-bar">
-            <button class="capture-btn" id="capture-btn">📸 Capturer</button>
-            <button class="cancel-cam-btn" id="cancel-cam-btn">Annuler</button>
-          </div>
-        </div>
-        <div class="txt-sm txt-c" style="color:var(--text2);">Cadrez votre visage dans le cadre et appuyez sur <strong style="color:var(--cyan);">Capturer</strong></div>
-      </div>
-
-      <!-- STATE 3: SCAN RESULTS -->
-      <div id="scanner-results" class="hidden">
-        <div style="padding:16px 18px 0;">
-          <div class="scan-frame" id="scan-frame" style="margin-bottom:14px;">
-            <img id="scanned-image" src="" alt="Face scan" />
-            <div class="c ctL"></div><div class="c ctR"></div>
-            <div class="c cbL"></div><div class="c cbR"></div>
-            <!-- Scanning overlay -->
-            <div id="scanner-overlay" class="scan-overlay hidden">
-              <div class="laser"></div>
-              <div class="scan-status" id="scan-step-text"></div>
-              <div class="pbar-track">
-                <div class="pbar-fill" id="scan-progress-bar" style="width:0%"></div>
-              </div>
+            <div class="flex gap-8 mb-8 border-b border-slate-700 pb-4 overflow-x-auto whitespace-nowrap scrollbar-hide" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-cyan-400 border-b-2 border-cyan-400 flex-shrink-0" data-tab="scanner">
+                    Scanner
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300 flex-shrink-0" data-tab="haircut">
+                    Haircut
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300 flex-shrink-0" data-tab="vocal">
+                    Vocal
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300 flex-shrink-0" data-tab="match">
+                    Match
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300 flex-shrink-0" data-tab="hub">
+                    Hub
+                </button>
+                <button class="tab-btn px-4 py-2 font-semibold transition-all text-slate-400 hover:text-slate-300 flex-shrink-0" data-tab="pricing">
+                    Pricing
+                </button>
             </div>
-          </div>
-        </div>
 
-        <div style="padding:0 18px 10px;">
-          <div style="font-family:var(--font-d);font-size:0.92rem;font-weight:700;letter-spacing:0.06em;color:var(--text);margin-bottom:2px;">Your Looksmaxing Dashboard</div>
-          <div class="txt-sm2">AI-analyzed metrics · Real-time processing</div>
-        </div>
+            <!-- SCANNER TAB -->
+            <div id="scanner-tab" class="tab-content space-y-8 active">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Your Looksmaxing Dashboard</h2>
+                    
+                    <div id="scanner-initial" class="space-y-4">
+                        <button id="take-selfie-btn" class="w-full bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            📷 Take Selfie
+                        </button>
+                        <button id="import-gallery-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            📁 Import from Gallery
+                        </button>
+                        <input id="file-input" type="file" accept="image/*">
+                    </div>
 
-        <div style="padding:0 18px 16px;">
-          <div class="metric-card">
-            <div class="metric-body">
-              <div class="metric-header">
-                <div class="metric-name">Jawline Definition</div>
-                <div class="metric-score c-cyan">8.5/10</div>
-              </div>
-              <div class="metric-desc">Excellent angle mandibulaire, graisse sous-mentonnière minimisée.</div>
-              <div class="metric-bar-track"><div class="metric-bar-fill bar-c" style="width:85%"></div></div>
-              <div class="metric-tag">Jawline Definition</div>
-            </div>
-            <div class="metric-photo">
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=280&fit=crop" alt="" loading="lazy" />
-            </div>
-          </div>
+                    <div id="scanner-results" class="space-y-8 hidden">
+                        <div class="relative rounded-xl overflow-hidden">
+                            <img id="scanned-image" src="" alt="Scanned face" class="w-full h-auto rounded-xl">
+                            <div id="scanner-overlay" class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center hidden">
+                                <div class="scanner-laser-line" style="animation: scan-laser-down 4s ease-in-out infinite;"></div>
+                                <p id="scan-step-text" class="text-cyan-400 font-bold text-center text-lg"></p>
+                                <div class="w-40 h-2 bg-slate-700 rounded-full mt-6 overflow-hidden">
+                                    <div id="scan-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-cyan-400 to-purple-500 transition-all duration-300" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
 
-          <div class="metric-card">
-            <div class="metric-body">
-              <div class="metric-header">
-                <div class="metric-name">Facial Symmetry</div>
-                <div class="metric-score c-violet">9.1/10</div>
-              </div>
-              <div class="metric-desc">Rapport de symétrie élevé sur le tiers vertical du visage.</div>
-              <div class="metric-bar-track"><div class="metric-bar-fill bar-v" style="width:91%"></div></div>
-              <div class="metric-tag">Facial Symmetry</div>
-            </div>
-            <div class="metric-photo">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=280&fit=crop" alt="" loading="lazy" />
-            </div>
-          </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Jawline Definition</h3>
+                                    <span id="jawline-score" class="text-2xl font-bold text-cyan-400">8.5/10</span>
+                                </div>
+                                <p id="jawline-analysis" class="text-slate-300">Excellent angle mandibulaire, graisse sous-mentonnière minimisée.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="jawline-bar" class="bg-gradient-to-r from-cyan-400 to-cyan-400 h-full rounded-full" style="width: 85%;"></div>
+                                </div>
+                            </div>
 
-          <div class="metric-card">
-            <div class="metric-body">
-              <div class="metric-header">
-                <div class="metric-name">Canthal Tilt</div>
-                <div class="metric-score c-green">8.2/10</div>
-              </div>
-              <div class="metric-desc">Regard hunter eyes idéal · Inclinaison Positive +3.2°</div>
-              <div class="metric-bar-track"><div class="metric-bar-fill bar-g" style="width:82%"></div></div>
-              <div class="metric-tag">Canthal Tilt</div>
-            </div>
-            <div class="metric-photo">
-              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=280&fit=crop" alt="" loading="lazy" />
-            </div>
-          </div>
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Facial Symmetry</h3>
+                                    <span id="symmetry-score" class="text-2xl font-bold text-cyan-400">91%</span>
+                                </div>
+                                <p id="symmetry-analysis" class="text-slate-300">Rapport de symétrie élevé sur le tiers vertical du visage.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="symmetry-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style="width: 91%;"></div>
+                                </div>
+                            </div>
 
-          <div class="metric-card">
-            <div class="metric-body">
-              <div class="metric-header">
-                <div class="metric-name">Midface Ratio</div>
-                <div class="metric-score c-orange">8.8/10</div>
-              </div>
-              <div class="metric-desc">0.98 rapport compact, proportions masculines idéales.</div>
-              <div class="metric-bar-track"><div class="metric-bar-fill bar-o" style="width:88%"></div></div>
-              <div class="metric-tag">Midface Ratio</div>
-            </div>
-            <div class="metric-photo">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=280&fit=crop" alt="" loading="lazy" />
-            </div>
-          </div>
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Canthal Tilt</h3>
+                                    <span id="canthal-score" class="text-2xl font-bold text-cyan-400">8.2/10</span>
+                                </div>
+                                <p id="canthal-type" class="text-slate-300 mb-2">Inclinaison Positive +3.2°</p>
+                                <p id="canthal-analysis" class="text-slate-300">Regard hunter eyes idéal, asymétrie orbitaire indétectable.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="canthal-bar" class="bg-gradient-to-r from-green-500 to-emerald-500 h-full rounded-full" style="width: 82%;"></div>
+                                </div>
+                            </div>
 
-          <button id="scan-again-btn" class="btn btn-ghost" style="margin-top:4px;">↻ Scan Again</button>
-        </div>
-      </div>
-    </div>
-  </div>
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-bold text-cyan-400">Midface Ratio</h3>
+                                    <span id="midface-score" class="text-2xl font-bold text-cyan-400">8.8/10</span>
+                                </div>
+                                <p id="midface-analysis" class="text-slate-300">0.98 rapport compact, proportions masculines idéales.</p>
+                                <div class="mt-4 w-full bg-slate-700 rounded-full h-2">
+                                    <div id="midface-bar" class="bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full" style="width: 88%;"></div>
+                                </div>
+                            </div>
+                        </div>
 
-  <!-- ═══════ HAIRCUT TAB ═══════ -->
-  <div id="haircut-tab" class="tab-content">
-    <div class="card card-violet">
-      <div class="sh" style="border-color:var(--border-violet);">
-        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">AI Haircut Advisor</h2>
-        <p>Recommandation personnalisée selon votre morphologie</p>
-      </div>
-      <div id="haircut-pre-scan" class="pre-scan-state">
-        <div class="big-icon">✂</div>
-        <div class="txt-sm mb14">Scannez d'abord votre visage dans l'onglet Scanner pour obtenir votre coupe parfaite.</div>
-        <button class="go-to-scanner-btn btn btn-cyan" style="max-width:240px;margin:0 auto;">→ Aller au Scanner</button>
-      </div>
-      <div id="haircut-results" class="hidden hc-body">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop" alt="Recommended haircut" class="hc-photo" />
-        <div class="hc-title">The Perfect Cut</div>
-        <div class="hc-desc">A perfect, texture-layered low fade is a detailed qualification with high-volume optimal possibilities against your facial proportions.</div>
-        <button class="btn btn-cyan mb10" onclick="alert('Génération photos IA disponible avec un abonnement Premium.')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Generate Photos of My Best Looks
-        </button>
-        <div class="stripe-box">
-          <div class="stripe-lbl" style="color:var(--violet);"><span>⚡</span> Option Élite — Accès Illimité</div>
-          <div class="sbw elite">
-            <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-          </div>
-          <div class="stripe-sep"></div>
-          <div class="stripe-lbl" style="color:var(--cyan);"><span>⏳</span> Option Flash — Pass 24H</div>
-          <div class="sbw flash">
-            <stripe-buy-button buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ VOCAL TAB ═══════ -->
-  <div id="vocal-tab" class="tab-content">
-    <div class="card card-violet">
-      <div class="sh" style="border-color:var(--border-violet);">
-        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Vocal MOG</h2>
-        <p>Analyse acoustique · Potentiel de séduction vocal</p>
-      </div>
-      <div id="vocal-initial" class="vc-body">
-        <div class="txt-sm mb14">Analysez votre profil vocal et découvrez votre potentiel de séduction acoustique.</div>
-        <button id="analyze-voice-btn" class="btn btn-violet">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
-          Analyze Voice
-        </button>
-        <div id="vocal-recording" class="hidden">
-          <div class="waveform" id="wave-container"></div>
-          <div class="mic-countdown" id="mic-countdown">Parle maintenant… 3s</div>
-        </div>
-      </div>
-      <div id="vocal-results" class="hidden">
-        <div class="grid2 p16" style="padding-bottom:0;">
-          <div class="card vc-stat" style="padding:16px 14px;">
-            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);">Voice Pitch</div>
-            <div style="font-family:var(--font-d);font-size:2rem;font-weight:900;letter-spacing:0.04em;line-height:1;margin:6px 0 3px;" class="c-violet">95 Hz</div>
-            <div style="font-size:0.72rem;color:var(--text2);letter-spacing:0.06em;">Deep Bass · Ultra Masculine</div>
-          </div>
-          <div class="card" style="padding:16px 14px;">
-            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);">Vocal Resonance</div>
-            <div style="font-family:var(--font-d);font-size:2rem;font-weight:900;letter-spacing:0.04em;line-height:1;margin:6px 0 3px;" class="c-pink">88%</div>
-            <div style="font-size:0.72rem;color:var(--text2);letter-spacing:0.06em;">Chest Resonance</div>
-          </div>
-        </div>
-        <div class="p16" style="padding-top:10px;">
-          <div class="card" style="padding:18px;text-align:center;margin-bottom:12px;">
-            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);margin-bottom:8px;">Mogging Tier</div>
-            <div style="font-family:var(--font-d);font-size:1.1rem;font-weight:900;letter-spacing:0.06em;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GigaChad Vocal Profile</div>
-          </div>
-          <button id="vocal-again-btn" class="btn btn-ghost">↻ Analyze Again</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ MATCH TAB ═══════ -->
-  <div id="match-tab" class="tab-content">
-    <div class="card card-violet">
-      <div class="sh" style="border-color:var(--border-violet);">
-        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Match</h2>
-        <p>Duel esthétique · Face-to-face AI comparison</p>
-      </div>
-      <div class="mt-body">
-
-        <!-- ── INITIAL STATE ── -->
-        <div id="match-initial">
-
-          <!-- ARENA: two avatars + VS + lightning -->
-          <div class="duel-arena">
-
-            <!-- Lightning SVG arc (decorative, behind avatars) -->
-            <svg class="lightning-svg" viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <!-- Top arc -->
-              <path class="arc-path" d="M60 65 C60 20, 260 20, 260 65" stroke="url(#arcGrad)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <!-- Bottom arc -->
-              <path class="arc-path2" d="M60 65 C60 110, 260 110, 260 65" stroke="url(#arcGrad2)" stroke-width="1" fill="none" stroke-linecap="round"/>
-              <!-- Spark dots -->
-              <circle cx="160" cy="18" r="2.5" fill="#8b5cf6" opacity="0.7">
-                <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="160" cy="112" r="2" fill="#00e5ff" opacity="0.6">
-                <animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.6s" repeatCount="indefinite" begin="0.5s"/>
-              </circle>
-              <defs>
-                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.6"/>
-                  <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.9"/>
-                  <stop offset="100%" stop-color="#ee0055" stop-opacity="0.6"/>
-                </linearGradient>
-                <linearGradient id="arcGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.3"/>
-                  <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.6"/>
-                  <stop offset="100%" stop-color="#ee0055" stop-opacity="0.3"/>
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <!-- YOU avatar -->
-            <div class="avatar-slot">
-              <div class="avatar-label c-green">YOU</div>
-              <div class="avatar-ring you" id="match-avatar1" onclick="document.getElementById('match-file1').click()">
-                <div class="avatar-inner">
-                  <div class="avatar-placeholder" id="match-ph1">
-                    <div class="avatar-placeholder-icon">📸</div>
-                    <div class="avatar-placeholder-text">Tap to<br>add photo</div>
-                  </div>
-                  <img id="match-face1-img" src="" alt="You" style="display:none;" />
+                        <button id="scan-again-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Scan Again
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <div class="avatar-caption" id="match-cap1">Click to upload</div>
-              <input id="match-file1" type="file" accept="image/*" style="display:none;" />
             </div>
 
-            <!-- VS -->
-            <div class="vs-col">
-              <div class="vs-badge">VS</div>
-            </div>
+            <!-- HAIRCUT TAB -->
+            <div id="haircut-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Haircut AI</h2>
+                    
+                    <div id="haircut-initial" class="text-center py-12">
+                        <p class="text-slate-400 mb-6">Scan your face first in the Scanner tab to get your perfect haircut recommendation</p>
+                        <button class="go-to-scanner-btn bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 text-black font-bold py-3 px-8 rounded-xl transition-all transform hover:scale-105">
+                            Go to Scanner
+                        </button>
+                    </div>
 
-            <!-- OPPONENT avatar -->
-            <div class="avatar-slot">
-              <div class="avatar-label" style="color:#ff4477;">OPPONENT</div>
-              <div class="avatar-ring opp" id="match-avatar2" onclick="document.getElementById('match-file2').click()">
-                <div class="avatar-inner">
-                  <div class="avatar-placeholder" id="match-ph2">
-                    <div class="avatar-placeholder-icon">📸</div>
-                    <div class="avatar-placeholder-text">Tap to<br>add photo</div>
-                  </div>
-                  <img id="match-face2-img" src="" alt="Opponent" style="display:none;" />
+                    <div id="haircut-results" class="space-y-6 hidden">
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-4">La Coupe Parfaite Pour Votre Visage</h3>
+                            <p class="text-slate-300 mb-6">Texture Layered Low Fade</p>
+                            
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Perfect haircut" class="w-full max-w-sm mx-auto rounded-xl mb-6">
+                            
+                            <p class="text-slate-400 mb-6">Cette coupe est spécialement conçue pour votre forme de visage et vos caractéristiques faciales. Elle maximise votre jawline, crée une harmonie faciale optimale et communique force et confiance.</p>
+                            
+                            <div class="stripe-container my-6 w-full flex flex-col gap-4 px-4 items-center">
+                                <div class="w-full text-center text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+                                    ⚡ Option Élite : Accès Illimité
+                                </div>
+                                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(161,94,255,0.2)]">
+                                    <stripe-buy-button
+                                        buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+                                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                                    </stripe-buy-button>
+                                </div>
+
+                                <div class="w-full text-center text-xs uppercase tracking-wider text-purple-400 font-bold mb-1 mt-4">
+                                    ⏳ Option Flash : Pass 24H
+                                </div>
+                                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                                    <stripe-buy-button
+                                        buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+                                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                                    </stripe-buy-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="avatar-caption" id="match-cap2">Pre-loaded photo</div>
-              <input id="match-file2" type="file" accept="image/*" style="display:none;" />
             </div>
 
-          </div><!-- /duel-arena -->
+            <!-- VOCAL TAB -->
+            <div id="vocal-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Vocal MOG</h2>
+                    
+                    <div id="vocal-initial" class="space-y-6">
+                        <p class="text-slate-400 mb-6">Analysez votre profil vocal et découvrez votre potentiel de séduction acoustique.</p>
+                        
+                        <button id="analyze-voice-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105">
+                            🎤 Analyze Voice
+                        </button>
+                        
+                        <div id="vocal-recording" class="space-y-6 hidden">
+                            <div class="flex items-center justify-center gap-1 h-24 bg-black/30 rounded-xl p-6" id="wave-container">
+                            </div>
+                            <p class="text-center text-cyan-400 font-bold">Écoute de la fréquence (Hz)...</p>
+                        </div>
+                    </div>
 
-          <!-- Name inputs -->
-          <div class="name-row">
-            <input id="name1-input" class="cyber-name-input you-input" type="text" placeholder="Your name" maxlength="20" />
-            <div class="vs-sep">vs.</div>
-            <input id="name2-input" class="cyber-name-input opp-input" type="text" placeholder="Opponent" maxlength="20" />
-          </div>
-          <div class="txt-sm2" style="text-align:center;margin-bottom:14px;">Enter Match Names</div>
-
-          <!-- Email linked indicator -->
-          <div class="email-linked" id="email-linked-badge" style="display:none;">
-            📧 Email Linked: <span id="email-linked-val"></span> <span style="color:var(--text3);">(Verification pending)</span>
-          </div>
-
-          <!-- Loading animation -->
-          <div id="match-comparing" class="card hidden" style="margin-bottom:14px;">
-            <div class="duel-loading">
-              <div class="spin-ring"></div>
-              <div class="duel-loading-step" id="duel-step-text">Initializing AI analysis…</div>
+                    <div id="vocal-results" class="space-y-6 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <h3 class="text-lg font-bold text-cyan-400 mb-3">Voice Pitch</h3>
+                                <p class="text-4xl font-bold text-purple-400 mb-2">95 Hz</p>
+                                <p class="text-sm text-slate-400">Deep Bass Range / Ultra Masculine</p>
+                            </div>
+                            
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                                <h3 class="text-lg font-bold text-cyan-400 mb-3">Vocal Resonance</h3>
+                                <p class="text-4xl font-bold text-pink-400 mb-2">88%</p>
+                                <p class="text-sm text-slate-400">Chest Resonance</p>
+                            </div>
+                        </div>
+                        
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6">
+                            <h3 class="text-lg font-bold text-cyan-400 mb-3">Mogging Tier</h3>
+                            <p class="text-2xl font-bold text-cyan-400">GigaChad Vocal Profile</p>
+                        </div>
+                        
+                        <button id="vocal-again-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Analyze Again
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <!-- START button -->
-          <button id="start-duel-btn" class="duel-start-btn" disabled>
-            ⚡ START AESTHETIC DUEL
-          </button>
-          <div class="txt-sm2" style="text-align:center;margin-top:8px;color:var(--text3);" id="duel-hint">Upload both photos to start the duel</div>
+            <!-- MATCH TAB -->
+            <div id="match-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">Face Match Duel</h2>
+                    
+                    <div id="match-initial" class="space-y-8">
+                        <p class="text-slate-400 mb-6">Comparez deux visages et découvrez qui a le meilleur potentiel esthétique.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div id="match-face1-zone" class="border-2 border-dashed border-cyan-400/50 hover:border-cyan-400 rounded-2xl p-8 cursor-pointer transition-all text-center bg-black/20 hover:bg-black/40">
+                                <div id="match-face1-empty" class="space-y-4">
+                                    <p class="text-4xl">📸</p>
+                                    <p class="text-cyan-400 font-semibold">Face 1 (You)</p>
+                                    <p class="text-slate-500 text-sm">Click to upload your photo</p>
+                                </div>
+                                <div id="match-face1-preview" class="space-y-4 hidden">
+                                    <img id="match-face1-img" src="" alt="Face 1" class="w-full h-64 object-cover rounded-xl">
+                                    <p class="text-cyan-400 font-semibold">Face 1 (You) ✓</p>
+                                </div>
+                                <input id="match-file1" type="file" accept="image/*">
+                            </div>
+                            
+                            <div id="match-face2-zone" class="border-2 border-dashed border-purple-400/50 hover:border-purple-400 rounded-2xl p-8 cursor-pointer transition-all text-center bg-black/20 hover:bg-black/40">
+                                <div id="match-face2-empty" class="space-y-4">
+                                    <p class="text-4xl">📸</p>
+                                    <p class="text-purple-400 font-semibold">Face 2 (Opponent)</p>
+                                    <p class="text-slate-500 text-sm">Click to upload opponent photo</p>
+                                </div>
+                                <div id="match-face2-preview" class="space-y-4 hidden">
+                                    <img id="match-face2-img" src="" alt="Face 2" class="w-full h-64 object-cover rounded-xl">
+                                    <p class="text-purple-400 font-semibold">Face 2 (Opponent) ✓</p>
+                                </div>
+                                <input id="match-file2" type="file" accept="image/*">
+                            </div>
+                        </div>
+                        
+                        <button id="start-duel-btn" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 hidden">
+                            ⚔️ Start Aesthetic Duel
+                        </button>
+                        
+                        <div id="match-comparing" class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8 text-center hidden">
+                            <div class="space-y-4">
+                                <div class="inline-block">
+                                    <div class="animate-spin inline-block w-8 h-8 border-4 border-cyan-400 border-t-purple-400 rounded-full"></div>
+                                </div>
+                                <p class="text-cyan-400 font-bold text-lg">Comparing facial features...</p>
+                            </div>
+                        </div>
+                    </div>
 
-        </div><!-- /match-initial -->
+                    <div id="match-results" class="space-y-8 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+                                <p class="text-slate-400 mb-3">Your Score</p>
+                                <p id="match-your-score" class="text-5xl font-bold text-cyan-400">86%</p>
+                            </div>
+                            <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+                                <p class="text-slate-400 mb-3">Opponent Score</p>
+                                <p id="match-opponent-score" class="text-5xl font-bold text-purple-400">79%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h3 id="match-verdict" class="text-2xl font-bold text-center mb-6">👑 YOU MOGGED HIM</h3>
+                            <p id="match-dominance" class="text-center text-lg text-cyan-400 font-semibold mb-6">+7% Aesthetic Dominance</p>
+                            
+                            <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                                <div id="match-gauge" class="h-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 transition-all duration-500" style="width: 52%;"></div>
+                            </div>
+                        </div>
+                        
+                        <button id="new-duel-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                            ↻ Start New Duel
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        <!-- ── VERDICT ── -->
-        <div id="match-results" class="hidden">
-          <!-- Replay the arena with uploaded photos -->
-          <div class="duel-arena" style="margin-bottom:14px;">
-            <div class="avatar-slot">
-              <div class="avatar-label c-green">YOU</div>
-              <div class="avatar-ring you">
-                <div class="avatar-inner"><img id="verdict-face1" src="" alt="You" /></div>
-              </div>
-            </div>
-            <div class="vs-col"><div class="vs-badge">VS</div></div>
-            <div class="avatar-slot">
-              <div class="avatar-label" style="color:#ff4477;">OPPONENT</div>
-              <div class="avatar-ring opp">
-                <div class="avatar-inner"><img id="verdict-face2" src="" alt="Opponent" /></div>
-              </div>
-            </div>
-          </div>
+            <!-- HUB TAB -->
+            <div id="hub-tab" class="tab-content space-y-8 hidden">
+                <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-6">GlowUp Hub</h2>
+                    
+                    <div id="hub-guides" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="jawline">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Jawline Masterclass</h3>
+                            <p class="text-slate-400">30-day shoulder and back development for ideal frame enhancement.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="skin">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Skin Regimen Elite</h3>
+                            <p class="text-slate-400">30-day elite skincare protocol for maximum glow, clarity, and health optimization.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="mewing">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">Mewing Mastery</h3>
+                            <p class="text-slate-400">30-day tongue posture and oral posture development for facial structure enhancement.</p>
+                        </button>
+                        <button class="guide-btn backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400 transition-all text-left" data-guide="vtaper">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-2">V-Taper Build</h3>
+                            <p class="text-slate-400">30-day shoulder and back development for ideal frame enhancement.</p>
+                        </button>
+                    </div>
 
-          <!-- Verdict card -->
-          <div class="verdict-card">
-            <div class="verdict-main" id="verdict-text">BEN B. MOGGED CHAD (+8%)</div>
-            <div class="verdict-scores">
-              <div class="score-pill winner" id="verdict-score1">⚡ 84%</div>
-              <div style="color:var(--text3);font-size:0.72rem;">vs</div>
-              <div class="score-pill loser" id="verdict-score2">💀 76%</div>
+                    <div id="hub-guide-detail" class="space-y-6 hidden">
+                        <button id="back-to-guides-btn" class="text-cyan-400 hover:text-cyan-300 font-semibold mb-4">
+                            ← Back to Guides
+                        </button>
+                        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8">
+                            <h2 id="guide-title" class="text-3xl font-bold text-cyan-400 mb-6"></h2>
+                            <div id="guide-content" class="prose prose-invert max-w-none text-slate-300"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <button id="new-duel-btn" class="btn btn-ghost">↻ New Duel</button>
-        </div><!-- /match-results -->
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ PRICING TAB ═══════ -->
-  <div id="pricing-tab" class="tab-content">
-    <div class="card card-cyan">
-      <div class="sh">
-        <h2>Plans & Tarifs</h2>
-        <p>Débloquez votre plein potentiel esthétique</p>
-      </div>
-      <div class="p16">
-        <div class="pricing-container">
-          <!-- Pass 24H -->
-          <div class="pricing-card">
-            <div class="pricing-header">
-              <div class="plan-name">⏳ Pass 24H</div>
-              <div class="plan-price">0.99€<span>/24h</span></div>
-            </div>
-            <ul class="plan-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Accès complet immédiat</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Idéal pour un test rapide</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pas d'abonnement</li>
-            </ul>
-            <div class="stripe-button-container">
-              <stripe-buy-button buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-            </div>
-          </div>
-
-          <!-- Elite Access -->
-          <div class="pricing-card pro">
-            <div class="popular-badge">⭐⭐ Populaire</div>
-            <div class="pricing-header">
-              <div class="plan-name">⚡ Élite Access</div>
-              <div class="plan-price">7.99€<span>/mois</span></div>
-            </div>
-            <ul class="plan-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyse complète détaillée</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Scénarios probables détaillés</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Stats avancées + actualités</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA illimité</li>
-            </ul>
-            <div class="stripe-button-container">
-              <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-            </div>
-          </div>
-
-          <!-- Lifetime -->
-          <div class="pricing-card lifetime">
-            <div class="lifetime-badge">♾️♾️ À vie</div>
-            <div class="pricing-header">
-              <div class="plan-name">🏆 Lifetime</div>
-              <div class="plan-price">99€<span>une fois</span></div>
-            </div>
-            <span class="save-badge">Économise +100€/an</span>
-            <ul class="plan-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées à vie</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyse complète détaillée</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Plus jamais de paiement mensuel</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Priorité nouvelles features</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA illimité</li>
-            </ul>
-            <div class="stripe-button-container">
-              <button class="btn-pricing btn-lifetime unlock-btn" data-plan="Lifetime">Débloquer - 99€</button>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- ═══════ HUB TAB ═══════ -->
-  <div id="hub-tab" class="tab-content">
-    <div class="card card-violet">
-      <div class="sh" style="border-color:var(--border-violet);">
-        <h2 style="color:var(--violet);text-shadow:0 0 12px var(--violet-glow);">Guides</h2>
-        <p>Protocoles élite · Programmes 30 jours complets</p>
-      </div>
-      <div id="hub-guides" class="hub-body">
-        <button class="guide-row" data-guide="jawline">
-          <div class="guide-icon">🦷</div>
-          <div class="guide-info">
-            <div class="guide-title">Jawline Masterclass</div>
-            <div class="guide-desc">30-day shoulder and back development for ideal masculine proportions and frame enhancement.</div>
-          </div>
-          <div class="guide-arrow">›</div>
-        </button>
-        <button class="guide-row" data-guide="skin">
-          <div class="guide-icon">✨</div>
-          <div class="guide-info">
-            <div class="guide-title">Skin Regimen Elite</div>
-            <div class="guide-desc">30-day elite skincare protocol for maximum glow, clarity, and skin health optimization.</div>
-          </div>
-          <div class="guide-arrow">›</div>
-        </button>
-        <button class="guide-row" data-guide="mewing">
-          <div class="guide-icon">👅</div>
-          <div class="guide-info">
-            <div class="guide-title">Mewing Mastery</div>
-            <div class="guide-desc">30-day tongue posture protocol for jawline development and facial structure.</div>
-          </div>
-          <div class="guide-arrow">›</div>
-        </button>
-        <button class="guide-row" data-guide="vtaper">
-          <div class="guide-icon">💪</div>
-          <div class="guide-info">
-            <div class="guide-title">V-Taper Build</div>
-            <div class="guide-desc">30-day shoulder and back development for ideal frame enhancement and dominant physique.</div>
-          </div>
-          <div class="guide-arrow">›</div>
-        </button>
-      </div>
-      <div id="hub-guide-detail" class="hidden">
-        <button id="back-to-guides-btn" class="back-btn">← Back to Guides</button>
-        <div class="guide-detail-content">
-          <h2 id="guide-title"></h2>
-          <div id="guide-content"></div>
+    <!-- PAYWALL MODAL -->
+    <div id="paywall-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 hidden">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-cyan-400/30 rounded-2xl p-8 max-w-md w-full mx-4 shadow-[0_0_50px_rgba(0,243,255,0.2)]">
+            <button id="close-paywall-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-200 text-2xl">
+                ×
+            </button>
+
+            <h2 class="text-3xl font-bold text-cyan-400 mb-4">Upgrade Required</h2>
+            <p class="text-slate-300 mb-6">You've used your free scan. Upgrade to continue analyzing your facial metrics and unlock unlimited scans.</p>
+
+            <div class="space-y-3 mb-8">
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Unlimited facial scans</span>
+                </div>
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Detailed haircut recommendations</span>
+                </div>
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="text-cyan-400">✓</span>
+                    <span>Premium guides & tutorials</span>
+                </div>
+            </div>
+
+            <div class="stripe-container my-6 w-full flex flex-col gap-4 px-4 items-center">
+                <div class="w-full text-center text-xs uppercase tracking-wider text-cyan-400 font-bold mb-1">
+                    ⚡ Option Élite : Accès Illimité
+                </div>
+                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(161,94,255,0.2)]">
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1"
+                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                    </stripe-buy-button>
+                </div>
+
+                <div class="w-full text-center text-xs uppercase tracking-wider text-purple-400 font-bold mb-1 mt-4">
+                    ⏳ Option Flash : Pass 24H
+                </div>
+                <div class="w-full max-w-sm rounded-xl overflow-hidden shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj"
+                        publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts">
+                    </stripe-buy-button>
+                </div>
+            </div>
+
+            <button id="maybe-later-btn" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-3 px-6 rounded-xl transition-all">
+                Maybe Later
+            </button>
         </div>
-      </div>
     </div>
-  </div>
-</div><!-- /app -->
-
-<!-- ═══════════════════════════════════════════
-     EMAIL GATE MODAL
-═══════════════════════════════════════════ -->
-<div id="email-modal" class="email-backdrop hidden">
-  <div class="email-box">
-    <div class="email-icon-ring">📡</div>
-    <div class="email-title">Link Your AI Analysis</div>
-    <div class="email-subtitle">Entre ton email pour lier ton analyse IA et recevoir tes résultats complets.</div>
-
-    <div class="cyber-input-wrap">
-      <input
-        id="email-input"
-        class="cyber-input"
-        type="email"
-        placeholder="ton@email.com"
-        autocomplete="email"
-        spellcheck="false"
-      />
-      <span class="cyber-input-icon">✉</span>
-    </div>
-    <div class="email-error hidden" id="email-error">Format d'email invalide.</div>
-
-    <button id="email-submit-btn" class="btn btn-cyan">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Lancer l'Analyse IA
-    </button>
-
-    <div class="email-privacy">
-      🔒 Données chiffrées · Jamais partagées · RGPD compliant
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     PAYWALL MODAL
-═══════════════════════════════════════════ -->
-<div id="paywall-modal" class="pw-backdrop hidden">
-  <div class="pw-box">
-    <button id="close-paywall-btn" class="pw-close">✕</button>
-    <div class="pw-title">Upgrade Required</div>
-    <div class="pw-desc">Vous avez utilisé votre scan gratuit. Passez en Premium pour des scans illimités et l'accès à tous les modules.</div>
-    <div class="feature-list">
-      <div class="fi"><div class="fi-check">✓</div>Scans faciaux illimités</div>
-      <div class="fi"><div class="fi-check">✓</div>Recommandations haircut + génération photos IA</div>
-      <div class="fi"><div class="fi-check">✓</div>Analyse vocale &amp; Face Match illimités</div>
-      <div class="fi"><div class="fi-check">✓</div>Guides &amp; protocoles premium complets</div>
-    </div>
-    <div class="stripe-box" style="margin:0 0 12px;">
-      <div class="stripe-lbl" style="color:var(--violet);"><span>⚡</span> Option Élite — Accès Illimité</div>
-      <div class="sbw elite">
-        <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-      </div>
-      <div class="stripe-sep"></div>
-      <div class="stripe-lbl" style="color:var(--cyan);"><span>⏳</span> Option Flash — Pass 24H</div>
-      <div class="sbw flash">
-        <stripe-buy-button buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
-      </div>
-    </div>
-    <button id="maybe-later-btn" class="btn btn-ghost" style="font-size:0.78rem;">Maybe Later</button>
-  </div>
-</div>
-
-<script>
-/* ================================================================
-   GUIDES DATA
-================================================================ */
-const guides = {
-  jawline: {
-    title: 'Jawline Masterclass',
-    content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction Anatomique</h3>
-<p>La mâchoire est l'une des caractéristiques les plus importantes de l'esthétique masculine. Elle est déterminée par l'angle mandibulaire, la projection du menton, et la réduction de la graisse sous-mentonnière. L'angle mandibulaire idéal chez l'homme se situe entre 75 et 90 degrés.</p>
-<h3>Mewing Mechanics</h3>
-<p>Positionnez votre langue contre le palais dur. Toute la surface doit être en contact. Maintenez 8h minimum par jour.</p>
-<h3>Masticatory Muscle Training</h3>
-<p>Mâchez du chewing-gum sans sucre 30 min/jour. Exercices de résistance : poing sous le menton, 10 secondes × 20 reps, 2 séries/jour.</p>
-<h3>30-Day Plan</h3>
-<p><strong>Jours 1–10 :</strong> Mewing 8h/j · Mastication 30 min · 2×20 reps résistance · Cardio 3×/semaine</p>
-<p><strong>Jours 11–20 :</strong> Mewing 10h/j · Mastication 45 min · 3×30 reps · Cardio 4×/semaine</p>
-<p><strong>Jours 21–30 :</strong> Mewing 12h/j · Mastication 60 min · 4×40 reps · Cardio 5×/semaine</p>`
-  },
-  skin: {
-    title: 'Skin Regimen Elite',
-    content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction Scientifique</h3>
-<p>La peau reflète directement votre santé générale. Le pH optimal est 4.5–5.5. La barrière cutanée se renforce avec une routine quotidienne rigoureuse.</p>
-<h3>Routine Quotidienne</h3>
-<p><strong>Matin :</strong> Nettoyant doux → Tonique sans alcool → Sérum Vitamine C → Hydratant → SPF 50+</p>
-<p><strong>Soir :</strong> Nettoyant double → Tonique → Rétinol 0.25% (j1–10) → 0.5% (j11–30) → Hydratant</p>
-<h3>Suppléments</h3>
-<ul><li>Zinc 15mg/jour · Oméga-3 2g/jour · Collagène 10g/jour</li><li>Eau 3L minimum · Sommeil 8h+</li></ul>`
-  },
-  mewing: {
-    title: 'Mewing Mastery',
-    content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction</h3>
-<p>Technique du Dr. John Mew — pression linguale continue sur le palais dur pour remodeler la structure osseuse du maxillaire sur le long terme.</p>
-<h3>Position Correcte</h3>
-<ol><li>Ouvrez légèrement la bouche</li><li>Placez l'extrémité de votre langue derrière les dents supérieures</li><li>Aplatissez toute la langue contre le palais dur</li><li>Fermez la bouche, dents légèrement en contact</li></ol>
-<h3>Programme</h3>
-<p><strong>J1–5 :</strong> 1h/j conscient · <strong>J6–10 :</strong> 2h/j · <strong>J11–20 :</strong> 4–6h/j · <strong>J21–30 :</strong> 8–12h/j semi-automatique</p>`
-  },
-  vtaper: {
-    title: 'V-Taper Build',
-    content: `<h2>Programme Complet 30 Jours</h2>
-<h3>Introduction</h3>
-<p>La silhouette en V est l'idéal esthétique masculin. Ratio cible : épaules = 1.6× largeur de taille. Muscles clés : deltoïde latéral, latissimus dorsi, trapèze supérieur.</p>
-<h3>Programme</h3>
-<p><strong>Jours 1–10 (3×/sem) :</strong></p>
-<ul><li>Tractions : 4×8–12 · Rangées : 4×8–12 · Développé militaire : 4×6–8 · Élévations latérales : 4×12–15</li></ul>
-<p><strong>Jours 11–20 (4×/sem) :</strong></p>
-<ul><li>Deadlifts : 5×3–5 · Tractions pondérées : 4×6–8 · Élévations : 5×10–12 · Face pulls : 3×15–20</li></ul>
-<p><strong>Jours 21–30 (5×/sem) :</strong></p>
-<ul><li>Deadlifts : 5×5–6 · Tractions pondérées : 4×6–8 · Élévations : 5×10–12 · Reverse flyes : 4×12–15</li></ul>
-<h3>Nutrition</h3>
-<p>Protéines 2.2g/kg · Surplus calorique +300–500 kcal/j · Glucides 4–6g/kg</p>`
-  }
-};
-
-/* ================================================================
-   STATE
-================================================================ */
-let cameraStream = null;
-let micStream = null;
-let micAnalyser = null;
-let micRafId = null;
-let pendingAction = null;   // 'selfie' | 'voice' | 'duel' | 'file'
-let pendingFile = null;
-let matchFace1 = null;
-let matchFace2 = null;
-
-/* ================================================================
-   TAB SWITCHING
-================================================================ */
-function switchTab(name) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.sidebar-link').forEach(b => b.classList.remove('active'));
-  
-  const tab = document.getElementById(name + '-tab');
-  const btns = document.querySelectorAll('[data-tab="' + name + '"]');
-  
-  if (tab) tab.classList.add('active');
-  btns.forEach(btn => btn.classList.add('active'));
-  
-  // Close menu if open
-  closeMenu();
-}
-document.querySelectorAll('.tab-btn, .sidebar-link').forEach(btn => {
-  if (btn.dataset.tab) {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  }
-});
-document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
-  btn.addEventListener('click', () => switchTab('scanner'));
-});
-
-/* ================================================================
-   SIDEBAR MENU
-================================================================ */
-function openMenu() {
-  document.getElementById('sidebar-menu').classList.add('open');
-  document.getElementById('sidebar-backdrop').style.display = 'block';
-}
-function closeMenu() {
-  document.getElementById('sidebar-menu').classList.remove('open');
-  document.getElementById('sidebar-backdrop').style.display = 'none';
-}
-document.getElementById('open-menu-btn').addEventListener('click', openMenu);
-document.getElementById('close-menu-btn').addEventListener('click', closeMenu);
-document.getElementById('sidebar-backdrop').addEventListener('click', closeMenu);
-
-/* ================================================================
-   AUTH MODAL
-================================================================ */
-function showAuthModal() {
-  document.getElementById('auth-modal').classList.remove('hidden');
-}
-function closeAuthModal() {
-  document.getElementById('auth-modal').classList.add('hidden');
-}
-document.getElementById('sidebar-auth-btn').addEventListener('click', () => {
-  closeMenu();
-  showAuthModal();
-});
-document.getElementById('close-auth-btn').addEventListener('click', closeAuthModal);
-document.getElementById('close-auth-footer').addEventListener('click', closeAuthModal);
-document.getElementById('auth-modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('auth-modal')) closeAuthModal();
-});
-
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-}
-
-document.getElementById('auth-submit-btn').addEventListener('click', () => {
-  const emailInput = document.getElementById('auth-email');
-  const email = emailInput.value.trim();
-  if (!isValidEmail(email)) {
-    alert('Veuillez entrer un email valide');
-    return;
-  }
-  localStorage.setItem('mogged_email', email);
-  trackAnalyticsEvent('email_captured', 'auth', { label: 'auth_modal' });
-  closeAuthModal();
-  
-  // If there was a pending action, execute it
-  if (pendingAction === 'selfie') startCamera();
-  else if (pendingAction === 'voice') startMicRecording();
-  else if (pendingAction === 'file' && pendingFile) loadFileAndScan(pendingFile);
-  else if (pendingAction === 'duel') startDuel();
-  
-  refreshEmailBadge();
-});
-
-// Handle unlock buttons in pricing grid
-document.querySelectorAll('.unlock-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (!localStorage.getItem('mogged_email')) {
-      showAuthModal();
-    } else {
-      if (btn.dataset.plan === 'Lifetime') {
-        window.location.href = 'https://buy.stripe.com/5kA7tU7Fv0W05P26oq';
-      } else {
-        alert('Redirection vers le paiement pour le plan ' + btn.dataset.plan);
-      }
-    }
-  });
-});
-
-/* ================================================================
-   PAYWALL
-================================================================ */
-function showPaywall() {
-  document.getElementById('paywall-modal').classList.remove('hidden');
-  trackAnalyticsEvent('paywall_viewed', 'paywall', { label: 'Limite gratuite atteinte' });
-}
-const pw = document.getElementById('paywall-modal');
-document.getElementById('close-paywall-btn').addEventListener('click', () => pw.classList.add('hidden'));
-document.getElementById('maybe-later-btn').addEventListener('click', () => pw.classList.add('hidden'));
-pw.addEventListener('click', e => { if (e.target === pw) pw.classList.add('hidden'); });
-
-/* ================================================================
-   EMAIL GATE
-================================================================ */
-function showEmailModal(action, fileObj) {
-  pendingAction = action;
-  pendingFile = fileObj || null;
-  showAuthModal();
-}
-
-function closeEmailModal() {
-  closeAuthModal();
-  pendingAction = null;
-  pendingFile = null;
-}
-
-/* ================================================================
-   GATE CHECK — call before any action
-================================================================ */
-function gateCheck(action, fileObj) {
-  const userEmail = localStorage.getItem('mogged_email');
-  const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
-
-  if (localStorage.getItem('mogged_scans_done') === 'true' && !isVIP) {
-    showPaywall();
-    return;
-  }
-  if (!localStorage.getItem('mogged_email')) {
-    showEmailModal(action, fileObj);
-    return;
-  }
-  // Already have email, go straight to action
-  if (action === 'selfie') startCamera();
-  else if (action === 'voice') startMicRecording();
-  else if (action === 'file' && fileObj) loadFileAndScan(fileObj);
-  else if (action === 'duel') startDuel();
-}
-
-/* ================================================================
-   CAMERA (1) — SCANNER
-================================================================ */
-document.getElementById('take-selfie-btn').addEventListener('click', () => gateCheck('selfie'));
-document.getElementById('import-gallery-btn').addEventListener('click', () => {
-  document.getElementById('file-input').click();
-});
-document.getElementById('file-input').addEventListener('change', e => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  e.target.value = ''; // reset so same file can be picked again
-  gateCheck('file', file);
-});
-
-async function startCamera() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    // Fallback: treat as a gallery upload with placeholder
-    alert('Votre navigateur ne supporte pas l\'accès caméra. Utilisez "Import from Gallery".');
-    return;
-  }
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } } });
-    cameraStream = stream;
-    const video = document.getElementById('camera-video');
-    video.srcObject = stream;
-
-    // Switch to camera state
-    document.getElementById('scanner-initial').classList.add('hidden');
-    document.getElementById('scanner-camera').classList.remove('hidden');
-    document.getElementById('scanner-results').classList.add('hidden');
-  } catch (err) {
-    console.warn('Camera denied:', err);
-    // Graceful fallback
-    document.getElementById('file-input').click();
-  }
-}
-
-function stopCamera() {
-  if (cameraStream) {
-    cameraStream.getTracks().forEach(t => t.stop());
-    cameraStream = null;
-  }
-}
-
-document.getElementById('capture-btn').addEventListener('click', () => {
-  const video = document.getElementById('camera-video');
-  const canvas = document.getElementById('camera-canvas');
-  canvas.width = video.videoWidth || 640;
-  canvas.height = video.videoHeight || 480;
-  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-  const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-
-  stopCamera();
-
-  // Show in results state
-  document.getElementById('scanned-image').src = dataUrl;
-  document.getElementById('scanner-camera').classList.add('hidden');
-  runScanAnimation();
-});
-
-document.getElementById('cancel-cam-btn').addEventListener('click', () => {
-  stopCamera();
-  document.getElementById('scanner-camera').classList.add('hidden');
-  document.getElementById('scanner-initial').classList.remove('hidden');
-});
-
-function loadFileAndScan(file) {
-  const reader = new FileReader();
-  reader.onload = ev => {
-    document.getElementById('scanner-initial').classList.add('hidden');
-    document.getElementById('scanned-image').src = ev.target.result;
-    runScanAnimation();
-  };
-  reader.readAsDataURL(file);
-}
-
-function runScanAnimation() {
-  document.getElementById('scanner-results').classList.remove('hidden');
-  const overlay = document.getElementById('scanner-overlay');
-  overlay.classList.remove('hidden');
-
-  const bar = document.getElementById('scan-progress-bar');
-  const stepText = document.getElementById('scan-step-text');
-  bar.style.width = '0%';
-  stepText.textContent = '';
-
-  const steps = [
-    { t: 0,    text: 'Initialisation du scanner laser…', w: '20%' },
-    { t: 1200, text: 'Analyse du Canthal Tilt (Angle Orbitaire)…', w: '52%' },
-    { t: 2500, text: "Mesure de l'asymétrie faciale (Tiers verticaux)…", w: '78%' },
-    { t: 4000, text: '', w: '100%', done: true },
-  ];
-
-  steps.forEach(step => {
-    setTimeout(() => {
-      stepText.textContent = step.text;
-      bar.style.width = step.w;
-      if (step.done) {
-        overlay.classList.add('hidden');
-        localStorage.setItem('mogged_scans_done', 'true');
-        trackAnalyticsEvent('face_scan_completed', 'scanner', { label: 'Score looksmaxing généré' });
-        // Unlock haircut
-        document.getElementById('haircut-pre-scan').classList.add('hidden');
-        document.getElementById('haircut-results').classList.remove('hidden');
-      }
-    }, step.t);
-  });
-}
-
-document.getElementById('scan-again-btn').addEventListener('click', () => {
-  document.getElementById('scanner-results').classList.add('hidden');
-  document.getElementById('scanner-initial').classList.remove('hidden');
-  document.getElementById('scanned-image').src = '';
-});
-
-/* ================================================================
-   MICROPHONE (2) — VOCAL
-================================================================ */
-document.getElementById('analyze-voice-btn').addEventListener('click', () => gateCheck('voice'));
-
-async function startMicRecording() {
-  const btn = document.getElementById('analyze-voice-btn');
-  btn.disabled = true;
-
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    // Fallback: skip mic, show fake animation
-    runFakeVoiceAnimation();
-    return;
-  }
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    micStream = stream;
-
-    // Build analyser for live waveform
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioCtx.createMediaStreamSource(stream);
-    micAnalyser = audioCtx.createAnalyser();
-    micAnalyser.fftSize = 64;
-    source.connect(micAnalyser);
-
-    showMicUI();
-    animateMicWaveform();
-
-    // Stop after 3 seconds
-    let remaining = 3;
-    updateCountdown(remaining);
-    const countTimer = setInterval(() => {
-      remaining--;
-      updateCountdown(remaining);
-      if (remaining <= 0) {
-        clearInterval(countTimer);
-        finishMicRecording(stream, audioCtx);
-      }
-    }, 1000);
-
-  } catch (err) {
-    console.warn('Mic denied:', err);
-    btn.disabled = false;
-    runFakeVoiceAnimation();
-  }
-}
-
-function showMicUI() {
-  const rec = document.getElementById('vocal-recording');
-  const wc = document.getElementById('wave-container');
-  rec.classList.remove('hidden');
-  wc.innerHTML = '';
-  // Create bars (animated via RAF, not CSS)
-  for (let i = 0; i < 20; i++) {
-    const b = document.createElement('div');
-    b.className = 'wb';
-    b.style.height = '8px';
-    wc.appendChild(b);
-  }
-}
-
-function animateMicWaveform() {
-  if (!micAnalyser) return;
-  const bars = document.querySelectorAll('#wave-container .wb');
-  const dataArr = new Uint8Array(micAnalyser.frequencyBinCount);
-
-  function draw() {
-    if (!micAnalyser) return;
-    micRafId = requestAnimationFrame(draw);
-    micAnalyser.getByteFrequencyData(dataArr);
-    const total = bars.length;
-    bars.forEach((bar, i) => {
-      const idx = Math.floor(i * dataArr.length / total);
-      const val = dataArr[idx] / 255;
-      const h = 6 + val * 56;
-      bar.style.height = h + 'px';
-    });
-  }
-  draw();
-}
-
-function updateCountdown(n) {
-  const el = document.getElementById('mic-countdown');
-  el.textContent = n > 0 ? `Parle maintenant… ${n}s` : 'Analyse en cours…';
-}
-
-function stopMic() {
-  if (micRafId) cancelAnimationFrame(micRafId);
-  micRafId = null;
-  micAnalyser = null;
-  if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
-}
-
-function finishMicRecording(stream, audioCtx) {
-  stopMic();
-  if (audioCtx) audioCtx.close();
-  localStorage.setItem('mogged_scans_done', 'true');
-  trackAnalyticsEvent('voice_analysis_completed', 'vocal', { label: 'Score vocal généré' });
-  document.getElementById('vocal-recording').classList.add('hidden');
-  document.getElementById('analyze-voice-btn').disabled = false;
-  document.getElementById('vocal-initial').classList.add('hidden');
-  document.getElementById('vocal-results').classList.remove('hidden');
-}
-
-function runFakeVoiceAnimation() {
-  showMicUI();
-  const wc = document.getElementById('wave-container');
-  wc.innerHTML = '';
-  for (let i = 0; i < 20; i++) {
-    const b = document.createElement('div');
-    b.className = 'wb';
-    b.style.cssText = `height:8px;animation:wv ${0.3+i*0.05}s ease-in-out infinite;animation-delay:${i*0.06}s;`;
-    wc.appendChild(b);
-  }
-  let remaining = 3;
-  updateCountdown(remaining);
-  const t = setInterval(() => {
-    remaining--;
-    updateCountdown(remaining);
-    if (remaining <= 0) {
-      clearInterval(t);
-      localStorage.setItem('mogged_scans_done', 'true');
-      trackAnalyticsEvent('voice_analysis_completed', 'vocal', { label: 'Score vocal généré' });
-      document.getElementById('vocal-recording').classList.add('hidden');
-      document.getElementById('analyze-voice-btn').disabled = false;
-      document.getElementById('vocal-initial').classList.add('hidden');
-      document.getElementById('vocal-results').classList.remove('hidden');
-    }
-  }, 1000);
-}
-
-document.getElementById('vocal-again-btn').addEventListener('click', () => {
-  document.getElementById('vocal-results').classList.add('hidden');
-  document.getElementById('vocal-initial').classList.remove('hidden');
-  document.getElementById('analyze-voice-btn').disabled = false;
-});
-
-/* ================================================================
-   MATCH — Full Duel Logic
-================================================================ */
-function updateDuelState() {
-  const btn = document.getElementById('start-duel-btn');
-  const hint = document.getElementById('duel-hint');
-  const both = matchFace1 && matchFace2;
-  btn.disabled = !both;
-  if (both) {
-    hint.textContent = 'Ready — click to start the duel!';
-    hint.style.color = 'var(--cyan)';
-  } else {
-    hint.textContent = 'Upload both photos to start the duel';
-    hint.style.color = 'var(--text3)';
-  }
-}
-
-// Show linked email badge if already captured
-function refreshEmailBadge() {
-  const email = localStorage.getItem('mogged_email');
-  const badge = document.getElementById('email-linked-badge');
-  const val = document.getElementById('email-linked-val');
-  if (email && badge && val) {
-    val.textContent = email;
-    badge.style.display = 'block';
-  }
-}
-refreshEmailBadge();
-
-// File upload helpers
-document.getElementById('match-file1').addEventListener('change', e => {
-  const f = e.target.files?.[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    matchFace1 = ev.target.result;
-    const img = document.getElementById('match-face1-img');
-    img.src = matchFace1;
-    img.style.display = 'block';
-    document.getElementById('match-ph1').style.display = 'none';
-    const cap = document.getElementById('match-cap1');
-    cap.textContent = 'Photo added ✓';
-    cap.classList.add('ok');
-    updateDuelState();
-  };
-  r.readAsDataURL(f);
-  e.target.value = '';
-});
-
-document.getElementById('match-file2').addEventListener('change', e => {
-  const f = e.target.files?.[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    matchFace2 = ev.target.result;
-    const img = document.getElementById('match-face2-img');
-    img.src = matchFace2;
-    img.style.display = 'block';
-    document.getElementById('match-ph2').style.display = 'none';
-    const cap = document.getElementById('match-cap2');
-    cap.textContent = 'Photo added ✓';
-    cap.classList.add('ok');
-    updateDuelState();
-  };
-  r.readAsDataURL(f);
-  e.target.value = '';
-});
-
-// START DUEL button
-document.getElementById('start-duel-btn').addEventListener('click', () => gateCheck('duel'));
-
-function startDuel() {
-  if (localStorage.getItem('mogged_scans_done') === 'true') { showPaywall(); return; }
-
-  // Hide button, show loading
-  document.getElementById('start-duel-btn').disabled = true;
-  document.getElementById('duel-hint').style.display = 'none';
-  const loading = document.getElementById('match-comparing');
-  loading.classList.remove('hidden');
-
-  const steps = [
-    { t: 0,    text: 'Initializing AI neural network…' },
-    { t: 550,  text: 'Analyzing jawline gap…' },
-    { t: 1100, text: 'Comparing facial symmetry…' },
-    { t: 1650, text: 'Calculating aesthetic dominance…' },
-    { t: 2200, text: 'Generating verdict…' },
-  ];
-
-  const stepEl = document.getElementById('duel-step-text');
-  steps.forEach(s => {
-    setTimeout(() => { stepEl.textContent = s.text; }, s.t);
-  });
-
-  setTimeout(() => {
-    loading.classList.add('hidden');
-    localStorage.setItem('mogged_scans_done', 'true');
-    showDuelVerdict();
-    trackAnalyticsEvent('match_duel_completed', 'match', { label: document.getElementById('verdict-text')?.textContent || 'Duel terminé' });
-  }, 2800);
-}
-
-function showDuelVerdict() {
-  // Compute scores (deterministic but fun — based on name lengths + random seed)
-  const n1 = (document.getElementById('name1-input').value.trim() || 'You').toUpperCase();
-  const n2 = (document.getElementById('name2-input').value.trim() || 'Opponent').toUpperCase();
-
-  // Generate scores 75–95 range
-  const seed = (n1.length * 7 + n2.length * 13) % 20;
-  const score1 = 80 + seed % 8 + Math.floor(Math.random() * 7);
-  const score2 = 70 + seed % 6 + Math.floor(Math.random() * 9);
-  const winner = score1 >= score2 ? n1 : n2;
-  const loser  = score1 >= score2 ? n2 : n1;
-  const diff = Math.abs(score1 - score2);
-  const wScore = score1 >= score2 ? score1 : score2;
-  const lScore = score1 >= score2 ? score2 : score1;
-
-  // Short abbreviation (first letter + last name part)
-  const abbrev = (name) => name.length <= 5 ? name : name.slice(0, 1) + '. ' + name.slice(-Math.min(4, name.length - 1));
-
-  // Populate verdict faces
-  const vf1 = document.getElementById('verdict-face1');
-  const vf2 = document.getElementById('verdict-face2');
-  if (matchFace1) vf1.src = matchFace1;
-  if (matchFace2) vf2.src = matchFace2;
-
-  // Verdict text
-  document.getElementById('verdict-text').textContent = `${abbrev(winner)} MOGGED ${abbrev(loser)} (+${diff}%)`;
-
-  // Score pills — winner is always score1 side's label
-  const pill1 = document.getElementById('verdict-score1');
-  const pill2 = document.getElementById('verdict-score2');
-  if (score1 >= score2) {
-    pill1.innerHTML = `⚡ ${score1}%`;
-    pill1.className = 'score-pill winner';
-    pill2.innerHTML = `💀 ${score2}%`;
-    pill2.className = 'score-pill loser';
-  } else {
-    pill1.innerHTML = `💀 ${score1}%`;
-    pill1.className = 'score-pill loser';
-    pill2.innerHTML = `⚡ ${score2}%`;
-    pill2.className = 'score-pill winner';
-  }
-
-  // Flip winner verdict card color if opponent won
-  const vc = document.querySelector('.verdict-card');
-  if (score1 < score2) {
-    vc.style.borderColor = 'rgba(238,0,85,0.3)';
-    vc.style.boxShadow = '0 0 30px rgba(238,0,85,0.1), inset 0 1px 0 rgba(238,0,85,0.1)';
-    document.getElementById('verdict-text').style.background = 'linear-gradient(90deg, #ff4477, #ff8c00)';
-    document.getElementById('verdict-text').style.webkitBackgroundClip = 'text';
-    document.getElementById('verdict-text').style.webkitTextFillColor = 'transparent';
-    document.getElementById('verdict-text').style.backgroundClip = 'text';
-  }
-
-  document.getElementById('match-initial').classList.add('hidden');
-  document.getElementById('match-results').classList.remove('hidden');
-}
-
-document.getElementById('new-duel-btn').addEventListener('click', () => {
-  matchFace1 = matchFace2 = null;
-
-  // Reset avatars
-  ['match-face1-img', 'match-face2-img'].forEach(id => {
-    const img = document.getElementById(id);
-    img.src = ''; img.style.display = 'none';
-  });
-  document.getElementById('match-ph1').style.display = '';
-  document.getElementById('match-ph2').style.display = '';
-
-  const cap1 = document.getElementById('match-cap1');
-  const cap2 = document.getElementById('match-cap2');
-  cap1.textContent = 'Click to upload'; cap1.classList.remove('ok');
-  cap2.textContent = 'Pre-loaded photo'; cap2.classList.remove('ok');
-
-  // Reset names
-  document.getElementById('name1-input').value = '';
-  document.getElementById('name2-input').value = '';
-
-  // Reset verdict card color
-  const vc = document.querySelector('.verdict-card');
-  vc.style.borderColor = '';
-  vc.style.boxShadow = '';
-  const vt = document.getElementById('verdict-text');
-  vt.style.background = '';
-  vt.style.webkitBackgroundClip = '';
-  vt.style.webkitTextFillColor = '';
-  vt.style.backgroundClip = '';
-
-  // Reset button/hint
-  document.getElementById('start-duel-btn').disabled = true;
-  document.getElementById('duel-hint').style.display = '';
-  document.getElementById('duel-hint').textContent = 'Upload both photos to start the duel';
-  document.getElementById('duel-hint').style.color = 'var(--text3)';
-
-  document.getElementById('match-results').classList.add('hidden');
-  document.getElementById('match-initial').classList.remove('hidden');
-  refreshEmailBadge();
-});
-
-/* ================================================================
-   HUB GUIDES
-================================================================ */
-document.querySelectorAll('.guide-row').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const g = guides[btn.dataset.guide];
-    if (!g) return;
-    document.getElementById('guide-title').textContent = g.title;
-    document.getElementById('guide-content').innerHTML = g.content;
-    document.getElementById('hub-guides').classList.add('hidden');
-    document.getElementById('hub-guide-detail').classList.remove('hidden');
-    trackAnalyticsEvent('guide_opened', 'hub', { label: g.title });
-  });
-});
-
-document.getElementById('back-to-guides-btn').addEventListener('click', () => {
-  document.getElementById('hub-guide-detail').classList.add('hidden');
-  document.getElementById('hub-guides').classList.remove('hidden');
-});
-
-
-/* ================================================================
-   SAAS DASHBOARD ANALYTICS
-================================================================ */
-const MOGGED_EVENTS_KEY = 'mogged_analytics_events';
-
-function getAnalyticsEvents() {
-  try { return JSON.parse(localStorage.getItem(MOGGED_EVENTS_KEY) || '[]'); }
-  catch (err) { return []; }
-}
-
-function saveAnalyticsEvents(events) {
-  localStorage.setItem(MOGGED_EVENTS_KEY, JSON.stringify(events.slice(-250)));
-}
-
-function trackAnalyticsEvent(type, module, details = {}) {
-  const event = {
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
-    type,
-    module,
-    details,
-    email: localStorage.getItem('mogged_email') || null,
-    at: new Date().toISOString()
-  };
-  const events = getAnalyticsEvents();
-  events.push(event);
-  saveAnalyticsEvents(events);
-  renderSaasDashboard();
-}
-
-function eventLabel(type) {
-  const labels = {
-    page_view: 'Visite application',
-    email_captured: 'Email capturé',
-    paywall_viewed: 'Paywall affiché',
-    face_scan_completed: 'Analyse faciale terminée',
-    voice_analysis_completed: 'Analyse vocale terminée',
-    match_duel_completed: 'Duel match terminé',
-    guide_opened: 'Guide consulté',
-    dashboard_exported: 'Export dashboard'
-  };
-  return labels[type] || type;
-}
-
-function formatEventTime(iso) {
-  try { return new Intl.DateTimeFormat('fr-FR', { hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit' }).format(new Date(iso)); }
-  catch (err) { return ''; }
-}
-
-function countEvents(events, type) {
-  return events.filter(e => e.type === type).length;
-}
-
-function renderSaasDashboard() {
-  const root = document.getElementById('dashboard-tab');
-  if (!root) return;
-
-  const events = getAnalyticsEvents();
-  const email = localStorage.getItem('mogged_email');
-  const analysisTypes = ['face_scan_completed', 'voice_analysis_completed', 'match_duel_completed'];
-  const analyses = events.filter(e => analysisTypes.includes(e.type));
-  const paywalls = countEvents(events, 'paywall_viewed');
-  const hasEmail = email ? 1 : 0;
-  const hasAnalysis = analyses.length > 0 ? 1 : 0;
-  const conversion = hasEmail ? Math.round((hasAnalysis / hasEmail) * 100) : 0;
-
-  const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
-  setText('dash-users', String(hasEmail));
-  setText('dash-user-note', email ? `Email lié : ${email}` : 'Email non capturé sur cet appareil.');
-  setText('dash-analyses', String(analyses.length));
-  setText('dash-paywalls', String(paywalls));
-  setText('dash-conversion', `${conversion}%`);
-  setText('dash-total-events', `${events.length} events`);
-  setText('funnel-email', String(hasEmail));
-  setText('funnel-analysis', String(hasAnalysis));
-  setText('funnel-paywall', String(paywalls > 0 ? 1 : 0));
-  setText('dash-last-sync', new Intl.DateTimeFormat('fr-FR', { hour:'2-digit', minute:'2-digit' }).format(new Date()));
-
-  const moduleCounts = {
-    Scanner: analyses.filter(e => e.module === 'scanner').length,
-    Vocal: analyses.filter(e => e.module === 'vocal').length,
-    Match: analyses.filter(e => e.module === 'match').length,
-    Guides: events.filter(e => e.module === 'hub').length,
-    Paywall: paywalls
-  };
-  const max = Math.max(1, ...Object.values(moduleCounts));
-  const bars = document.getElementById('dash-module-bars');
-  if (bars) {
-    bars.innerHTML = Object.entries(moduleCounts).map(([label, count]) => {
-      const width = Math.max(3, Math.round((count / max) * 100));
-      return `<div class="dash-bar-row"><span>${label}</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:${width}%"></div></div><strong>${count}</strong></div>`;
-    }).join('');
-  }
-
-  const list = document.getElementById('dash-events-list');
-  if (list) {
-    const recent = events.slice(-12).reverse();
-    list.innerHTML = recent.length ? recent.map(e => {
-      const detail = e.details && e.details.label ? e.details.label : (e.email || 'Session anonyme');
-      return `<div class="dash-event"><div><div class="dash-event-main">${eventLabel(e.type)}</div><div class="dash-event-sub">Module ${e.module || 'app'} · ${detail}</div></div><div class="dash-event-time">${formatEventTime(e.at)}</div></div>`;
-    }).join('') : '<div class="dash-empty">Aucune analyse enregistrée pour le moment. Utilisez le scanner, le module vocal, le match ou les guides pour alimenter le dashboard.</div>';
-  }
-}
-
-function exportDashboardData() {
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    email: localStorage.getItem('mogged_email') || null,
-    scanDone: localStorage.getItem('mogged_scans_done') === 'true',
-    events: getAnalyticsEvents()
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `mogged-dashboard-${new Date().toISOString().slice(0,10)}.json`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  trackAnalyticsEvent('dashboard_exported', 'dashboard', { label: 'Export JSON local' });
-}
-
-if (!sessionStorage.getItem('mogged_dashboard_page_view')) {
-  sessionStorage.setItem('mogged_dashboard_page_view', 'true');
-  trackAnalyticsEvent('page_view', 'app', { label: 'Ouverture application' });
-}
-
-
-/* ================================================================
-   EMAIL BADGE
-================================================================ */
-function refreshEmailBadge() {
-  const email = localStorage.getItem('mogged_email');
-  const authBtn = document.getElementById('sidebar-auth-btn');
-  if (email && authBtn) {
-    authBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ${email.split('@')[0]}`;
-  }
-}
-
-/* ================================================================
-   INIT — restore state if scan already done
-================================================================ */
-refreshEmailBadge();
-if (localStorage.getItem('mogged_scans_done') === 'true') {
-  const pre = document.getElementById('haircut-pre-scan');
-  const res = document.getElementById('haircut-results');
-  if (pre) pre.classList.add('hidden');
-  if (res) res.classList.remove('hidden');
-}
-</script>
+
+    <script>
+        const guides = {
+            jawline: {
+                title: 'Jawline Masterclass',
+                content: `<h2>Jawline Masterclass - 30 Jour Programme Complet</h2>
+<h3>Introduction Anatomique et Scientifique</h3>
+<p>La mâchoire est l'une des caractéristiques les plus importantes de l'esthétique masculine. Elle est déterminée par plusieurs facteurs anatomiques critiques : l'angle mandibulaire, la projection du menton, la définition de la ligne de la mâchoire et la réduction de la graisse sous-mentonnière. Une mâchoire bien définie crée une harmonie faciale qui communique force, maturité et santé génétique.</p>
+<p>L'angle mandibulaire idéal chez l'homme se situe entre 75 et 90 degrés. Un angle plus aigu (inférieur à 75 degrés) crée une apparence plus féminine, tandis qu'un angle plus obtus (supérieur à 90 degrés) crée une apparence plus masculine et puissante. La projection du menton (gonial angle) doit être en harmonie avec le reste du visage, créant une ligne continue et définie du front au menton.</p>
+<h3>Mécanique Exacte et Guide Étape par Étape</h3>
+<p>Pour développer une mâchoire optimale, vous devez comprendre les muscles impliqués : le masséter, le temporal et le ptérygoïdien médial. Ces muscles sont responsables de la mastication et peuvent être entraînés pour augmenter leur volume et leur définition.</p>
+<p><strong>Étape 1 : Mewing Correct</strong></p>
+<p>Positionnez votre langue contre le palais dur (pas le palais mou). La langue doit être aplatie et couvrir toute la surface du palais dur. Maintenez cette position pendant 8 heures par jour minimum. Cette technique augmente la projection de la mâchoire au fil du temps en appliquant une pression constante sur les os de la mâchoire.</p>
+<p><strong>Étape 2 : Mastication Intentionnelle</strong></p>
+<p>Mâchez du chewing-gum sans sucre pendant 30 minutes par jour. Utilisez les deux côtés de votre bouche de manière égale pour éviter l'asymétrie. Mâchez lentement et intentionnellement, en activant pleinement les muscles de la mâchoire.</p>
+<p><strong>Étape 3 : Exercices de Résistance</strong></p>
+<p>Placez votre poing sous votre menton. Appuyez fermement vers le haut avec votre menton contre la résistance de votre poing pendant 10 secondes. Répétez 20 fois. Cet exercice renforce directement les muscles de la mâchoire.</p>
+<p><strong>Étape 4 : Réduction de la Graisse Sous-Mentonnière</strong></p>
+<p>La graisse sous-mentonnière (double menton) est l'ennemi d'une mâchoire définie. Réduisez votre consommation de calories de 300-500 calories par jour. Augmentez votre apport en protéines à 1.6-2.2g par kg de poids corporel. Faites 30 minutes de cardio HIIT 4 fois par semaine.</p>
+<h3>Programme d'Entraînement 30 Jours</h3>
+<p><strong>Jours 1-10 : Fondation</strong></p>
+<ul><li>Mewing : 8 heures minimum par jour</li><li>Mastication : 30 minutes par jour</li><li>Exercices de résistance : 20 répétitions, 2 séries par jour</li><li>Cardio : 30 minutes, 3 fois par semaine</li><li>Régime : Déficit calorique de 300 calories</li></ul>
+<p><strong>Jours 11-20 : Intensification</strong></p>
+<ul><li>Mewing : 10 heures minimum par jour</li><li>Mastication : 45 minutes par jour</li><li>Exercices de résistance : 30 répétitions, 3 séries par jour</li><li>Cardio : 30 minutes, 4 fois par semaine</li><li>Régime : Déficit calorique de 400 calories</li></ul>
+<p><strong>Jours 21-30 : Optimisation</strong></p>
+<ul><li>Mewing : 12 heures minimum par jour</li><li>Mastication : 60 minutes par jour</li><li>Exercices de résistance : 40 répétitions, 4 séries par jour</li><li>Cardio : 30 minutes, 5 fois par semaine</li><li>Régime : Déficit calorique de 500 calories</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours de suivi rigoureux de ce programme, vous devriez observer :</p>
+<ul><li>Augmentation visible de la définition de la mâchoire</li><li>Réduction de 2-4 cm du tour de cou</li><li>Augmentation de la projection du menton</li><li>Amélioration générale de la symétrie faciale</li><li>Augmentation de la confiance et de la présence</li></ul>`
+            },
+            skin: {
+                title: 'Skin Regimen Elite',
+                content: `<h2>Skin Regimen Elite - 30 Jour Programme Complet</h2>
+<h3>Introduction Scientifique à la Santé Cutanée</h3>
+<p>La peau est le plus grand organe du corps humain et reflète directement votre santé générale, votre nutrition et votre mode de vie. Une peau claire, lumineuse et sans imperfections communique santé, jeunesse et fertilité. L'esthétique masculine moderne exige une peau impeccable.</p>
+<p>La barrière cutanée est composée de lipides et de protéines qui maintiennent l'hydratation et protègent contre les agressions extérieures. Le pH optimal de la peau est légèrement acide (4.5-5.5). Les glandes sébacées produisent le sébum qui lubrifie la peau. L'épiderme se régénère complètement tous les 28 jours.</p>
+<h3>Mécanique Exacte du Soin Cutané</h3>
+<p><strong>Nettoyage Correct</strong></p>
+<p>Le nettoyage est la fondation de tout régime cutané. Utilisez un nettoyant doux sans sulfate matin et soir. L'eau tiède (pas chaude) ouvre légèrement les pores. Massez doucement le nettoyant pendant 60 secondes en mouvements circulaires. Rincez abondamment à l'eau froide pour refermer les pores.</p>
+<p><strong>Tonification</strong></p>
+<p>Après le nettoyage, appliquez un tonique pour rééquilibrer le pH de la peau. Utilisez un tonique sans alcool contenant des ingrédients apaisants comme l'hamamélis ou l'acide hyaluronique.</p>
+<p><strong>Hydratation</strong></p>
+<p>L'hydratation est critique. Appliquez une crème hydratante légère matin et soir. Pour les peaux grasses, utilisez une crème légère à base de gel. Pour les peaux sèches, utilisez une crème plus riche.</p>
+<p><strong>Protection Solaire</strong></p>
+<p>La protection solaire est NON-NÉGOCIABLE. Les rayons UV causent 80% du vieillissement cutané. Appliquez SPF 30+ quotidiennement, même les jours nuageux.</p>
+<h3>Programme 30 Jours Détaillé</h3>
+<p><strong>Jours 1-10 : Nettoyage et Hydratation de Base</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Crème hydratante + SPF 30+</li><li>Soir : Nettoyage + Tonique + Crème hydratante</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g</li><li>Eau : 3 litres minimum par jour</li><li>Sommeil : 8 heures minimum</li></ul>
+<p><strong>Jours 11-20 : Introduction des Actifs</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Sérum Vitamine C + Crème hydratante + SPF 30+</li><li>Soir : Nettoyage + Tonique + Rétinol 0.25% + Crème hydratante</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g, Zinc 15mg</li><li>Eau : 3.5 litres minimum par jour</li><li>Sommeil : 8 heures minimum</li></ul>
+<p><strong>Jours 21-30 : Optimisation Complète</strong></p>
+<ul><li>Matin : Nettoyage + Tonique + Sérum Vitamine C + Crème hydratante + SPF 50+</li><li>Soir : Nettoyage + Tonique + Rétinol 0.5% + Masque hydratant 2x par semaine</li><li>Suppléments : Vitamine C 500mg, Oméga-3 2g, Zinc 15mg, Collagène 10g</li><li>Eau : 4 litres minimum par jour</li><li>Sommeil : 8-9 heures</li></ul>
+<h3>Résultats Garantis</h3>
+<p>Après 30 jours :</p>
+<ul><li>Teint visiblement plus clair et plus lumineux</li><li>Réduction de 60-80% des imperfections</li><li>Texture cutanée lissée et affinée</li><li>Hydratation optimale visible</li><li>Éclat naturel et sain</li></ul>`
+            },
+            mewing: {
+                title: 'Mewing Mastery',
+                content: `<h2>Mewing Mastery - 30 Jour Programme Complet</h2>
+<h3>Introduction Anatomique au Mewing</h3>
+<p>Le mewing est la technique de positionnement de la langue développée par le Dr. John Mew. Elle consiste à placer la langue contre le palais dur de manière constante pour appliquer une pression continue sur les os de la mâchoire et du maxillaire. Cette pression, appliquée pendant des années, peut modifier la structure osseuse du visage.</p>
+<p>La langue humaine pèse environ 50 grammes. Lorsqu'elle est correctement positionnée contre le palais dur, elle applique une pression constante qui stimule la résorption osseuse et la remodelage. Cette technique est particulièrement efficace chez les jeunes adultes dont les os sont encore plastiques.</p>
+<h3>Mécanique Exacte du Mewing</h3>
+<p><strong>Position Correcte de la Langue</strong></p>
+<ol><li>Ouvrez légèrement la bouche</li><li>Placez l'extrémité de votre langue contre les alvéoles (petites bosses) derrière vos dents de devant supérieures</li><li>Aplatissez progressivement votre langue pour qu'elle couvre tout le palais dur</li><li>Fermez votre bouche doucement</li><li>Maintenez cette position</li></ol>
+<p>La clé est que TOUTE la surface de votre langue doit être en contact avec le palais dur, pas seulement la pointe. Cela crée une pression uniforme.</p>
+<p><strong>Respiration Correcte</strong></p>
+<p>Respirez par le nez, pas par la bouche. La respiration buccale est l'ennemi du mewing. Elle crée une posture faciale allongée et peu attrayante. Entraînez-vous à respirer exclusivement par le nez.</p>
+<p><strong>Posture Générale</strong></p>
+<p>Le mewing n'est pas seulement sur la langue. C'est aussi sur la posture générale. Tenez votre menton légèrement rentré. Gardez votre tête droite. Évitez de pencher la tête en avant (forward head posture).</p>
+<h3>Programme 30 Jours Détaillé</h3>
+<p><strong>Jours 1-5 : Apprentissage de la Position</strong></p>
+<ul><li>1 heure par jour de pratique consciente du positionnement de la langue</li><li>Vérifiez votre position toutes les 5 minutes</li><li>Pratiquez la respiration nasale 30 minutes par jour</li><li>Dormez avec un humidificateur pour faciliter la respiration nasale</li></ul>
+<p><strong>Jours 6-10 : Consolidation</strong></p>
+<ul><li>2 heures par jour de pratique consciente</li><li>Maintenez la position pendant les activités quotidiennes</li><li>Pratiquez la respiration nasale 60 minutes par jour</li><li>Commencez à maintenir la position pendant le sommeil (si possible)</li></ul>
+<p><strong>Jours 11-20 : Automatisation</strong></p>
+<ul><li>4-6 heures par jour de positionnement conscient</li><li>La position devient de plus en plus naturelle</li><li>Maintenez la position pendant le travail, les études, les repas</li><li>Pratiquez la respiration nasale 2 heures par jour</li></ul>
+<p><strong>Jours 21-30 : Maîtrise Complète</strong></p>
+<ul><li>8-12 heures par jour de positionnement</li><li>La position est maintenant semi-automatique</li><li>Maintenez la position pendant le sommeil</li><li>Pratiquez la respiration nasale 3 heures par jour</li><li>Commencez à remarquer les changements subtils</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours :</p>
+<ul><li>Amélioration significative de la posture faciale</li><li>Augmentation visible de la projection du maxillaire</li><li>Amélioration de la respiration nasale</li><li>Réduction de la respiration buccale</li><li>Fondation établie pour des changements à long terme</li></ul>`
+            },
+            vtaper: {
+                title: 'V-Taper Build',
+                content: `<h2>V-Taper Build - 30 Jour Programme Complet</h2>
+<h3>Introduction à la Silhouette en V</h3>
+<p>La silhouette en V (large épaules, taille fine) est l'idéal esthétique masculin universel. Elle communique force, puissance, santé et virilité. Un V-taper prononcé augmente dramatiquement l'attractivité perçue et la confiance.</p>
+<p>Le ratio d'épaules idéal est 1.6x la largeur de la taille. Par exemple, si votre taille fait 75 cm, vos épaules devraient faire 120 cm. Cette proportion crée une harmonie visuelle optimale.</p>
+<h3>Anatomie Musculaire du V-Taper</h3>
+<p>Les muscles responsables du V-taper sont :</p>
+<ul><li><strong>Deltoïde latéral</strong> : Crée la largeur des épaules</li><li><strong>Trapèze supérieur</strong> : Ajoute de la masse au haut du dos</li><li><strong>Latissimus dorsi</strong> : Crée la largeur du dos et l'illusion d'une taille plus fine</li><li><strong>Rhomboïde</strong> : Ajoute de la profondeur au dos</li><li><strong>Serratus anterior</strong> : Ajoute de la définition et de la séparation</li></ul>
+<h3>Programme d'Entraînement 30 Jours</h3>
+<p><strong>Jour 1-10 : Fondation (3 entraînements par semaine)</strong></p>
+<p>Lundi - Dos et Épaules Arrière</p>
+<ul><li>Tractions : 4 séries x 8-12 répétitions</li><li>Rangées haltères : 4 séries x 8-12 répétitions</li><li>Face pulls : 3 séries x 12-15 répétitions</li><li>Reverse pec deck : 3 séries x 12-15 répétitions</li></ul>
+<p>Mercredi - Épaules Latérales</p>
+<ul><li>Développé militaire : 4 séries x 6-8 répétitions</li><li>Élévations latérales : 4 séries x 12-15 répétitions</li><li>Élévations latérales à la poulie : 3 séries x 15-20 répétitions</li><li>Shrugs haltères : 3 séries x 12-15 répétitions</li></ul>
+<p>Vendredi - Dos Complet</p>
+<ul><li>Deadlifts : 4 séries x 5-6 répétitions</li><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 3 séries x 10-12 répétitions</li><li>Hyperextensions : 3 séries x 12-15 répétitions</li></ul>
+<p><strong>Jour 11-20 : Intensification (4 entraînements par semaine)</strong></p>
+<p>Lundi - Dos Lourd</p>
+<ul><li>Deadlifts : 5 séries x 3-5 répétitions</li><li>Rangées haltères : 4 séries x 6-8 répétitions</li><li>Tractions pondérées : 4 séries x 6-8 répétitions</li></ul>
+<p>Mardi - Épaules Latérales</p>
+<ul><li>Développé militaire : 4 séries x 5-6 répétitions</li><li>Élévations latérales : 5 séries x 10-12 répétitions</li><li>Machine à épaules : 3 séries x 12-15 répétitions</li></ul>
+<p>Jeudi - Dos Hypertrophie</p>
+<ul><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 4 séries x 10-12 répétitions</li><li>Face pulls : 3 séries x 15-20 répétitions</li><li>Reverse pec deck : 3 séries x 15-20 répétitions</li></ul>
+<p>Samedi - Épaules Arrière</p>
+<ul><li>Reverse machine flyes : 4 séries x 10-12 répétitions</li><li>Élévations arrière : 4 séries x 12-15 répétitions</li><li>Shrugs machine : 3 séries x 12-15 répétitions</li></ul>
+<p><strong>Jour 21-30 : Optimisation (5 entraînements par semaine)</strong></p>
+<p>Lundi - Dos Lourd</p>
+<ul><li>Deadlifts : 5 séries x 3-5 répétitions</li><li>Rangées haltères : 5 séries x 5-6 répétitions</li></ul>
+<p>Mardi - Épaules Latérales Hypertrophie</p>
+<ul><li>Développé militaire : 4 séries x 6-8 répétitions</li><li>Élévations latérales : 5 séries x 10-12 répétitions</li><li>Élévations latérales à la poulie : 4 séries x 12-15 répétitions</li></ul>
+<p>Mercredi - Dos Hypertrophie</p>
+<ul><li>Tractions pondérées : 4 séries x 6-8 répétitions</li><li>Pulldowns : 4 séries x 10-12 répétitions</li><li>Rangées T-bar : 3 séries x 10-12 répétitions</li></ul>
+<p>Jeudi - Épaules Arrière</p>
+<ul><li>Reverse machine flyes : 4 séries x 10-12 répétitions</li><li>Élévations arrière : 4 séries x 12-15 répétitions</li><li>Shrugs machine : 4 séries x 12-15 répétitions</li></ul>
+<p>Samedi - Dos Lourd Complet</p>
+<ul><li>Deadlifts : 5 séries x 5-6 répétitions</li><li>Rangées T-bar : 4 séries x 8-10 répétitions</li><li>Pulldowns : 3 séries x 12-15 répétitions</li></ul>
+<h3>Nutrition pour le V-Taper</h3>
+<ul><li>Protéines : 2.2g par kg de poids corporel</li><li>Calories : Surplus de 300-500 calories par jour</li><li>Glucides : 4-6g par kg de poids corporel</li><li>Lipides : 0.8-1.2g par kg de poids corporel</li></ul>
+<h3>Résultats Attendus</h3>
+<p>Après 30 jours :</p>
+<ul><li>Augmentation visible de la largeur des épaules</li><li>Augmentation de 2-4 kg de masse musculaire</li><li>Amélioration dramatique de la silhouette en V</li><li>Augmentation de la force de 15-25%</li><li>Amélioration significative de la confiance</li></ul>`
+            }
+        };
+
+        let currentScanResults = null;
+        let isScanning = false;
+        let isRecording = false;
+        let matchFace1 = null;
+        let matchFace2 = null;
+        let isComparingFaces = false;
+
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.add('hidden');
+            });
+            
+            const targetTab = document.getElementById(tabName + '-tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+                targetTab.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-cyan-400', 'border-b-2', 'border-cyan-400');
+                btn.classList.add('text-slate-400');
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('text-cyan-400', 'border-b-2', 'border-cyan-400');
+                }
+            });
+        }
+
+        // Initialize event listeners for tab buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const tabName = e.currentTarget.getAttribute('data-tab');
+                    if (tabName) switchTab(tabName);
+                });
+            });
+        });
+
+        function performScan() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+            
+            if (scansDone === 'true' && !isVIP) {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+            
+            isScanning = true;
+            document.getElementById('take-selfie-btn').disabled = true;
+            document.getElementById('import-gallery-btn').disabled = true;
+            document.getElementById('scanner-initial').classList.add('hidden');
+            document.getElementById('scanner-results').classList.remove('hidden');
+            document.getElementById('scanner-overlay').classList.remove('hidden');
+
+            let progress = 0;
+            document.getElementById('scan-progress-bar').style.width = '0%';
+            document.getElementById('scan-step-text').textContent = '';
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Initialisation du scanner laser...';
+                document.getElementById('scan-progress-bar').style.width = '25%';
+            }, 0);
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Analyse du Canthal Tilt (Angle Orbitaire)...';
+                document.getElementById('scan-progress-bar').style.width = '50%';
+            }, 1200);
+
+            setTimeout(() => {
+                document.getElementById('scan-step-text').textContent = 'Mesure de l\'asymétrie faciale (Tiers verticaux)...';
+                document.getElementById('scan-progress-bar').style.width = '75%';
+            }, 2500);
+
+            setTimeout(() => {
+                isScanning = false;
+                document.getElementById('scanner-overlay').classList.add('hidden');
+                document.getElementById('scan-progress-bar').style.width = '100%';
+                document.getElementById('scan-step-text').textContent = '';
+
+                localStorage.setItem('mogged_scans_done', 'true');
+
+                currentScanResults = {
+                    jawline: 8.5,
+                    symmetry: 91,
+                    canthal: 8.2,
+                    midface: 8.8
+                };
+
+                document.getElementById('haircut-initial').classList.add('hidden');
+                document.getElementById('haircut-results').classList.remove('hidden');
+            }, 4000);
+        }
+
+        function handleTakeSelfie() {
+            document.getElementById('scanned-image').src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
+            performScan();
+        }
+
+        function handleFileUpload(e) {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('scanned-image').src = event.target.result;
+                    performScan();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleAnalyzeVoice() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+
+            if (scansDone === 'true' && !isVIP) {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+
+            isRecording = true;
+            document.getElementById('analyze-voice-btn').disabled = true;
+            document.getElementById('vocal-initial').classList.add('hidden');
+            document.getElementById('vocal-recording').classList.remove('hidden');
+
+            const waveContainer = document.getElementById('wave-container');
+            waveContainer.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'w-2 bg-gradient-to-t from-purple-500 to-pink-400 rounded-full';
+                bar.style.height = Math.random() * 80 + 20 + '%';
+                bar.style.animation = `wave ${0.4 + i * 0.05}s ease-in-out infinite`;
+                bar.style.animationDelay = `${i * 0.05}s`;
+                waveContainer.appendChild(bar);
+            }
+
+            setTimeout(() => {
+                isRecording = false;
+                document.getElementById('analyze-voice-btn').disabled = false;
+                document.getElementById('vocal-recording').classList.add('hidden');
+                localStorage.setItem('mogged_scans_done', 'true');
+                document.getElementById('vocal-initial').classList.add('hidden');
+                document.getElementById('vocal-results').classList.remove('hidden');
+            }, 3000);
+        }
+
+        function handleStartDuel() {
+            const scansDone = localStorage.getItem('mogged_scans_done');
+            const userEmail = localStorage.getItem('mogged_email');
+            const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
+
+            if (scansDone === 'true' && !isVIP) {
+                document.getElementById('paywall-modal').classList.remove('hidden');
+                return;
+            }
+
+            isComparingFaces = true;
+            document.getElementById('start-duel-btn').classList.add('hidden');
+            document.getElementById('match-comparing').classList.remove('hidden');
+
+            setTimeout(() => {
+                isComparingFaces = false;
+                localStorage.setItem('mogged_scans_done', 'true');
+                document.getElementById('match-initial').classList.add('hidden');
+                document.getElementById('match-results').classList.remove('hidden');
+                document.getElementById('match-comparing').classList.add('hidden');
+            }, 2000);
+        }
+
+        function updateMatchButton() {
+            if (matchFace1 && matchFace2) {
+                document.getElementById('start-duel-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('start-duel-btn').classList.add('hidden');
+            }
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                switchTab(this.dataset.tab);
+            });
+        });
+
+        document.getElementById('take-selfie-btn').addEventListener('click', handleTakeSelfie);
+        document.getElementById('import-gallery-btn').addEventListener('click', () => {
+            document.getElementById('file-input').click();
+        });
+        document.getElementById('file-input').addEventListener('change', handleFileUpload);
+
+        document.getElementById('scan-again-btn').addEventListener('click', () => {
+            document.getElementById('scanner-results').classList.add('hidden');
+            document.getElementById('scanner-initial').classList.remove('hidden');
+            document.getElementById('scanned-image').src = '';
+            document.getElementById('take-selfie-btn').disabled = false;
+            document.getElementById('import-gallery-btn').disabled = false;
+        });
+
+        document.querySelectorAll('.go-to-scanner-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab('scanner');
+                document.querySelectorAll('.tab-btn')[0].click();
+            });
+        });
+
+        document.getElementById('analyze-voice-btn').addEventListener('click', handleAnalyzeVoice);
+        document.getElementById('vocal-again-btn').addEventListener('click', () => {
+            document.getElementById('vocal-results').classList.add('hidden');
+            document.getElementById('vocal-initial').classList.remove('hidden');
+            document.getElementById('analyze-voice-btn').disabled = false;
+        });
+
+        document.getElementById('match-face1-zone').addEventListener('click', () => {
+            document.getElementById('match-file1').click();
+        });
+        document.getElementById('match-file1').addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    matchFace1 = event.target.result;
+                    document.getElementById('match-face1-img').src = matchFace1;
+                    document.getElementById('match-face1-empty').classList.add('hidden');
+                    document.getElementById('match-face1-preview').classList.remove('hidden');
+                    updateMatchButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('match-face2-zone').addEventListener('click', () => {
+            document.getElementById('match-file2').click();
+        });
+        document.getElementById('match-file2').addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    matchFace2 = event.target.result;
+                    document.getElementById('match-face2-img').src = matchFace2;
+                    document.getElementById('match-face2-empty').classList.add('hidden');
+                    document.getElementById('match-face2-preview').classList.remove('hidden');
+                    updateMatchButton();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('start-duel-btn').addEventListener('click', handleStartDuel);
+        document.getElementById('new-duel-btn').addEventListener('click', () => {
+            matchFace1 = null;
+            matchFace2 = null;
+            document.getElementById('match-face1-empty').classList.remove('hidden');
+            document.getElementById('match-face1-preview').classList.add('hidden');
+            document.getElementById('match-face2-empty').classList.remove('hidden');
+            document.getElementById('match-face2-preview').classList.add('hidden');
+            document.getElementById('match-initial').classList.remove('hidden');
+            document.getElementById('match-results').classList.add('hidden');
+            updateMatchButton();
+        });
+
+        document.querySelectorAll('.guide-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const guideId = btn.dataset.guide;
+                const guide = guides[guideId];
+                document.getElementById('guide-title').textContent = guide.title;
+                document.getElementById('guide-content').innerHTML = guide.content;
+                document.getElementById('hub-guides').classList.add('hidden');
+                document.getElementById('hub-guide-detail').classList.remove('hidden');
+            });
+        });
+
+        document.getElementById('back-to-guides-btn').addEventListener('click', () => {
+            document.getElementById('hub-guide-detail').classList.add('hidden');
+            document.getElementById('hub-guides').classList.remove('hidden');
+        });
+
+        document.getElementById('close-paywall-btn').addEventListener('click', () => {
+            document.getElementById('paywall-modal').classList.add('hidden');
+        });
+
+        document.getElementById('maybe-later-btn').addEventListener('click', () => {
+            document.getElementById('paywall-modal').classList.add('hidden');
+        });
+
+        document.getElementById('paywall-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('paywall-modal')) {
+                document.getElementById('paywall-modal').classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
