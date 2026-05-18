@@ -1784,15 +1784,10 @@ function updateAuthUI() {
   const user = localStorage.getItem('mogged_email');
   const isStrict = !user;
 
-  if (isStrict) {
-    document.getElementById('auth-modal').classList.add('strict');
-    closeBtn.style.display = 'none';
-    closeFooter.style.display = 'none';
-  } else {
-    document.getElementById('auth-modal').classList.remove('strict');
-    closeBtn.style.display = 'block';
-    closeFooter.style.display = 'block';
-  }
+  // Always allow closing
+  document.getElementById('auth-modal').classList.remove('strict');
+  closeBtn.style.display = 'block';
+  closeFooter.style.display = 'block';
 
   if (isLoginMode) {
     title.textContent = 'Bon retour';
@@ -1817,7 +1812,6 @@ function showAuthModal() {
 }
 
 function closeAuthModal() {
-  if (!localStorage.getItem('mogged_email')) return; // Prevent closing if not logged in
   document.getElementById('auth-modal').classList.add('hidden');
 }
 
@@ -1896,16 +1890,14 @@ document.getElementById('close-auth-footer').addEventListener('click', closeAuth
 window.addEventListener('DOMContentLoaded', async () => {
   // Check if session exists in Supabase
   if (supabase) {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session && session.user) {
-      localStorage.setItem('mogged_email', session.user.email);
-    } else {
-      localStorage.removeItem('mogged_email');
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        localStorage.setItem('mogged_email', session.user.email);
+      }
+    } catch (e) {
+      console.warn('Session check failed:', e);
     }
-  }
-
-  if (!localStorage.getItem('mogged_email')) {
-    showAuthModal();
   }
   refreshEmailBadge();
 });
