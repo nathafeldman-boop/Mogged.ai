@@ -1518,25 +1518,6 @@
             </div>
           </div>
 
-          <!-- Lifetime -->
-          <div class="pricing-card lifetime">
-            <div class="lifetime-badge">♾️♾️ À vie</div>
-            <div class="pricing-header">
-              <div class="plan-name">🏆 Lifetime</div>
-              <div class="plan-price">99€<span>une fois</span></div>
-            </div>
-            <span class="save-badge">Économise +100€/an</span>
-            <ul class="plan-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées à vie</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyse complète détaillée</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Plus jamais de paiement mensuel</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Priorité nouvelles features</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA illimité</li>
-            </ul>
-            <div class="stripe-button-container">
-              <button class="btn-pricing btn-lifetime unlock-btn" data-plan="Lifetime">Débloquer - 99€</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1815,11 +1796,7 @@ document.querySelectorAll('.unlock-btn').forEach(btn => {
     if (!localStorage.getItem('mogged_email')) {
       showAuthModal();
     } else {
-      if (btn.dataset.plan === 'Lifetime') {
-        window.location.href = 'https://buy.stripe.com/5kA7tU7Fv0W05P26oq';
-      } else {
-        alert('Redirection vers le paiement pour le plan ' + btn.dataset.plan);
-      }
+      alert('Redirection vers le paiement pour le plan ' + btn.dataset.plan);
     }
   });
 });
