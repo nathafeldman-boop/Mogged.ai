@@ -139,7 +139,6 @@
       border-radius: 50%;
       background: var(--cyan);
       box-shadow: 0 0 6px var(--cyan);
-      animation: blink 2s ease-in-out infinite;
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
@@ -991,8 +990,8 @@
     .auth-error { font-size: 0.75rem; color: #ff4477; margin-top: -8px; margin-bottom: 12px; min-height: 1em; text-align: left; padding-left: 4px; }
     .auth-input.error { border-color: #ff4477; background: rgba(255, 68, 119, 0.05); }
     .auth-loading { opacity: 0.6; pointer-events: none; }
-    #email-modal.strict { backdrop-filter: blur(20px); pointer-events: all; }
-    #email-modal.strict .auth-box { animation: authShake 0.4s ease; }
+    #auth-modal.strict { backdrop-filter: blur(20px); pointer-events: all; }
+    #auth-modal.strict .auth-box { animation: authShake 0.4s ease; }
     @keyframes authShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
     .auth-title { font-family:var(--font-d); font-size:1.5rem; font-weight:800; text-align:center; margin-bottom:8px; }
     .auth-subtitle { font-size:0.85rem; color:var(--text2); text-align:center; margin-bottom:24px; }
@@ -1092,7 +1091,7 @@
       <button id="open-menu-btn" style="background:none; border:none; color:var(--cyan); cursor:pointer; padding:4px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <div class="status-dot">Online</div>
+      <div class="status-dot" style="animation:none;">Online</div>
     </div>
   </header>
 
@@ -1778,7 +1777,7 @@ function updateAuthUI() {
   const title = document.querySelector('.auth-title');
   const subtitle = document.querySelector('.auth-subtitle');
   const submitBtn = document.getElementById('auth-submit-btn');
-  const switchLink = document.getElementById('switch-to-login');
+  const switchLink = document.getElementById('auth-switch');
   const closeBtn = document.getElementById('close-auth-btn');
   const closeFooter = document.getElementById('close-auth-footer');
 
@@ -1787,12 +1786,12 @@ function updateAuthUI() {
 
   if (isStrict) {
     document.getElementById('auth-modal').classList.add('strict');
-    closeBtn.classList.add('hidden');
-    closeFooter.classList.add('hidden');
+    closeBtn.style.display = 'none';
+    closeFooter.style.display = 'none';
   } else {
     document.getElementById('auth-modal').classList.remove('strict');
-    closeBtn.classList.remove('hidden');
-    closeFooter.classList.remove('hidden');
+    closeBtn.style.display = 'block';
+    closeFooter.style.display = 'block';
   }
 
   if (isLoginMode) {
@@ -1800,13 +1799,15 @@ function updateAuthUI() {
     subtitle.textContent = 'Connecte-toi pour accéder à tes analyses';
     submitBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg> Se connecter';
     switchLink.innerHTML = 'Pas de compte ? <a href="#" id="switch-to-signup">S\'inscrire</a>';
-    document.getElementById('switch-to-signup').onclick = (e) => { e.preventDefault(); isLoginMode = false; updateAuthUI(); };
+    const link = document.getElementById('switch-to-signup');
+    if (link) link.onclick = (e) => { e.preventDefault(); isLoginMode = false; updateAuthUI(); };
   } else {
     title.textContent = 'Créer un compte';
     subtitle.textContent = 'Inscris-toi gratuitement pour débloquer l\'analyse complète';
     submitBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> S\'inscrire';
     switchLink.innerHTML = 'Déjà un compte ? <a href="#" id="switch-to-login">Se connecter</a>';
-    document.getElementById('switch-to-login').onclick = (e) => { e.preventDefault(); isLoginMode = true; updateAuthUI(); };
+    const link = document.getElementById('switch-to-login');
+    if (link) link.onclick = (e) => { e.preventDefault(); isLoginMode = true; updateAuthUI(); };
   }
 }
 
@@ -1892,12 +1893,21 @@ document.getElementById('close-auth-btn').addEventListener('click', closeAuthMod
 document.getElementById('close-auth-footer').addEventListener('click', closeAuthModal);
 
 // Initial Gate Check
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+  // Check if session exists in Supabase
+  if (supabase) {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session && session.user) {
+      localStorage.setItem('mogged_email', session.user.email);
+    } else {
+      localStorage.removeItem('mogged_email');
+    }
+  }
+
   if (!localStorage.getItem('mogged_email')) {
-    // Only show automatically if user hasn't dismissed it or if we want strict mode
-    // For now, let's keep it visible but ensure it doesn't crash
     showAuthModal();
   }
+  refreshEmailBadge();
 });
 
 // Handle unlock buttons in pricing grid
