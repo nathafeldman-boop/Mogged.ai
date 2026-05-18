@@ -983,6 +983,7 @@
     .btn-pro { background:linear-gradient(135deg, var(--green), #10b981); color:#000; }
     .btn-lifetime { background:linear-gradient(135deg, #fb923c, #f97316); color:#000; }
     .save-badge { color:var(--green); font-size:0.8rem; font-weight:600; margin-bottom:12px; display:block; }
+    .stripe-button-container { margin-top: 10px; min-height: 44px; display: flex; justify-content: center; }
 
     /* ── AUTH MODAL ── */
     .auth-box { background:rgba(10,14,28,0.98); border:1px solid var(--border); border-radius:var(--r); padding:32px 24px; max-width:400px; width:100%; position:relative; box-shadow:0 24px 48px rgba(0,0,0,0.5); }
@@ -1481,36 +1482,40 @@
       </div>
       <div class="p16">
         <div class="pricing-container">
-          <!-- Starter -->
+          <!-- Pass 24H -->
           <div class="pricing-card">
             <div class="pricing-header">
-              <div class="plan-name">⚡ Starter</div>
-              <div class="plan-price">10€<span>/mois</span></div>
+              <div class="plan-name">⏳ Pass 24H</div>
+              <div class="plan-price">0.99€<span>/24h</span></div>
             </div>
             <ul class="plan-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 1 analyse par jour</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyse réduite</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Stats clés</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Probabilités exactes 1x/jour</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Accès complet immédiat</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Idéal pour un test rapide</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pas d'abonnement</li>
             </ul>
-            <button class="btn-pricing btn-starter unlock-btn" data-plan="Starter">Débloquer - 10€/mois</button>
+            <div class="stripe-button-container">
+              <stripe-buy-button buy-button-id="buy_btn_1TXjqYRd6r34OMU6b7aFPSbj" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
+            </div>
           </div>
 
-          <!-- Pro -->
+          <!-- Elite Access -->
           <div class="pricing-card pro">
             <div class="popular-badge">⭐⭐ Populaire</div>
             <div class="pricing-header">
-              <div class="plan-name">👑 Pro</div>
-              <div class="plan-price">19€<span>/mois</span></div>
+              <div class="plan-name">⚡ Élite Access</div>
+              <div class="plan-price">7.99€<span>/mois</span></div>
             </div>
             <ul class="plan-features">
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyses illimitées</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Analyse complète détaillée</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Scénarios probables détaillés</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Stats avancées + actualités</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA ((1 question/jour))</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA illimité</li>
             </ul>
-            <button class="btn-pricing btn-pro unlock-btn" data-plan="Pro">Débloquer - 19€/mois</button>
+            <div class="stripe-button-container">
+              <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
+            </div>
           </div>
 
           <!-- Lifetime -->
@@ -1528,7 +1533,9 @@
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Priorité nouvelles features</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Chat IA illimité</li>
             </ul>
-            <button class="btn-pricing btn-lifetime unlock-btn" data-plan="Lifetime">Débloquer - 99€</button>
+            <div class="stripe-button-container">
+              <button class="btn-pricing btn-lifetime unlock-btn" data-plan="Lifetime">Débloquer - 99€</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1808,7 +1815,11 @@ document.querySelectorAll('.unlock-btn').forEach(btn => {
     if (!localStorage.getItem('mogged_email')) {
       showAuthModal();
     } else {
-      alert('Redirection vers le paiement pour le plan ' + btn.dataset.plan);
+      if (btn.dataset.plan === 'Lifetime') {
+        window.location.href = 'https://buy.stripe.com/5kA7tU7Fv0W05P26oq';
+      } else {
+        alert('Redirection vers le paiement pour le plan ' + btn.dataset.plan);
+      }
     }
   });
 });
