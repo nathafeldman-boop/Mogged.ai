@@ -1705,11 +1705,16 @@ const guides = {
 /* ================================================================
    SUPABASE CONFIG
 ================================================================ */
-// Note: In a production environment with a single-file HTML, we can inject these via a build script
-// or use a secure backend proxy. For this deployment, we use the provided Supabase project.
-const supabaseUrl = window.ENV?.SUPABASE_URL || 'https://votre-projet.supabase.co';
-const supabaseKey = window.ENV?.SUPABASE_ANON_KEY || 'votre-cle-anon';
-const supabase = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+const supabaseUrl = window.ENV?.SUPABASE_URL || '';
+const supabaseKey = window.ENV?.SUPABASE_ANON_KEY || '';
+let supabase = null;
+try {
+  if (supabaseUrl && supabaseKey && window.supabase) {
+    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+  }
+} catch (e) {
+  console.warn('Supabase initialization failed:', e);
+}
 
 /* ================================================================
    STATE
@@ -1826,13 +1831,24 @@ function setAuthError(msg) {
 }
 
 async function handleAuth() {
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
+  const emailInput = document.getElementById('auth-email');
+  const passwordInput = document.getElementById('auth-password');
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
   const submitBtn = document.getElementById('auth-submit-btn');
   const box = document.querySelector('.auth-box');
 
   setAuthError(null);
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setAuthError('Email invalide');
+  
+  // Fallback if Supabase is not configured
+  if (!supabase) {
+    localStorage.setItem('mogged_email', email);
+    closeAuthModal();
+    refreshEmailBadge();
+    return;
+  }
+
   if (password.length < 6) return setAuthError('Mot de passe : min. 6 caractères');
 
   submitBtn.classList.add('auth-loading');
@@ -1849,16 +1865,18 @@ async function handleAuth() {
     if (result.error) throw result.error;
 
     localStorage.setItem('mogged_email', email);
-    localStorage.setItem('supabase_session', JSON.stringify(result.data.session));
+    if (result.data.session) {
+      localStorage.setItem('supabase_session', JSON.stringify(result.data.session));
+    }
     
     closeAuthModal();
     refreshEmailBadge();
-    location.reload(); // Refresh to unlock app
+    location.reload(); 
   } catch (err) {
     console.error('Auth error:', err);
-    let msg = 'Une erreur est survenue';
-    if (err.message.includes('Invalid login credentials')) msg = 'Email ou mot de passe incorrect';
-    if (err.message.includes('User already registered')) msg = 'Email déjà utilisé';
+    let msg = err.message || 'Une erreur est survenue';
+    if (msg.includes('Invalid login credentials')) msg = 'Email ou mot de passe incorrect';
+    if (msg.includes('User already registered')) msg = 'Email déjà utilisé';
     setAuthError(msg);
     box.style.animation = 'none';
     setTimeout(() => box.style.animation = 'authShake 0.4s ease', 10);
@@ -1876,6 +1894,8 @@ document.getElementById('close-auth-footer').addEventListener('click', closeAuth
 // Initial Gate Check
 window.addEventListener('DOMContentLoaded', () => {
   if (!localStorage.getItem('mogged_email')) {
+    // Only show automatically if user hasn't dismissed it or if we want strict mode
+    // For now, let's keep it visible but ensure it doesn't crash
     showAuthModal();
   }
 });
