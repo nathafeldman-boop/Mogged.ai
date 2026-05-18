@@ -1,0 +1,28 @@
+{
+  "name": "Mogged.ai",
+  "short_name": "Mogged.ai",
+  "description": "AI looksmaxing, facial analysis and aesthetic intelligence platform.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#080c18",
+  "theme_color": "#00e5ff",
+  "icons": [
+    {
+      "src": "/mogged-profile-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
