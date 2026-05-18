@@ -1944,18 +1944,7 @@ function closeEmailModal() {
    GATE CHECK — call before any action
 ================================================================ */
 function gateCheck(action, fileObj) {
-  const userEmail = localStorage.getItem('mogged_email');
-  const isVIP = userEmail && userEmail.toLowerCase() === 'nathafeldman@gmail.com';
-
-  if (localStorage.getItem('mogged_scans_done') === 'true' && !isVIP) {
-    showPaywall();
-    return;
-  }
-  if (!localStorage.getItem('mogged_email')) {
-    showEmailModal(action, fileObj);
-    return;
-  }
-  // Already have email, go straight to action
+  // Direct access without authentication required
   if (action === 'selfie') startCamera();
   else if (action === 'voice') startMicRecording();
   else if (action === 'file' && fileObj) loadFileAndScan(fileObj);
@@ -1965,7 +1954,7 @@ function gateCheck(action, fileObj) {
 /* ================================================================
    CAMERA (1) — SCANNER
 ================================================================ */
-document.getElementById('take-selfie-btn').addEventListener('click', () => gateCheck('selfie'));
+document.getElementById('take-selfie-btn').addEventListener('click', () => startCamera());
 document.getElementById('import-gallery-btn').addEventListener('click', () => {
   document.getElementById('file-input').click();
 });
@@ -1973,7 +1962,7 @@ document.getElementById('file-input').addEventListener('change', e => {
   const file = e.target.files?.[0];
   if (!file) return;
   e.target.value = ''; // reset so same file can be picked again
-  gateCheck('file', file);
+  loadFileAndScan(file);
 });
 
 async function startCamera() {
@@ -2080,7 +2069,7 @@ document.getElementById('scan-again-btn').addEventListener('click', () => {
 /* ================================================================
    MICROPHONE (2) — VOCAL
 ================================================================ */
-document.getElementById('analyze-voice-btn').addEventListener('click', () => gateCheck('voice'));
+document.getElementById('analyze-voice-btn').addEventListener('click', () => startMicRecording());
 
 async function startMicRecording() {
   const btn = document.getElementById('analyze-voice-btn');
