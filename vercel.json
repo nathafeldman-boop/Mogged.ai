@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "sh ./build-vercel.sh",
-  "outputDirectory": "public",
-  "framework": null,
   "functions": {
     "api/claude.js": {
       "maxDuration": 60
@@ -10,12 +7,12 @@
   },
   "routes": [
     {
-      "src": "/api/claude",
-      "dest": "/api/claude.js"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/$1"
     }
   ]
 }
