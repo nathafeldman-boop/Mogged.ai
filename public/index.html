@@ -3292,20 +3292,20 @@ async function generateVocalGuide(vocalResult) {
     h += '<div style="font-size:0.75rem;color:var(--text2);">Génération en cours…</div></div>';
 
     try {
-      var resp = await fetch('/api/claude', {
+      var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'openrouter/free',
           max_tokens: 500,
-          system: 'Tu es coach vocal looksmaxing expert.',
           messages: [
+            { role: 'system', content: 'Tu es coach vocal looksmaxing expert.' },
             { role: 'user', content: 'Pitch: ' + vocalResult.pitch + 'Hz, Volume: ' + vocalResult.volume + 'dB, Basses: ' + vocalResult.bassRatio + '%, Stabilité: ' + vocalResult.stability + '%, Tier: ' + vocalResult.tier + '. Donne 3 conseils précis et actionnables (3-4 phrases chacun) pour améliorer cette voix vers un profil plus attractif et séducteur. Sois direct, technique, sans fioritures. En français.' }
           ]
         })
       });
       var data = await resp.json();
-      var tip = data.content?.map(function(b){ return b.text||''; }).join('') || '';
+      var tip = data.choices?.[0]?.message?.content || '';
       var tipEl = document.getElementById('vocal-ai-tip');
       if (tipEl && tip) tipEl.innerHTML = '<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet-light);margin-bottom:8px;">🤖 Conseil IA personnalisé</div><div style="font-size:0.78rem;color:var(--text2);line-height:1.7;white-space:pre-wrap;">' + tip + '</div>';
     } catch(e) {}
@@ -3726,20 +3726,20 @@ INSTRUCTIONS STRICTES :
 Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 actions concrètes et détaillées.`;
 
   try {
-    var resp = await fetch('/api/claude', {
+    var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 16000,
-        system: systemPrompt,
+        model: 'openrouter/free',
+        max_tokens: 8000,
         messages: [
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: `Génère mon programme glow-up 30 jours complet et ultra-détaillé. Profil : ${ageLabel}, alimentation ${dietLabel}, sport ${sportLabel}, sommeil ${sleepLabel}. Minimum 30 000 caractères, tout détaillé.` }
         ]
       })
     });
     var data = await resp.json();
-    var fullText = data.content?.map(function(b){ return b.text||''; }).join('') || '';
+    var fullText = data.choices?.[0]?.message?.content || '';
 
     // Calcul du score d'intensité pour le tier
     var sportScore = { none:1, light:2, regular:3, athlete:4 }[ans.sport] || 1;
@@ -4425,17 +4425,19 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
 {"scores":{"jawline":0.0,"symmetry":0.0,"canthalTilt":0.0,"midfaceRatio":0.0,"eyeArea":0.0,"nasalHarmony":0.0,"skinQuality":0.0},"overall":0.0,"tier":"NORMIE","analysis":"2 phrases: point fort puis point faible, direct et spécifique.","improvements":["conseil actionnable 1","conseil actionnable 2","conseil actionnable 3"]}`;
 
   try {
-    const resp = await fetch('/api/claude', {
+    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'openrouter/free',
         max_tokens: 800,
-        system: systemPrompt,
         messages: [{
+          role: 'system',
+          content: systemPrompt
+        }, {
           role: 'user',
           content: [
-            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageB64 } },
+            { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + imageB64 } },
             { type: 'text', text: 'Analyse ce visage selon les critères looksmaxing. Sois précis, utilise toute la plage de scores.' }
           ]
         }]
@@ -4444,12 +4446,12 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
 
     if (!resp.ok) {
       const errText = await resp.text();
-      console.error('Proxy Error:', resp.status, errText);
+      console.error('OpenRouter Error:', resp.status, errText);
       throw new Error('API ' + resp.status);
     }
     const data = await resp.json();
-    console.log('Proxy Success:', data);
-    const raw = data.content?.map(b => b.text || '').join('').replace(/```json|```/g, '').trim();
+    console.log('OpenRouter Success:', data);
+    const raw = (data.choices?.[0]?.message?.content || '').replace(/```json|```/g, '').trim();
     return JSON.parse(raw);
   } catch(e) {
     console.warn('callClaudeVision failed, using fallback:', e);
