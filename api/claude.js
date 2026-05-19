@@ -1,5 +1,7 @@
 /**
  * /api/claude.js — Proxy Vercel vers OpenRouter
+ * Accepte le format Anthropic et retourne le format Anthropic.
+ * Supporte les messages avec images (vision) pour le scanner facial.
  */
 
 export const config = { maxDuration: 60 };
@@ -27,15 +29,20 @@ export default async function handler(req, res) {
     const body = req.body;
     const openaiMessages = [];
 
+    // Ajouter le system prompt si présent
     if (body.system) {
       openaiMessages.push({ role: 'system', content: body.system });
     }
 
+    // Convertir les messages du format Anthropic vers OpenAI
+    let hasImages = false;
     if (Array.isArray(body.messages)) {
       for (const msg of body.messages) {
         if (Array.isArray(msg.content)) {
           const parts = msg.content.map(part => {
             if (part.type === 'image') {
+              // Format Anthropic image -> format OpenAI image_url
+              hasImages = true;
               return {
                 type: 'image_url',
                 image_url: {
@@ -54,12 +61,11 @@ export default async function handler(req, res) {
       }
     }
 
-    const modelMap = {
-      'claude-sonnet-4-20250514': 'anthropic/claude-sonnet-4-5',
-      'claude-3-5-sonnet-20241022': 'anthropic/claude-3.5-sonnet',
-    };
-    const requestedModel = body.model || 'claude-sonnet-4-20250514';
-    const openrouterModel = modelMap[requestedModel] || 'anthropic/claude-sonnet-4-5';
+    // Modèles par ordre de préférence (gratuits et supportant la vision)
+    // google/gemma-4-31b-it:free supporte la vision et est gratuit
+    const openrouterModel = hasImages
+      ? 'google/gemma-4-31b-it:free'
+      : 'google/gemma-4-31b-it:free';
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -77,15 +83,21 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    if (!response.ok) return res.status(response.status).json(data);
+
+    if (!response.ok) {
+      console.error('OpenRouter error:', response.status, JSON.stringify(data));
+      return res.status(response.status).json(data);
+    }
 
     const openaiText = data.choices?.[0]?.message?.content || '';
+
+    // Retourner le format Anthropic pour compatibilité avec le frontend
     return res.status(200).json({
       id: data.id || 'msg_' + Date.now(),
       type: 'message',
       role: 'assistant',
       content: [{ type: 'text', text: openaiText }],
-      model: requestedModel,
+      model: body.model || openrouterModel,
       stop_reason: 'end_turn',
       usage: {
         input_tokens: data.usage?.prompt_tokens || 0,
@@ -94,6 +106,7 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
+    console.error('Proxy error:', err.message);
     return res.status(500).json({ error: err.message });
   }
 }
