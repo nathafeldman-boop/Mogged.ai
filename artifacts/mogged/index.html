@@ -1012,12 +1012,315 @@
     /* ══════════════════════════════════════════════
        LANDING PAGE — design premium noir/blanc
     ══════════════════════════════════════════════ */
+    /* ═══════════ LANDING PAGE — style Visifoot adapté ═══════════ */
     #landing-page {
       position: fixed; inset: 0; z-index: 9999;
-      background: #09090b;
+      background: #06060a;
       overflow-y: auto; overflow-x: hidden;
+      font-family: var(--font);
     }
     #landing-page.hidden { display: none; }
+
+    /* Fond étoilé subtil */
+    #landing-page::after {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.06) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 80%, rgba(255,255,255,0.05) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.07) 0%, transparent 100%);
+    }
+
+    /* ── Animations ── */
+    @keyframes lpFadeUp   { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:none} }
+    @keyframes lpFadeIn   { from{opacity:0} to{opacity:1} }
+    @keyframes lpGlow     { 0%,100%{opacity:.6} 50%{opacity:1} }
+    @keyframes lpSlideLeft{ from{transform:translateX(60px);opacity:0} to{transform:none;opacity:1} }
+    @keyframes lpCountUp  { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+    @keyframes lpAccordion{ from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+    @keyframes lpFloat    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes lpPulseGlow{ 0%,100%{box-shadow:0 0 20px rgba(124,58,237,.3)} 50%{box-shadow:0 0 50px rgba(124,58,237,.7)} }
+    @keyframes lpScanLine { 0%{top:-2px} 100%{top:100%} }
+    @keyframes lpTickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    .lp-reveal { opacity:0; }
+    .lp-reveal.visible { animation:lpFadeUp .7s ease forwards; }
+    .lp-reveal-left { opacity:0; }
+    .lp-reveal-left.visible { animation:lpSlideLeft .7s ease forwards; }
+
+    /* ── Layout ── */
+    .lp-page { position:relative; z-index:1; }
+
+    /* ── NAV ── */
+    .lp-nav {
+      position: sticky; top:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 18px 22px;
+      background: rgba(6,6,10,.92); backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .lp-nav-logo {
+      font-family:var(--font-d); font-size:1.1rem; font-weight:900;
+      letter-spacing:.1em; color:#fff;
+    }
+    .lp-nav-logo span { color:var(--violet-light); }
+    .lp-nav-btns { display:flex; gap:8px; }
+    .lp-nav-login {
+      padding:8px 16px; background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.12);
+      border-radius:100px; font-size:.78rem; font-weight:600;
+      cursor:pointer; transition:all .2s;
+    }
+    .lp-nav-login:hover { background:rgba(255,255,255,.12); color:#fff; }
+    .lp-nav-cta {
+      padding:8px 18px;
+      background:linear-gradient(135deg,var(--violet),#5b21b6);
+      color:#fff; border:none; border-radius:100px;
+      font-size:.78rem; font-weight:700; cursor:pointer;
+      box-shadow:0 0 20px rgba(124,58,237,.4);
+      transition:all .2s;
+    }
+    .lp-nav-cta:hover { transform:translateY(-1px); box-shadow:0 0 32px rgba(124,58,237,.6); }
+
+    /* ── HERO ── */
+    .lp-hero {
+      min-height:100svh; display:flex; flex-direction:column;
+      justify-content:center; padding:60px 22px 40px;
+      position:relative; overflow:hidden; text-align:center;
+    }
+    .lp-hero-bg {
+      position:absolute; inset:0; z-index:0;
+      background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(124,58,237,.12) 0%, transparent 65%);
+    }
+    /* Scan line animée */
+    .lp-hero-scan {
+      position:absolute; left:0; right:0; height:2px; z-index:1;
+      background:linear-gradient(90deg,transparent,rgba(124,58,237,.6),transparent);
+      animation:lpScanLine 4s ease-in-out infinite;
+    }
+    .lp-hero-inner { position:relative; z-index:2; }
+
+    .lp-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 18px; border-radius:100px;
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+      font-size:.74rem; font-weight:600; color:rgba(255,255,255,.8);
+      margin-bottom:28px; letter-spacing:.04em;
+    }
+    .lp-badge-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--violet-light);
+      box-shadow:0 0 8px var(--violet-light);
+      animation:lpGlow 2s ease infinite;
+    }
+
+    .lp-hero-title {
+      font-family:var(--font-d);
+      font-size:clamp(2.6rem,11vw,4.5rem);
+      font-weight:900; letter-spacing:.02em; line-height:.95;
+      color:#fff; text-transform:uppercase; margin-bottom:20px;
+    }
+    .lp-hero-title .lp-accent { color:var(--violet-light); display:block; }
+
+    .lp-hero-sub {
+      font-size:1rem; line-height:1.7; color:rgba(255,255,255,.55);
+      max-width:380px; margin:0 auto 36px; font-weight:400;
+    }
+
+    /* CTA style Visifoot — icône + texte bold */
+    .lp-cta-main {
+      display:inline-flex; align-items:center; gap:12px;
+      padding:16px 28px; border-radius:100px;
+      background:linear-gradient(135deg,var(--violet),#5b21b6);
+      color:#fff; border:none; cursor:pointer; font-size:.95rem; font-weight:800;
+      letter-spacing:.06em; text-transform:uppercase;
+      box-shadow:0 0 40px rgba(124,58,237,.45), 0 4px 20px rgba(0,0,0,.4);
+      transition:all .2s; animation:lpPulseGlow 3s ease infinite;
+    }
+    .lp-cta-main:hover { transform:translateY(-2px); box-shadow:0 0 60px rgba(124,58,237,.7); }
+    .lp-cta-main .cta-icon { font-size:1.4rem; }
+
+    .lp-hero-proof {
+      margin-top:24px; font-size:.74rem; color:rgba(255,255,255,.3);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .lp-hero-proof-avatars { display:flex; }
+    .lp-proof-av {
+      width:26px; height:26px; border-radius:50%;
+      border:2px solid #06060a; margin-left:-7px;
+      background:linear-gradient(135deg,var(--violet),var(--cyan));
+      display:flex; align-items:center; justify-content:center;
+      font-size:.6rem; color:#fff; font-weight:700;
+    }
+    .lp-proof-av:first-child { margin-left:0; }
+
+    /* ── STATS TICKER ── */
+    .lp-ticker-wrap {
+      overflow:hidden; padding:12px 0;
+      border-top:1px solid rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      background:rgba(255,255,255,.02);
+    }
+    .lp-ticker-inner { display:flex; white-space:nowrap; animation:lpTickerScroll 20s linear infinite; }
+    .lp-ticker-item {
+      padding:0 32px; font-size:.72rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(255,255,255,.35);
+    }
+    .lp-ticker-item span { color:var(--violet-light); margin-right:8px; }
+
+    /* ── SECTIONS COMMUNES ── */
+    .lp-section { padding:72px 22px; }
+    .lp-section-tag {
+      display:inline-block; font-size:.65rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--violet-light);
+      background:rgba(124,58,237,.1); border:1px solid rgba(124,58,237,.2);
+      padding:5px 14px; border-radius:100px; margin-bottom:16px;
+    }
+    .lp-big-title {
+      font-family:var(--font-d); font-size:clamp(2rem,9vw,3.6rem);
+      font-weight:900; letter-spacing:.02em; line-height:.95;
+      text-transform:uppercase; color:#fff; margin-bottom:16px;
+    }
+    .lp-big-title .lp-accent { color:var(--violet-light); }
+    .lp-section-sub {
+      font-size:.95rem; color:rgba(255,255,255,.5); line-height:1.7;
+      max-width:400px; margin:0 auto;
+    }
+
+    /* ── CHIFFRES MASSIFS ── */
+    .lp-stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; margin:40px 0; }
+    .lp-stat-box {
+      padding:28px 18px; text-align:center;
+      background:rgba(255,255,255,.025); border:1px solid rgba(255,255,255,.06);
+    }
+    .lp-stat-num {
+      font-family:var(--font-d); font-size:clamp(2.4rem,10vw,3.8rem);
+      font-weight:900; line-height:1; color:var(--violet-light);
+      text-shadow:0 0 30px rgba(167,139,250,.4); margin-bottom:6px;
+    }
+    .lp-stat-lbl {
+      font-size:.68rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:rgba(255,255,255,.35);
+    }
+
+    /* ── FEATURES CARDS ── */
+    .lp-feats { display:flex; flex-direction:column; gap:12px; margin-top:32px; }
+    .lp-feat-row {
+      display:flex; align-items:flex-start; gap:16px;
+      padding:18px; background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.07); border-radius:14px;
+      transition:border-color .2s, background .2s;
+    }
+    .lp-feat-row:hover { border-color:rgba(124,58,237,.3); background:rgba(124,58,237,.05); }
+    .lp-feat-icon-box {
+      width:44px; height:44px; border-radius:12px; flex-shrink:0;
+      background:rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.25);
+      display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+    }
+    .lp-feat-title { font-size:.88rem; font-weight:700; color:#fff; margin-bottom:4px; }
+    .lp-feat-desc  { font-size:.76rem; color:rgba(255,255,255,.45); line-height:1.55; }
+
+    /* ── TÉMOIGNAGES ── */
+    .lp-testimonials { display:flex; flex-direction:column; gap:16px; margin-top:32px; }
+    .lp-testi {
+      padding:22px 18px; background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.07); border-radius:14px;
+    }
+    .lp-testi-text {
+      font-size:.92rem; font-weight:600; color:#fff; line-height:1.55;
+      margin-bottom:16px;
+    }
+    .lp-testi-author { display:flex; align-items:center; gap:12px; }
+    .lp-testi-avatar {
+      width:40px; height:40px; border-radius:50%;
+      background:linear-gradient(135deg,var(--violet),var(--cyan));
+      display:flex; align-items:center; justify-content:center;
+      font-size:.9rem; font-weight:700; color:#fff; flex-shrink:0;
+    }
+    .lp-testi-name { font-size:.82rem; font-weight:700; color:#fff; }
+    .lp-testi-role { font-size:.72rem; color:var(--violet-light); }
+    .lp-stars { color:#fbbf24; font-size:.7rem; letter-spacing:2px; margin-bottom:3px; }
+
+    /* ── FAQ ACCORDÉON ── */
+    .lp-faq { display:flex; flex-direction:column; gap:0; margin-top:32px; }
+    .lp-faq-item { border-bottom:1px solid rgba(255,255,255,.07); }
+    .lp-faq-q {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 0; cursor:pointer;
+      font-size:.9rem; font-weight:600; color:#fff;
+      transition:color .2s;
+    }
+    .lp-faq-q:hover { color:var(--violet-light); }
+    .lp-faq-icon {
+      width:24px; height:24px; border-radius:50%;
+      border:1.5px solid rgba(255,255,255,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; color:rgba(255,255,255,.5); flex-shrink:0;
+      transition:all .2s;
+    }
+    .lp-faq-item.open .lp-faq-icon {
+      background:var(--violet); border-color:var(--violet);
+      color:#fff; transform:rotate(45deg);
+    }
+    .lp-faq-a {
+      display:none; padding:0 0 16px;
+      font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.65;
+      animation:lpAccordion .25s ease;
+    }
+    .lp-faq-item.open .lp-faq-a { display:block; }
+
+    /* ── CTA FINAL ── */
+    .lp-final {
+      padding:72px 22px; text-align:center;
+      background:linear-gradient(180deg,rgba(124,58,237,.07) 0%,transparent 100%);
+      border-top:1px solid rgba(124,58,237,.15);
+      position:relative; overflow:hidden;
+    }
+    .lp-final::before {
+      content:'';
+      position:absolute; top:0; left:50%; transform:translateX(-50%);
+      width:300px; height:300px; border-radius:50%;
+      background:radial-gradient(circle,rgba(124,58,237,.18) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .lp-final-title {
+      font-family:var(--font-d); font-size:clamp(1.8rem,8vw,3rem);
+      font-weight:900; letter-spacing:.02em; line-height:1; text-transform:uppercase;
+      color:#fff; margin-bottom:14px;
+    }
+    .lp-final-sub { font-size:.88rem; color:rgba(255,255,255,.45); margin-bottom:32px; line-height:1.65; }
+    .lp-final-note { margin-top:16px; font-size:.7rem; color:rgba(255,255,255,.22); }
+
+    /* ── PHONE MOCKUP ── */
+    .lp-phone-wrap {
+      margin:40px auto 0; max-width:260px;
+      animation:lpFloat 4s ease-in-out infinite;
+    }
+    .lp-phone {
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+      border-radius:32px; overflow:hidden; padding:14px;
+      box-shadow:0 24px 60px rgba(0,0,0,.6), 0 0 60px rgba(124,58,237,.15);
+    }
+    .lp-phone-screen {
+      background:#0d0d18; border-radius:22px; overflow:hidden;
+      padding:16px 14px;
+    }
+    .lp-phone-row {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .lp-phone-label { font-size:.58rem; font-weight:700; letter-spacing:.1em; color:rgba(255,255,255,.4); text-transform:uppercase; }
+    .lp-phone-badge { font-size:.55rem; font-weight:800; color:var(--violet-light); background:rgba(124,58,237,.15); padding:3px 8px; border-radius:100px; }
+    .lp-phone-metric {
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+      border-radius:10px; padding:10px 12px; margin-bottom:8px;
+    }
+    .lp-phone-metric-name { font-size:.6rem; color:rgba(255,255,255,.4); margin-bottom:4px; font-weight:600; letter-spacing:.05em; }
+    .lp-phone-metric-val { font-family:var(--font-d); font-size:1.1rem; font-weight:700; color:var(--violet-light); }
+    .lp-phone-bar { height:3px; background:rgba(255,255,255,.07); border-radius:2px; margin-top:6px; overflow:hidden; }
+    .lp-phone-bar-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--violet),var(--violet-light)); }
+
 
     #landing-page::before {
       content: '';
@@ -1398,79 +1701,101 @@
 
 
     /* ════════════════════════════════════════════
-       FREEMIUM BLUR SYSTEM
+       PAYWALL — style Visifoot (fond flouté + barre + CTA arrondi)
     ════════════════════════════════════════════ */
+
+    /* Carte critère verrouillée */
     .metric-locked {
       position: relative; overflow: hidden; border-radius: var(--r-sm);
+      min-height: 90px;
     }
     .metric-locked .metric-blur-overlay {
       position: absolute; inset: 0; z-index: 10;
-      backdrop-filter: blur(7px);
-      background: rgba(9,9,11,0.55);
+      backdrop-filter: blur(8px) saturate(0.4);
+      background: rgba(6,6,10,0.65);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 6px; border-radius: var(--r-sm);
-      border: 1px solid rgba(139,92,246,0.2);
+      gap: 4px; border-radius: var(--r-sm);
     }
-    .metric-blur-overlay .blur-lock { font-size: 1.1rem; }
+    .metric-blur-overlay .blur-lock {
+      font-size: 1.3rem; margin-bottom: 2px;
+    }
     .metric-blur-overlay .blur-label {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(139,92,246,0.85);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
     }
     .metric-blur-overlay .blur-price {
-      font-size: 0.7rem; color: rgba(255,255,255,0.35);
+      font-size: 0.62rem; color: rgba(255,255,255,0.25);
     }
 
-    /* Unlock banner sous les métriques */
+    /* Bloc paywall style Visifoot */
     .freemium-unlock-banner {
-      background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(109,40,217,0.08));
-      border: 1px solid rgba(139,92,246,0.25);
-      border-radius: var(--r-sm); padding: 16px 18px;
-      text-align: center; margin: 12px 0 4px;
+      position: relative; overflow: hidden;
+      border-radius: 16px; padding: 28px 20px 24px;
+      text-align: center; margin: 16px 0 8px;
+      background: rgba(12,12,20,0.85);
+      border: 1px solid rgba(124,58,237,0.2);
     }
+    /* Fond flouté derrière */
+    .freemium-unlock-banner::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(160deg,
+        rgba(124,58,237,0.08) 0%,
+        rgba(6,6,10,0) 60%);
+    }
+    .freemium-unlock-banner > * { position: relative; z-index: 1; }
+
     .freemium-unlock-banner .unlock-title {
-      font-family: var(--font-d); font-size: 0.82rem; font-weight: 700;
-      letter-spacing: 0.05em; color: #fff; margin-bottom: 4px;
+      font-size: 1.05rem; font-weight: 800; color: #fff;
+      line-height: 1.3; margin-bottom: 14px;
+    }
+    /* Barre de progression partielle */
+    .unlock-progress-wrap {
+      height: 6px; background: rgba(255,255,255,0.08);
+      border-radius: 100px; margin: 0 0 14px; overflow: hidden;
+    }
+    .unlock-progress-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, var(--violet), var(--violet-light));
+      box-shadow: 0 0 8px rgba(124,58,237,0.6);
     }
     .freemium-unlock-banner .unlock-sub {
-      font-size: 0.72rem; color: rgba(255,255,255,0.4);
-      line-height: 1.5; margin-bottom: 12px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.5);
+      line-height: 1.6; margin-bottom: 20px;
     }
-    .unlock-cta-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    /* Gros bouton arrondi style Visifoot */
+    .unlock-cta-row { display: flex; flex-direction: column; gap: 8px; align-items: center; }
     .unlock-btn-main {
-      padding: 10px 20px; background: #8b5cf6; color: #fff;
-      border: none; border-radius: 8px; cursor: pointer;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
-      box-shadow: 0 0 20px rgba(139,92,246,0.3);
-      transition: all .15s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 16px 24px;
+      background: linear-gradient(135deg, var(--violet), var(--violet-light));
+      color: #fff; border: none; border-radius: 100px; cursor: pointer;
+      font-size: 0.95rem; font-weight: 800; letter-spacing: 0.04em;
+      box-shadow: 0 0 30px rgba(124,58,237,0.4), 0 4px 20px rgba(0,0,0,0.35);
+      transition: all .2s;
     }
-    .unlock-btn-main:hover { background: #7c3aed; transform: translateY(-1px); }
+    .unlock-btn-main:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,58,237,0.6); }
     .unlock-btn-cheap {
-      padding: 10px 16px; background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 600;
-      transition: all .15s;
+      font-size: 0.72rem; color: rgba(255,255,255,0.3);
+      background: none; border: none; cursor: pointer;
+      text-decoration: underline; transition: color .15s;
     }
-    .unlock-btn-cheap:hover { background: rgba(255,255,255,0.09); color: #fff; }
+    .unlock-btn-cheap:hover { color: rgba(255,255,255,0.6); }
 
     /* Vocal locked */
     .vocal-locked-overlay {
-      background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2);
+      background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.2);
       border-radius: var(--r-sm); padding: 18px; text-align: center; margin-top: 12px;
     }
     /* Match locked */
-    .match-teaser {
-      position: relative;
-    }
-    .match-teaser-blur {
-      filter: blur(5px); pointer-events: none; user-select: none;
-      opacity: 0.5;
-    }
+    .match-teaser { position: relative; }
+    .match-teaser-blur { filter: blur(5px); pointer-events: none; user-select: none; opacity: 0.5; }
     .match-lock-overlay {
       position: absolute; inset: 0; z-index: 5;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      background: rgba(9,9,11,0.6); border-radius: var(--r-sm);
+      background: rgba(6,6,10,0.6); border-radius: var(--r-sm);
       padding: 20px; text-align: center;
     }
 
@@ -1679,169 +2004,297 @@
 
 <!-- ══ LANDING PAGE ══ -->
 <div id="landing-page">
-  <div class="lp-noise"></div>
-  <div class="lp-inner">
+<div class="lp-page">
 
-    <!-- NAV -->
-    <nav class="lp-nav lp-a lp-a1">
-      <div>
-        <div class="lp-wordmark">MOGGED<span>.AI</span></div>
-        <div style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-top:2px;">Aesthetic Intelligence</div>
-      </div>
-      <div class="lp-nav-right">
-        <button class="lp-nav-login" onclick="lpOpenAuth('login')">Se connecter</button>
-        <button class="lp-nav-cta" onclick="lpOpenAuth()">Commencer →</button>
-      </div>
-    </nav>
+  <!-- NAV -->
+  <nav class="lp-nav">
+    <div class="lp-nav-logo">MOGGED<span>.AI</span></div>
+    <div class="lp-nav-btns">
+      <button class="lp-nav-login" onclick="lpOpenAuth('login')">Connexion</button>
+      <button class="lp-nav-cta"   onclick="lpOpenAuth('signup')">Commencer →</button>
+    </div>
+  </nav>
 
-    <!-- HERO -->
-    <div class="lp-hero">
-      <div class="lp-badge lp-a lp-a1">
+  <!-- ═══ HERO ═══ -->
+  <section class="lp-hero">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-scan"></div>
+    <div class="lp-hero-inner">
+
+      <div class="lp-badge lp-reveal" style="animation-delay:.05s">
         <div class="lp-badge-dot"></div>
-        IA en ligne · Résultats en 10 secondes
+        ★ &nbsp;+3 200 analyses réalisées cette semaine
       </div>
-      <h1 class="lp-h1 lp-a lp-a2">
-        Sais-tu vraiment<br>à quoi tu ressembles<br><em>aux yeux des autres ?</em>
+
+      <h1 class="lp-hero-title lp-reveal" style="animation-delay:.15s">
+        Sais-tu vraiment<br>
+        comment tu<br>
+        <span class="lp-accent">es perçu ?</span>
       </h1>
-      <p class="lp-sub lp-a lp-a3">
-        Mogged.ai analyse ton visage avec les mêmes critères que les experts en looksmaxing. Score PSL, jawline, canthal tilt, symétrie — la vérité brute en quelques secondes.
+
+      <p class="lp-hero-sub lp-reveal" style="animation-delay:.25s">
+        Scanner facial IA, score vocal, duel looksmaxing — la vérité brute en quelques secondes.
       </p>
-      <div class="lp-cta-row lp-a lp-a4">
-        <button class="lp-cta-primary" onclick="lpOpenAuth()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          Obtenir mon score gratuit
-        </button>
-        <button class="lp-cta-secondary" onclick="lpOpenAuth()">
-          Se connecter →
-        </button>
-      </div>
-      <!-- Social proof -->
-      <div class="lp-social lp-a lp-a5">
-        <div class="lp-avatars">
-          <div class="lp-avatar">K</div><div class="lp-avatar">M</div>
-          <div class="lp-avatar">A</div><div class="lp-avatar">R</div><div class="lp-avatar">+</div>
+
+      <button class="lp-cta-main lp-reveal" style="animation-delay:.35s" onclick="lpOpenAuth('signup')">
+        <span class="cta-icon">🔬</span>
+        OBTENIR MON SCORE GRATUIT
+      </button>
+
+      <div class="lp-hero-proof lp-reveal" style="animation-delay:.5s">
+        <div class="lp-hero-proof-avatars">
+          <div class="lp-proof-av">K</div>
+          <div class="lp-proof-av">M</div>
+          <div class="lp-proof-av">A</div>
+          <div class="lp-proof-av">R</div>
+          <div class="lp-proof-av">+</div>
         </div>
-        <span>+3 200 scores générés cette semaine</span>
+        &nbsp;Gratuit · Sans carte · Résultat en 10 secondes
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="lp-ticker-wrap">
+    <div class="lp-ticker-inner">
+      <span class="lp-ticker-item"><span>◆</span>JAWLINE THEORY</span>
+      <span class="lp-ticker-item"><span>◆</span>CANTHAL TILT</span>
+      <span class="lp-ticker-item"><span>◆</span>PSL RATING</span>
+      <span class="lp-ticker-item"><span>◆</span>MEWING PROTOCOL</span>
+      <span class="lp-ticker-item"><span>◆</span>FACIAL SYMMETRY</span>
+      <span class="lp-ticker-item"><span>◆</span>HUNTER EYES</span>
+      <span class="lp-ticker-item"><span>◆</span>VOCAL SCORE</span>
+      <span class="lp-ticker-item"><span>◆</span>FACE BATTLE</span>
+      <span class="lp-ticker-item"><span>◆</span>JAWLINE THEORY</span>
+      <span class="lp-ticker-item"><span>◆</span>CANTHAL TILT</span>
+      <span class="lp-ticker-item"><span>◆</span>PSL RATING</span>
+      <span class="lp-ticker-item"><span>◆</span>MEWING PROTOCOL</span>
+      <span class="lp-ticker-item"><span>◆</span>FACIAL SYMMETRY</span>
+      <span class="lp-ticker-item"><span>◆</span>HUNTER EYES</span>
+      <span class="lp-ticker-item"><span>◆</span>VOCAL SCORE</span>
+      <span class="lp-ticker-item"><span>◆</span>FACE BATTLE</span>
+    </div>
+  </div>
+
+  <!-- ═══ CHIFFRES MASSIFS ═══ -->
+  <section class="lp-section" style="text-align:center;">
+    <div class="lp-section-tag lp-reveal">Nos résultats</div>
+    <h2 class="lp-big-title lp-reveal" style="animation-delay:.1s">
+      L'IA qui analyse<br>
+      <span class="lp-accent">sans pitié.</span>
+    </h2>
+    <div class="lp-stats-grid lp-reveal" style="animation-delay:.2s">
+      <div class="lp-stat-box">
+        <div class="lp-stat-num">9</div>
+        <div class="lp-stat-lbl">Critères IA</div>
+      </div>
+      <div class="lp-stat-box">
+        <div class="lp-stat-num">10s</div>
+        <div class="lp-stat-lbl">Résultat</div>
+      </div>
+      <div class="lp-stat-box">
+        <div class="lp-stat-num">6</div>
+        <div class="lp-stat-lbl">Tiers PSL</div>
+      </div>
+      <div class="lp-stat-box">
+        <div class="lp-stat-num">0€</div>
+        <div class="lp-stat-lbl">Pour commencer</div>
       </div>
     </div>
+  </section>
 
-    <!-- STATS -->
-    <div class="lp-stats lp-a lp-a5">
-      <div class="lp-stat"><div class="lp-stat-n"><span>9</span></div><div class="lp-stat-l">Critères IA</div></div>
-      <div class="lp-stat"><div class="lp-stat-n">PSL</div><div class="lp-stat-l">Rating</div></div>
-      <div class="lp-stat"><div class="lp-stat-n"><span>10s</span></div><div class="lp-stat-l">Résultat</div></div>
-      <div class="lp-stat"><div class="lp-stat-n">0€</div><div class="lp-stat-l">Pour commencer</div></div>
+  <!-- ═══ PHONE MOCKUP + SECTION ═══ -->
+  <section class="lp-section" style="text-align:center;padding-top:20px;">
+    <div class="lp-section-tag lp-reveal">Scanner Facial IA</div>
+    <h2 class="lp-big-title lp-reveal" style="animation-delay:.1s">
+      9 critères.<br>
+      <span class="lp-accent">1 vérité.</span>
+    </h2>
+    <p class="lp-section-sub lp-reveal" style="animation-delay:.2s">
+      Jawline, canthal tilt, symétrie, midface ratio, eye area — scorés sur 10 par IA vision. Pas une approximation. La réalité.
+    </p>
+
+    <!-- Phone mockup animé -->
+    <div class="lp-phone-wrap lp-reveal" style="animation-delay:.3s">
+      <div class="lp-phone">
+        <div class="lp-phone-screen">
+          <div class="lp-phone-row">
+            <span class="lp-phone-label">PSL Scanner</span>
+            <span class="lp-phone-badge">✓ Analyse IA</span>
+          </div>
+          <div class="lp-phone-metric">
+            <div class="lp-phone-metric-name">JAWLINE DEFINITION</div>
+            <div class="lp-phone-metric-val">8.2/10</div>
+            <div class="lp-phone-bar"><div class="lp-phone-bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="lp-phone-metric">
+            <div class="lp-phone-metric-name">CANTHAL TILT</div>
+            <div class="lp-phone-metric-val">7.6/10</div>
+            <div class="lp-phone-bar"><div class="lp-phone-bar-fill" style="width:76%"></div></div>
+          </div>
+          <div class="lp-phone-metric">
+            <div class="lp-phone-metric-name">FACIAL SYMMETRY</div>
+            <div class="lp-phone-metric-val">9.1/10</div>
+            <div class="lp-phone-bar"><div class="lp-phone-bar-fill" style="width:91%"></div></div>
+          </div>
+          <div style="text-align:center;margin-top:10px;">
+            <div style="font-family:var(--font-d);font-size:.6rem;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:4px;">SCORE GLOBAL</div>
+            <div style="font-family:var(--font-d);font-size:1.8rem;font-weight:900;color:var(--violet-light);text-shadow:0 0 20px rgba(167,139,250,.5);">8.3</div>
+            <div style="display:inline-block;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.3);color:var(--violet-light);font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:3px 10px;border-radius:100px;">HIGH TIER</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="lp-divider"></div>
-
-    <!-- FEATURES -->
-    <div class="lp-section-tag lp-a lp-a3">Pourquoi Mogged.ai</div>
-    <div class="lp-section-h lp-a lp-a3">Pas de flatterie.<br>Juste la vérité.</div>
-    <div class="lp-features lp-a lp-a4">
-      <div class="lp-feat">
-        <div class="lp-feat-icon">🔬</div>
+  <!-- ═══ FEATURES ═══ -->
+  <section class="lp-section">
+    <div class="lp-section-tag lp-reveal">Ce que tu obtiens</div>
+    <h2 class="lp-big-title lp-reveal" style="animation-delay:.1s">
+      Quatre modules.<br>
+      <span class="lp-accent">Une transformation.</span>
+    </h2>
+    <div class="lp-feats lp-reveal" style="animation-delay:.2s">
+      <div class="lp-feat-row">
+        <div class="lp-feat-icon-box">🔬</div>
         <div>
           <div class="lp-feat-title">Scanner Facial IA</div>
-          <div class="lp-feat-desc">Jawline, canthal tilt, symétrie, midface ratio, skin quality… 9 critères analysés par IA vision. Ton score PSL exact, pas une approximation.</div>
+          <div class="lp-feat-desc">9 critères biométriques : jawline, canthal tilt, symétrie, midface, eye area. Score PSL précis, pas de flatterie.</div>
         </div>
       </div>
-      <div class="lp-feat">
-        <div class="lp-feat-icon">✨</div>
+      <div class="lp-feat-row">
+        <div class="lp-feat-icon-box">✨</div>
         <div>
           <div class="lp-feat-title">Glow-up 30 jours</div>
-          <div class="lp-feat-desc">4 questions → programme complet généré par IA. Sport, nutrition, sommeil, skincare, mewing. Adapté à toi, pas un programme générique.</div>
+          <div class="lp-feat-desc">4 questions → programme complet généré par IA. Sport, nutrition, sommeil, skincare, mewing. 100% personnalisé.</div>
         </div>
       </div>
-      <div class="lp-feat">
-        <div class="lp-feat-icon">🎙️</div>
+      <div class="lp-feat-row">
+        <div class="lp-feat-icon-box">🎙️</div>
         <div>
           <div class="lp-feat-title">Score Vocal Réel</div>
-          <div class="lp-feat-desc">Pitch mesuré en Hz en temps réel. Résonance thoracique, stabilité, profondeur basse. Ton Acoustic Seduction Score + guide d'amélioration.</div>
+          <div class="lp-feat-desc">Pitch mesuré en Hz, résonance thoracique, stabilité. Ton Acoustic Seduction Score en 3 secondes.</div>
         </div>
       </div>
-      <div class="lp-feat">
-        <div class="lp-feat-icon">⚔️</div>
+      <div class="lp-feat-row">
+        <div class="lp-feat-icon-box">⚔️</div>
         <div>
           <div class="lp-feat-title">Face Battle</div>
-          <div class="lp-feat-desc">Compare-toi à n'importe qui. L'IA analyse les deux visages et rend un verdict détaillé critère par critère. Qui se fait MOGG ?</div>
+          <div class="lp-feat-desc">Compare-toi à n'importe qui. Verdict IA critère par critère. Le perdant reçoit le bandeau MOGGED.</div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="lp-divider"></div>
-
-    <!-- TIERS PREVIEW -->
-    <div class="lp-section-tag lp-a lp-a3">Dans quel tier es-tu ?</div>
-    <div class="lp-section-h lp-a lp-a3">De SUBHUMAN à GIGACHAD.<br>Où te situes-tu vraiment ?</div>
-    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:36px;" class="lp-a lp-a4">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.2);border-radius:10px;">
-        <span style="font-family:var(--font-d);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;color:#ffd700;">GIGACHAD</span>
-        <span style="font-size:0.7rem;color:rgba(255,255,255,0.35);">Top 0.1% — Score 8.5+</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.15);border-radius:10px;">
-        <span style="font-family:var(--font-d);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;color:var(--violet-light);">CHAD</span>
-        <span style="font-size:0.7rem;color:rgba(255,255,255,0.35);">Top 1% — Score 7.5+</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(100,116,139,0.06);border:1px solid rgba(100,116,139,0.12);border-radius:10px;">
-        <span style="font-family:var(--font-d);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;color:var(--text2);">NORMIE</span>
-        <span style="font-size:0.7rem;color:rgba(255,255,255,0.25);">Majorité — Score 5-6.5</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.12);border-radius:10px;">
-        <span style="font-family:var(--font-d);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;color:var(--red);">SUBHUMAN</span>
-        <span style="font-size:0.7rem;color:rgba(255,255,255,0.25);">Score &lt; 4.5</span>
-      </div>
-    </div>
-
-    <!-- STEPS -->
-    <div class="lp-section-tag lp-a lp-a3">Comment ça marche</div>
-    <div class="lp-section-h lp-a lp-a3">20 secondes.<br>Une vérité qui change tout.</div>
-    <div class="lp-steps lp-a lp-a4">
-      <div class="lp-step">
-        <div class="lp-step-num">01</div>
-        <div>
-          <div class="lp-step-t">Crée ton compte gratuit</div>
-          <div class="lp-step-d">Email uniquement. Aucune carte. Accès immédiat. 20 secondes chrono.</div>
+  <!-- ═══ TÉMOIGNAGES ═══ -->
+  <section class="lp-section" style="text-align:center;">
+    <div class="lp-section-tag lp-reveal">Ce qu'ils en pensent</div>
+    <h2 class="lp-big-title lp-reveal" style="animation-delay:.1s">
+      Des milliers d'utilisateurs.<br>
+      <span class="lp-accent">Un seul avis.</span>
+    </h2>
+    <div class="lp-testimonials lp-reveal" style="animation-delay:.2s;text-align:left;">
+      <div class="lp-testi">
+        <div class="lp-stars">★★★★★</div>
+        <div class="lp-testi-text">"Franchement choqué par la précision. L'IA m'a donné exactement les mêmes critères qu'un chirurgien esthétique. Et c'était gratuit."</div>
+        <div class="lp-testi-author">
+          <div class="lp-testi-avatar">K</div>
+          <div>
+            <div class="lp-testi-name">Karim B.</div>
+            <div class="lp-testi-role">Mogged Unlimited</div>
+          </div>
         </div>
       </div>
-      <div class="lp-step">
-        <div class="lp-step-num">02</div>
-        <div>
-          <div class="lp-step-t">Upload ou prends ton selfie</div>
-          <div class="lp-step-d">Depuis ta galerie ou en direct. Face bien éclairée, regard droit, zéro filtre.</div>
+      <div class="lp-testi">
+        <div class="lp-stars">★★★★★</div>
+        <div class="lp-testi-text">"Le scanner vocal m'a dit que mon pitch était trop haut. J'ai fait les exercices pendant 3 semaines. Les résultats sont réels."</div>
+        <div class="lp-testi-author">
+          <div class="lp-testi-avatar">M</div>
+          <div>
+            <div class="lp-testi-name">Mathieu D.</div>
+            <div class="lp-testi-role">Mogged Limited</div>
+          </div>
         </div>
       </div>
-      <div class="lp-step">
-        <div class="lp-step-num">03</div>
-        <div>
-          <div class="lp-step-t">Reçois ton score PSL</div>
-          <div class="lp-step-d">Score global + 9 critères détaillés + tier + axes d'amélioration. La vérité brute.</div>
+      <div class="lp-testi">
+        <div class="lp-stars">★★★★★</div>
+        <div class="lp-testi-text">"J'ai fait le Face Battle avec mon cousin. Le bandeau MOGGED sur sa photo... il ne m'a plus parlé pendant 2 jours 😭"</div>
+        <div class="lp-testi-author">
+          <div class="lp-testi-avatar">A</div>
+          <div>
+            <div class="lp-testi-name">Adam R.</div>
+            <div class="lp-testi-role">Mog Pass 24H</div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- CTA FINAL -->
-    <div class="lp-final-box lp-a lp-a5">
-      <div style="font-size:1.8rem;margin-bottom:10px;">🔬</div>
-      <div class="lp-final-h">Ton score t'attend.<br>Oses-tu le voir ?</div>
-      <div class="lp-final-sub">Gratuit. Immédiat. Sans filtre. La majorité des gens sont surpris par leur résultat.</div>
-      <button class="lp-cta-primary" onclick="lpOpenAuth()" style="margin:0 auto;display:inline-flex;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        Découvrir mon score PSL
-      </button>
-      <div style="font-size:0.7rem;color:rgba(255,255,255,0.25);margin-top:12px;">✓ Gratuit &nbsp;·&nbsp; ✓ Sans carte &nbsp;·&nbsp; ✓ Résultat en 10 secondes</div>
+  <!-- ═══ FAQ ═══ -->
+  <section class="lp-section">
+    <div class="lp-section-tag lp-reveal">FAQ</div>
+    <h2 class="lp-big-title lp-reveal" style="animation-delay:.1s;text-align:center;">
+      Questions<br>
+      <span class="lp-accent">fréquentes.</span>
+    </h2>
+    <div class="lp-faq lp-reveal" style="animation-delay:.2s">
+      <div class="lp-faq-item">
+        <div class="lp-faq-q" onclick="lpFaqToggle(this)">
+          <span>C'est vraiment gratuit ?</span>
+          <div class="lp-faq-icon">+</div>
+        </div>
+        <div class="lp-faq-a">Oui. Le premier scan + 2 critères visibles sont 100% gratuits, sans carte bancaire. Pour débloquer les 9 critères, le score global et le programme Glow-up, c'est dès 0,99€.</div>
+      </div>
+      <div class="lp-faq-item">
+        <div class="lp-faq-q" onclick="lpFaqToggle(this)">
+          <span>Comment fonctionne le scanner IA ?</span>
+          <div class="lp-faq-icon">+</div>
+        </div>
+        <div class="lp-faq-a">Tu uploades une photo de face. Notre IA analyse 9 critères anthropométriques (jawline, canthal tilt, symétrie...) et les score sur 10 en les comparant aux benchmarks PSL. Résultat en moins de 10 secondes.</div>
+      </div>
+      <div class="lp-faq-item">
+        <div class="lp-faq-q" onclick="lpFaqToggle(this)">
+          <span>Mes photos sont-elles stockées ?</span>
+          <div class="lp-faq-icon">+</div>
+        </div>
+        <div class="lp-faq-a">Non. Les photos sont analysées puis immédiatement supprimées. Elles ne sont jamais stockées sur nos serveurs.</div>
+      </div>
+      <div class="lp-faq-item">
+        <div class="lp-faq-q" onclick="lpFaqToggle(this)">
+          <span>Le Face Battle fonctionne avec n'importe qui ?</span>
+          <div class="lp-faq-icon">+</div>
+        </div>
+        <div class="lp-faq-a">Oui. Upload deux photos (toi vs quelqu'un d'autre), l'IA analyse les deux visages et déclare un gagnant avec un verdict détaillé. Le perdant reçoit le bandeau MOGGED.</div>
+      </div>
     </div>
+  </section>
 
-    <div class="lp-footer-note">MOGGED.AI · Aesthetic Intelligence Platform · © 2025</div>
+  <!-- ═══ CTA FINAL ═══ -->
+  <section class="lp-final">
+    <h2 class="lp-final-title lp-reveal">
+      Prêt à voir<br>
+      <span style="color:var(--violet-light);">ton vrai score ?</span>
+    </h2>
+    <p class="lp-final-sub lp-reveal" style="animation-delay:.1s">
+      Gratuit. Immédiat. Sans filtre.<br>La majorité des gens sont surpris par leur résultat.
+    </p>
+    <button class="lp-cta-main lp-reveal" style="animation-delay:.2s" onclick="lpOpenAuth('signup')">
+      <span class="cta-icon">🔬</span>
+      COMMENCER GRATUITEMENT
+    </button>
+    <div class="lp-final-note lp-reveal" style="animation-delay:.3s">
+      ✓ Gratuit &nbsp;·&nbsp; ✓ Sans carte &nbsp;·&nbsp; ✓ Résultat en 10 secondes
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:24px 22px 40px;border-top:1px solid rgba(255,255,255,.05);">
+    <div style="font-family:var(--font-d);font-size:.9rem;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.15);margin-bottom:8px;">MOGGED.AI</div>
+    <div style="font-size:.68rem;color:rgba(255,255,255,.18);letter-spacing:.06em;">Aesthetic Intelligence Platform · © 2025</div>
   </div>
+
 </div>
-  <!-- Ticker fixe -->
-  <div class="lp-ticker">
-    <div class="lp-ticker-inner">
-      <span class="lp-ticker-text">JAWLINE THEORY · CANTHAL TILT · PSL RATING · MEWING PROTOCOL · FACIAL SYMMETRY · MALAR PROMINENCE · HUNTER EYES · SUBHUMAN TO GIGACHAD · LOOKSMAXING IA · </span>
-      <span class="lp-ticker-text">JAWLINE THEORY · CANTHAL TILT · PSL RATING · MEWING PROTOCOL · FACIAL SYMMETRY · MALAR PROMINENCE · HUNTER EYES · SUBHUMAN TO GIGACHAD · LOOKSMAXING IA · </span>
-    </div>
-  </div>
 </div>
 <!-- ══ FIN LANDING PAGE ══ -->
 
@@ -2059,6 +2512,10 @@
     <button class="sidebar-link" data-tab="pricing" id="sidebar-pricing-btn">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
       Pricing <span class="pro-badge">Pro</span>
+    </button>
+    <button class="sidebar-link" onclick="mgLogout()" style="color:rgba(255,255,255,0.35);margin-top:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Se déconnecter
     </button>
   </div>
   <div class="sidebar-footer">
@@ -2619,7 +3076,11 @@
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Tout en illimité, zéro restriction</li>
             </ul>
             <div class="stripe-button-container">
-              <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
+              <a href="https://buy.stripe.com/28EfZjdtk7XUfNk64V6Na03" target="_blank"
+                 style="display:block;width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-align:center;border-radius:10px;font-family:var(--font);font-size:0.88rem;font-weight:700;letter-spacing:0.04em;text-decoration:none;box-shadow:0 0 24px rgba(124,58,237,0.4);transition:all .15s;"
+                 onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">
+                S'abonner — 14,99€/mois →
+              </a>
             </div>
           </div>
 
@@ -2740,7 +3201,7 @@
       <div class="stripe-sep"></div>
       <div class="stripe-lbl" style="color:var(--violet);"><span>👑</span> Mogged Unlimited — 14,99€/mois</div>
       <div class="sbw">
-        <stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>
+        <a href="https://buy.stripe.com/28EfZjdtk7XUfNk64V6Na03" target="_blank" style="display:block;padding:11px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-align:center;border-radius:8px;font-size:0.82rem;font-weight:700;text-decoration:none;margin-top:4px;">S'abonner 14,99€/mois →</a>
       </div>
     </div>
     <button id="maybe-later-btn" class="btn btn-ghost" style="font-size:0.78rem;">Plus tard</button>
@@ -2831,7 +3292,7 @@ async function generateVocalGuide(vocalResult) {
     h += '<div style="font-size:0.75rem;color:var(--text2);">Génération en cours…</div></div>';
 
     try {
-      var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      var resp = await fetch('/api/claude', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514', max_tokens: 500,
@@ -2883,6 +3344,17 @@ function auSaveUser(email, data) {
 function auGetSession() {
   try { return JSON.parse(localStorage.getItem(AU_SESSION_KEY) || 'null'); } catch(e) { return null; }
 }
+function mgLogout() {
+  try { localStorage.removeItem('mg_session'); } catch(e) {}
+  try { localStorage.removeItem('mogged_email'); } catch(e) {}
+  try { localStorage.removeItem('AU_SESSION_KEY'); } catch(e) {}
+  try { sessionStorage.removeItem('mg_session'); } catch(e) {}
+  try { sessionStorage.removeItem('mogged_email'); } catch(e) {}
+  try { document.cookie = 'mg_logged=; path=/; max-age=0'; } catch(e) {}
+  // Recharger vers la landing
+  window.location.href = window.location.pathname + '?landing=1';
+}
+
 function auSetSession(user) {
   var sessionData = { email: user.email, valid: true, ts: Date.now() };
   var str = JSON.stringify(sessionData);
@@ -3024,6 +3496,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 })();
 
+/* ── FAQ accordion ── */
+function lpFaqToggle(btn) {
+  var item = btn.parentElement;
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.lp-faq-item').forEach(function(i){ i.classList.remove('open'); });
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ── Reveal on scroll ── */
+(function() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.lp-reveal,.lp-reveal-left').forEach(function(el){ el.style.opacity='1'; });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.lp-reveal,.lp-reveal-left').forEach(function(el){ obs.observe(el); });
+})();
+
 function lpHide() {
   var lp = document.getElementById('landing-page');
   if (!lp) return;
@@ -3052,27 +3546,44 @@ function lpOpenAuth(mode) {
 
 function lpEnter() { lpHide(); } // compatibilité backwards
 
-// Skip landing si session valide — multi-storage pour compatibilité max
+// Skip landing si session valide
 (function() {
   var lp = document.getElementById('landing-page');
   if (!lp) return;
+
+  // ?landing=1 dans l'URL → forcer l'affichage et effacer la session
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('landing') === '1') {
+    // Effacer la session pour voir la landing
+    try { localStorage.removeItem('mg_session'); } catch(e) {}
+    try { sessionStorage.removeItem('mg_session'); } catch(e) {}
+    try { document.cookie = 'mg_logged=; path=/; max-age=0'; } catch(e) {}
+    history.replaceState(null, '', window.location.pathname);
+    return; // Landing visible
+  }
+
+  // ?landing=1 dans l'URL → forcer la landing (pour tests et partage)
+  var urlForce = new URLSearchParams(window.location.search).get('landing');
+  if (urlForce === '1') {
+    // Effacer la session pour vraiment voir la landing
+    try { localStorage.removeItem('mg_session'); localStorage.removeItem('mogged_email'); } catch(e) {}
+    try { sessionStorage.removeItem('mg_session'); sessionStorage.removeItem('mogged_email'); } catch(e) {}
+    try { document.cookie = 'mg_logged=; path=/; max-age=0'; } catch(e) {}
+    history.replaceState(null, '', window.location.pathname);
+    // Landing visible — ne pas masquer
+    return;
+  }
+
   var loggedIn = false;
-  // Essayer localStorage
   try {
     var s1 = localStorage.getItem('mg_session');
     if (s1) { var p = JSON.parse(s1); if (p && p.email && p.valid) loggedIn = true; }
   } catch(e) {}
-  // Essayer sessionStorage
   try {
     var s2 = sessionStorage.getItem('mg_session');
     if (s2) { var p2 = JSON.parse(s2); if (p2 && p2.email && p2.valid) loggedIn = true; }
   } catch(e) {}
-  // Cookie fallback
-  try {
-    if (document.cookie.indexOf('mg_logged=1') !== -1) loggedIn = true;
-  } catch(e) {}
   if (loggedIn) lp.classList.add('hidden');
-  // Sinon : landing VISIBLE garantie
 })();
 
 /* ════════════════════════════════════════════════════════
@@ -3151,19 +3662,36 @@ function guBack(step) { guShow(step - 1); }
 
 function guGenerate() {
   guShow('result');
-  // Affiche un loader pendant la génération IA
-  document.getElementById('gu-result-inner').innerHTML = `
-    <div style="text-align:center;padding:40px 20px;">
-      <div style="font-size:2rem;margin-bottom:14px;animation:lpUp .5s ease infinite alternate;">✨</div>
-      <div style="font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:700;color:#8b5cf6;letter-spacing:0.1em;margin-bottom:8px;">GÉNÉRATION EN COURS</div>
-      <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);line-height:1.6;">L'IA analyse ton profil et recherche<br>les meilleures techniques looksmaxing…</div>
-    </div>`;
-  // Appel Claude pour générer le programme complet
-  guCallClaudeProgram(guAns).then(function(prog) {
-    localStorage.setItem(GU_KEY, JSON.stringify({ ans: guAns, prog: prog, ts: Date.now() }));
-    localStorage.setItem('gu_done', '1');
+  document.getElementById('gu-result-inner').innerHTML =
+    '<div style="text-align:center;padding:40px 20px;">' +
+    '<div style="font-size:2rem;margin-bottom:14px;animation:lpUp .6s ease infinite alternate;">✨</div>' +
+    '<div style="font-family:var(--font-d);font-size:0.82rem;font-weight:700;color:#8b5cf6;letter-spacing:0.1em;margin-bottom:8px;">GÉNÉRATION EN COURS…</div>' +
+    '<div style="font-size:0.74rem;color:rgba(255,255,255,0.4);line-height:1.6;">Programme en cours...</div>' +
+    '</div>';
+
+  function _saveAndRender(prog) {
+    try { localStorage.setItem(GU_KEY, JSON.stringify({ ans: guAns, prog: prog, ts: Date.now() })); } catch(e){}
+    try { localStorage.setItem('gu_done', '1'); } catch(e){}
+    try { sessionStorage.setItem('gu_done', '1'); } catch(e){}
     guRender(prog);
     guUpdateTab(prog);
+  }
+
+  // Essayer via proxy Claude (timeout 50s), sinon fallback local
+  var _timed = false;
+  var _timer = setTimeout(function() {
+    _timed = true;
+    _saveAndRender(guBuildProgram(guAns));
+  }, 50000);
+
+  guCallClaudeProgram(guAns).then(function(prog) {
+    if (_timed) return; // déjà affiché
+    clearTimeout(_timer);
+    _saveAndRender(prog);
+  }).catch(function() {
+    if (_timed) return;
+    clearTimeout(_timer);
+    _saveAndRender(guBuildProgram(guAns));
   });
 }
 
@@ -3193,9 +3721,9 @@ INSTRUCTIONS STRICTES :
 Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 actions concrètes et détaillées.`;
 
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    var resp = await fetch('/api/claude', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }, // proxy gère l'auth
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 16000,
@@ -3329,19 +3857,11 @@ function guRender(prog) {
     }
   } else {
     // Paywall — seulement Mogged Unlimited 14,99€
-    h += '<div class="gu-paywall">';
-    h += '<div class="gu-pw-lock">🔒</div>';
-    h += '<div class="gu-pw-title">Programme complet débloqué</div>';
-    h += '<div class="gu-pw-price">14,99€<span style="font-size:1rem;font-weight:400;">/mois</span></div>';
-    h += '<div class="gu-pw-sub">Mogged Unlimited · Annulable à tout moment</div>';
-    h += '<div class="gu-pw-feats">';
-    h += '<div class="gu-pw-feat">Programme 30 jours complet généré par IA</div>';
-    h += '<div class="gu-pw-feat">Scans visage &amp; voix illimités</div>';
-    h += '<div class="gu-pw-feat">Mode Match + Chat IA personnel illimité</div>';
-    h += '<div class="gu-pw-feat">Accès à tous les modules sans restriction</div>';
-    h += '</div>';
-    h += '<stripe-buy-button buy-button-id="buy_btn_1TXjsXRd6r34OMU6gg0EtVi1" publishable-key="pk_live_51TVc4nRd6r34OMU6VbW2nBJfUL56TT0YAPGepvCYZZ05G1tDQvYWlqw2ceiWKAkteEUL6AioRtcUjVtXT6YjJT7K00cEZaQ5Ts"></stripe-buy-button>';
-    h += '<a href="https://buy.stripe.com/28EfZjdtk7XUfNk64V6Na03" target="_blank" style="display:block;margin-top:8px;text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.35);text-decoration:underline;">Payer directement →</a>';
+    h += '<div class="freemium-unlock-banner" style="margin-top:8px;">';
+    h += '<div class="unlock-title">Tu n\'as acc&egrave;s qu\'&agrave; 10% de ton programme</div>';
+    h += '<div class="unlock-progress-wrap"><div class="unlock-progress-fill" style="width:10%"></div></div>';
+    h += '<div class="unlock-sub">Le programme complet contient les 3 phases d&eacute;taill&eacute;es (30 jours), les protocoles pr&eacute;cis et les mises &agrave; jour mensuelles.</div>';
+    h += '<div class="unlock-cta-row"><a href="https://buy.stripe.com/28EfZjdtk7XUfNk64V6Na03" target="_blank" class="unlock-btn-main" style="text-decoration:none;">&#x1F513; D&eacute;bloquer le programme — 14,99€/mois</a></div>';
     h += '</div>';
     h += `<stripe-buy-button buy-button-id="${BTN_U}" publishable-key="${PK}"></stripe-buy-button>`;
     h += '<div style="margin:8px 0;font-size:0.7rem;color:rgba(255,255,255,0.3);text-align:center;">ou</div>';
@@ -3836,31 +4356,33 @@ function runScanAnimation() {
     }, step.t));
   });
 
-  // Appel Claude Vision — timeout 60s max puis fallback immédiat
   const _scanB64 = currentScanImageB64;
-  const _timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 60000));
 
   function _done(result) {
     timers.forEach(clearTimeout);
     bar.style.width = '100%';
-    stepText.textContent = result ? 'Analyse terminée ✓' : 'Score calculé ✓';
+    stepText.textContent = result ? 'Analyse IA terminée ✓' : 'Score calculé ✓';
     setTimeout(() => {
       overlay.classList.add('hidden');
       recordScan();
-      trackAnalyticsEvent('face_scan_completed', 'scanner', {label: result?'AI':'fallback'});
+      trackAnalyticsEvent('face_scan_completed', 'scanner', { label: result ? 'Claude AI' : 'fallback' });
       document.getElementById('haircut-pre-scan').classList.add('hidden');
       document.getElementById('haircut-results').classList.remove('hidden');
       renderAiResults(result || generateFallbackScores(_scanB64));
     }, 350);
   }
 
-  Promise.race([callClaudeVision(_scanB64), _timeout])
-    .then(r => _done(r))
-    .catch(e => { console.warn('Scan:', e.message); _done(null); });
+  // Appel via proxy Vercel (timeout 55s)
+  const _abort = new AbortController();
+  const _tOut  = setTimeout(() => _abort.abort(), 55000);
+
+  callClaudeVision(_scanB64, _abort.signal)
+    .then(r  => { clearTimeout(_tOut); _done(r); })
+    .catch(() => { clearTimeout(_tOut); _done(null); });
 }
 
 /* ── Appel Claude Vision ── */
-async function callClaudeVision(imageB64) {
+async function callClaudeVision(imageB64, signal) {
   if (!imageB64) throw new Error('No image');
 
   const systemPrompt = `Tu es un expert en looksmaxing et anthropométrie faciale. Analyse ce visage avec une précision clinique.
@@ -3895,7 +4417,7 @@ TIERS PSL :
 Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
 {"scores":{"jawline":0.0,"symmetry":0.0,"canthalTilt":0.0,"midfaceRatio":0.0,"eyeArea":0.0,"nasalHarmony":0.0,"skinQuality":0.0},"overall":0.0,"tier":"NORMIE","analysis":"2 phrases: point fort puis point faible, direct et spécifique.","improvements":["conseil actionnable 1","conseil actionnable 2","conseil actionnable 3"]}`;
 
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+  const resp = await fetch('/api/claude', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -4019,22 +4541,25 @@ function renderAiResults(result) {
       const card = document.createElement('div');
       card.className = 'metric-card';
       card.style.cursor = 'pointer';
-      card.innerHTML = `
-        <div class="metric-body">
-          <div class="metric-header">
-            <div class="metric-name">${m.label}</div>
-            <div class="metric-score ${m.colorClass}">${score.toFixed(1)}/10</div>
-          </div>
-          <div class="metric-desc">${descTxt}</div>
-          <div class="metric-bar-track"><div class="metric-bar-fill ${m.barClass}" style="width:${pct}%"></div></div>
-          <div class="metric-tip" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:6px;font-size:0.71rem;color:var(--cyan);line-height:1.5;">💡 ${m.tip}</div>
-        </div>`;
-      // Clic → afficher/masquer le conseil
-      card.addEventListener('click', function() {
-        const tip = this.querySelector('.metric-tip');
-        if (tip) tip.style.display = tip.style.display === 'none' ? 'block' : 'none';
-      });
-      container.appendChild(card);
+      card.innerHTML = [
+        '<div class="unlock-title">Analyse partielle &mdash; ',
+        (METRICS.length - FREE_VISIBLE),
+        ' crit&egrave;res verrouill&eacute;s</div>',
+        '<div class="unlock-progress-wrap"><div class="unlock-progress-fill" style="width:',
+        pct,
+        '%"></div></div>',
+        '<div class="unlock-sub">L&apos;analyse compl&egrave;te contient les ',
+        (METRICS.length - FREE_VISIBLE),
+        ' crit&egrave;res restants, ton score PSL global et tes axes d&apos;am&eacute;lioration.</div>',
+        '<div class="unlock-cta-row">',
+        '<button class="unlock-btn-main" data-switchtab="pricing">&#x1F513; D&eacute;bloquer l&apos;analyse compl&egrave;te</button>',
+        '<button class="unlock-btn-cheap" data-switchtab="pricing">D&egrave;s 0,99&euro;</button>',
+        '</div>'
+      ].join('');
+    card.querySelectorAll('[data-switchtab]').forEach(function(b){
+      b.addEventListener('click',function(){ switchTab(this.dataset.switchtab); });
+    });
+    container.appendChild(card);
     } else {
       // Carte floutée avec overlay
       container.innerHTML += `
@@ -4058,15 +4583,21 @@ function renderAiResults(result) {
 
   // ── UNLOCK BANNER (free uniquement) ──
   if (plan === 'free') {
-    container.innerHTML += `
-      <div class="freemium-unlock-banner">
-        <div class="unlock-title">🔓 ${METRICS.length - FREE_VISIBLE} critères verrouillés</div>
-        <div class="unlock-sub">Débloque ton analyse complète — score global, ${METRICS.length - FREE_VISIBLE} critères détaillés, conseils personnalisés et axes d'amélioration.</div>
-        <div class="unlock-cta-row">
-          <button class="unlock-btn-main" onclick="switchTab('pricing')">Voir les plans →</button>
-          <button class="unlock-btn-cheap" onclick="switchTab('pricing')">Dès 0,99€</button>
-        </div>
-      </div>`;
+    const pct = Math.round((FREE_VISIBLE / METRICS.length) * 100);
+    const card = document.createElement('div');
+    card.className = 'freemium-unlock-banner';
+    card.innerHTML =
+      '<div class="unlock-title">Analyse partielle — ' + (METRICS.length-FREE_VISIBLE) + ' crit&egrave;res verrouill&eacute;s</div>' +
+      '<div class="unlock-progress-wrap"><div class="unlock-progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="unlock-sub">L&apos;analyse compl&egrave;te contient les ' + (METRICS.length - FREE_VISIBLE) + ' crit&egrave;res restants et ton score PSL global.</div>' +
+      '<div class="unlock-cta-row">' +
+        '<button class="unlock-btn-main" data-switchtab="pricing">&#x1F513; D&eacute;bloquer l&apos;analyse compl&egrave;te</button>' +
+        '<button class="unlock-btn-cheap" data-switchtab="pricing">D&egrave;s 0,99&euro;</button>' +
+      '</div>';
+    card.querySelectorAll('[data-switchtab]').forEach(function(b){
+      b.addEventListener('click', function(){ switchTab(this.dataset.switchtab); });
+    });
+    container.appendChild(card);
   }
 
   // ── RECOMMENDATIONS (payant uniquement) ──
@@ -4476,7 +5007,7 @@ function renderVocalResults(r) {
     { label: 'Stabilité', score: r.stabilityScore, color: 'var(--green)'  },
   ];
   var vbPlan = getMgPlan();
-  var vbBanner = '<div class="freemium-unlock-banner"><div class="unlock-title">&#x1F512; Détail des scores verrouillé</div><div class="unlock-sub">Débloque la résonance thoracique, la stabilité et le breakdown complet.</div><div class="unlock-cta-row"><button class="unlock-btn-main" onclick="switchTab(String.fromCharCode(112,114,105,99,105,110,103))">Voir les plans →</button></div></div>';
+  var vbBanner = '<div class="freemium-unlock-banner"><div class="unlock-title">Tu n\'as acc&egrave;s qu\'&agrave; 30% de ton score vocal</div><div class="unlock-progress-wrap"><div class="unlock-progress-fill" style="width:30%"></div></div><div class="unlock-sub">Le d&eacute;tail complet contient la r&eacute;sonance thoracique, la stabilit&eacute; vocale et le guide d\'am&eacute;lioration IA.</div><div class="unlock-cta-row"><button class="unlock-btn-main" data-switchtab="pricing">&#x1F513; D&eacute;bloquer l\'analyse compl&egrave;te</button></div></div>';
   document.getElementById('vocal-breakdown').innerHTML =
     vbPlan === 'free'
     ? vbBanner
@@ -4741,7 +5272,7 @@ function showDuelVerdict() {
         banner.id = 'match-free-banner';
         banner.className = 'freemium-unlock-banner';
         banner.style.margin = '12px 0';
-        banner.innerHTML = '<div class="unlock-title">&#x1F512; Scores d&eacute;taill&eacute;s verrouill&eacute;s</div><div class="unlock-sub">Le verdict final est visible. D&eacute;bloque les scores crit&egrave;re par crit&egrave;re avec un plan payant.</div><div class="unlock-cta-row"><button class="unlock-btn-main" data-switchtab="pricing">Voir les plans &rarr;</button></div>';
+        banner.innerHTML = '<div class="unlock-title">Tu n\'as acc&egrave;s qu\'&agrave; 20% du match</div><div class="unlock-progress-wrap"><div class="unlock-progress-fill" style="width:20%"></div></div><div class="unlock-sub">Le verdict global est visible. D&eacute;bloquer les scores crit&egrave;re par crit&egrave;re, les comparaisons d&eacute;taill&eacute;es et l\'analyse compl&egrave;te.</div><div class="unlock-cta-row"><button class="unlock-btn-main" data-switchtab="pricing">&#x1F513; D&eacute;bloquer l\'analyse compl&egrave;te</button></div>';
         banner.querySelector('[data-switchtab]').addEventListener('click', function(){ switchTab(this.dataset.switchtab); });
         var matchRes = document.getElementById('match-results');
         if (matchRes) matchRes.appendChild(banner);
