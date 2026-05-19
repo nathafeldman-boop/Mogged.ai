@@ -3301,7 +3301,7 @@ async function generateVocalGuide(vocalResult) {
           'X-Title': 'Mogged.ai'
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-3.5-sonnet',
+          model: 'anthropic/claude-3-5-sonnet',
           max_tokens: 500,
           messages: [
             { role: 'system', content: 'Tu es coach vocal looksmaxing expert.' },
@@ -3740,7 +3740,7 @@ Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 ac
         'X-Title': 'Mogged.ai'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-3-5-sonnet',
         max_tokens: 16000,
         messages: [
           { role: 'system', content: systemPrompt },
@@ -4444,7 +4444,7 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
         'X-Title': 'Mogged.ai'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-3-5-sonnet',
         max_tokens: 800,
         messages: [
           { role: 'system', content: systemPrompt },
