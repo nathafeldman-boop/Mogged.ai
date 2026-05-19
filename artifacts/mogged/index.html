@@ -3303,7 +3303,10 @@ async function generateVocalGuide(vocalResult) {
         body: JSON.stringify({
           model: 'anthropic/claude-sonnet-4-5',
           max_tokens: 500,
-          messages: [{ role: 'user', content: 'Tu es coach vocal looksmaxing. Pitch: ' + vocalResult.pitch + 'Hz, Volume: ' + vocalResult.volume + 'dB, Basses: ' + vocalResult.bassRatio + '%, Stabilité: ' + vocalResult.stability + '%, Tier: ' + vocalResult.tier + '. Donne 3 conseils précis et actionnables (3-4 phrases chacun) pour améliorer cette voix vers un profil plus attractif et séducteur. Sois direct, technique, sans fioritures. En français.' }]
+          messages: [
+            { role: 'system', content: 'Tu es coach vocal looksmaxing expert.' },
+            { role: 'user', content: 'Pitch: ' + vocalResult.pitch + 'Hz, Volume: ' + vocalResult.volume + 'dB, Basses: ' + vocalResult.bassRatio + '%, Stabilité: ' + vocalResult.stability + '%, Tier: ' + vocalResult.tier + '. Donne 3 conseils précis et actionnables (3-4 phrases chacun) pour améliorer cette voix vers un profil plus attractif et séducteur. Sois direct, technique, sans fioritures. En français.' }
+          ]
         })
       });
       var data = await resp.json();
@@ -3739,8 +3742,10 @@ Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 ac
       body: JSON.stringify({
         model: 'anthropic/claude-sonnet-4-5',
         max_tokens: 16000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: `Génère mon programme glow-up 30 jours complet et ultra-détaillé. Profil : ${ageLabel}, alimentation ${dietLabel}, sport ${sportLabel}, sommeil ${sleepLabel}. Minimum 30 000 caractères, tout détaillé.` }]
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: `Génère mon programme glow-up 30 jours complet et ultra-détaillé. Profil : ${ageLabel}, alimentation ${dietLabel}, sport ${sportLabel}, sommeil ${sleepLabel}. Minimum 30 000 caractères, tout détaillé.` }
+        ]
       })
     });
     var data = await resp.json();
@@ -4441,14 +4446,16 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
       body: JSON.stringify({
         model: 'anthropic/claude-sonnet-4-5',
         max_tokens: 800,
-        system: systemPrompt,
-        messages: [{
-          role: 'user',
-          content: [
-            { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + imageB64 } },
-            { type: 'text', text: 'Analyse ce visage selon les critères looksmaxing. Sois précis, utilise toute la plage de scores.' }
-          ]
-        }]
+        messages: [
+          { role: 'system', content: systemPrompt },
+          {
+            role: 'user',
+            content: [
+              { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + imageB64 } },
+              { type: 'text', text: 'Analyse ce visage selon les critères looksmaxing. Sois précis, utilise toute la plage de scores.' }
+            ]
+          }
+        ]
       })
     });
 
