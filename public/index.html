@@ -27,6 +27,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <script>
+    // Définir GITHUB_TOKEN comme placeholder pour les appels via proxy
+    const GITHUB_TOKEN = 'REPLACE_WITH_GITHUB_TOKEN';
+  </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -3291,13 +3295,12 @@ async function generateVocalGuide(vocalResult) {
     h += '<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet-light);margin-bottom:6px;">🤖 Conseil IA personnalisé</div>';
     h += '<div style="font-size:0.75rem;color:var(--text2);">Génération en cours…</div></div>';
 
-    try {
-      var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
-        body: JSON.stringify({
-          model: 'openrouter/free',
-          max_tokens: 500,
+  try {
+    var resp = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'meta-llama-3.1-405b-instruct',
           messages: [
             { role: 'system', content: 'Tu es coach vocal looksmaxing expert.' },
             { role: 'user', content: 'Pitch: ' + vocalResult.pitch + 'Hz, Volume: ' + vocalResult.volume + 'dB, Basses: ' + vocalResult.bassRatio + '%, Stabilité: ' + vocalResult.stability + '%, Tier: ' + vocalResult.tier + '. Donne 3 conseils précis et actionnables (3-4 phrases chacun) pour améliorer cette voix vers un profil plus attractif et séducteur. Sois direct, technique, sans fioritures. En français.' }
@@ -3726,11 +3729,11 @@ INSTRUCTIONS STRICTES :
 Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 actions concrètes et détaillées.`;
 
   try {
-    var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    var resp = await fetch('/api/claude', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'openrouter/free',
+        model: 'gpt-4o-mini',
         max_tokens: 8000,
         messages: [
           { role: 'system', content: systemPrompt },
@@ -4425,11 +4428,11 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
 {"scores":{"jawline":0.0,"symmetry":0.0,"canthalTilt":0.0,"midfaceRatio":0.0,"eyeArea":0.0,"nasalHarmony":0.0,"skinQuality":0.0},"overall":0.0,"tier":"NORMIE","analysis":"2 phrases: point fort puis point faible, direct et spécifique.","improvements":["conseil actionnable 1","conseil actionnable 2","conseil actionnable 3"]}`;
 
   try {
-    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const resp = await fetch('/api/claude', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob('c2stb3ItdjEtMjMzNjhhMDBiNGYzNTViNTM3Y2JhNWM1MTQwMDExNGI3OTExMmRjMTg3NTk0ZmZiMTgyODhjY2I4YTJkNWZhYw=='), 'HTTP-Referer': 'https://mogged-ai-oyzu.vercel.app' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'openrouter/free',
+        model: 'gpt-4o-mini',
         max_tokens: 800,
         messages: [{
           role: 'system',
