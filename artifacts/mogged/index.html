@@ -3301,7 +3301,7 @@ async function generateVocalGuide(vocalResult) {
           'X-Title': 'Mogged.ai'
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4-5',
+          model: 'anthropic/claude-3.5-sonnet',
           max_tokens: 500,
           messages: [
             { role: 'system', content: 'Tu es coach vocal looksmaxing expert.' },
@@ -3740,7 +3740,7 @@ Génère le programme complet maintenant. Chaque jour doit avoir au minimum 5 ac
         'X-Title': 'Mogged.ai'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4-5',
+        model: 'anthropic/claude-3.5-sonnet',
         max_tokens: 16000,
         messages: [
           { role: 'system', content: systemPrompt },
@@ -4444,7 +4444,7 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
         'X-Title': 'Mogged.ai'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4-5',
+        model: 'anthropic/claude-3.5-sonnet',
         max_tokens: 800,
         messages: [
           { role: 'system', content: systemPrompt },
@@ -4459,8 +4459,13 @@ Réponds UNIQUEMENT en JSON brut, sans markdown, sans backticks :
       })
     });
 
-    if (!resp.ok) throw new Error('API ' + resp.status);
+    if (!resp.ok) {
+      const errText = await resp.text();
+      console.error('OpenRouter Error:', resp.status, errText);
+      throw new Error('API ' + resp.status);
+    }
     const data = await resp.json();
+    console.log('OpenRouter Success:', data);
     const raw = data.choices?.[0]?.message?.content || '';
     const cleaned = raw.replace(/```json|```/g, '').trim();
     return JSON.parse(cleaned);
